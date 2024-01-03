@@ -9,6 +9,9 @@ export default {
           "dark-blue": "#3040DC"
         }
       }
+    },
+    fontFamily: {
+      sans: ["Open Sans", "sans-serif"]
     }
   },
   plugins: []
