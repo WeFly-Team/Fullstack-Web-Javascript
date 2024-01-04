@@ -1,8 +1,12 @@
 import Button from "../components/Button";
+import Heading from "../components/Heading";
 
 const Login = () => {
   return (
-    <Button children="Sign in" />
+    <>
+      <Heading children="Welcome Back" />
+      <Button children="Sign in" />
+    </>
   )
 }
 
