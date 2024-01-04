@@ -43,7 +43,7 @@ const Login = () => {
         </div>
         <div className="w-2/3 h-screen relative bg-gradient-to-l from-transparent to-white ">
           <img
-            src="../src/assets/airplane.png"
+            src="https://i.ibb.co/p04HSxH/image-1.png"
             className=" object-cover mix-blend-overlay h-screen w-screen"
           />
         </div>
