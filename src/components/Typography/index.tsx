@@ -5,6 +5,7 @@ const Typography: React.FC<TypographyProps> = ({
   variant,
   color,
   className,
+  fontFamily,
   children,
 }) => {
   let Component: keyof JSX.IntrinsicElements = 'p';
