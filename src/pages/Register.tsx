@@ -1,9 +1,13 @@
-import Button from "../components/Button";
+import Heading from '../components/Heading';
+import Button from '../components/Button';
 
 const Register = () => {
   return (
-    <Button children="Sign up" />
-  )
-}
+    <>
+      <Heading children="Ini Register page" />
+      <Button children="Sign up" />
+    </>
+  );
+};
 
 export default Register;

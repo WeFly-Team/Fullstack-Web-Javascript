@@ -1,13 +1,13 @@
-import Button from "../components/Button";
-import Heading from "../components/Heading";
+import Button from '../components/Button';
+import Heading from '../components/Heading';
 
 const Login = () => {
   return (
     <>
-      <Heading children="Welcome Back" />
+      <Heading children="Ini Login page" />
       <Button children="Sign in" />
     </>
-  )
-}
+  );
+};
 
 export default Login;
