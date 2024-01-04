@@ -37,6 +37,15 @@ export default {
           red: 'rgba(203, 58, 49, 0.1)',
         },
       },
+      /** Custom box shadow disini */
+      boxShadow: {
+        '01': '0px 0.5px 2px 0px rgba(96, 97, 112, 0.16), 0px 0px 1px 0px rgba(40, 41, 61, 0.08)',
+        '02': '0px 2px 4px 0px rgba(96, 97, 112, 0.16), 0px 0px 1px 0px rgba(40, 41, 61, 0.04)',
+        '03': '0px 4px 8px 0px rgba(96, 97, 112, 0.16), 0px 0px 2px 0px rgba(40, 41, 61, 0.04)',
+        '04': '0px 8px 16px 0px rgba(96, 97, 112, 0.16), 0px 2px 4px 0px rgba(40, 41, 61, 0.04)',
+        '05': '0px 16px 24px 0px rgba(96, 97, 112, 0.16), 0px 2px 8px 0px rgba(40, 41, 61, 0.04)',
+        '06': '0px 20px 32px 0px rgba(96, 97, 112, 0.24), 0px 2px 8px 0px rgba(40, 41, 61, 0.08)',
+      },
     },
     fontFamily: {
       sans: ['Open Sans', 'sans-serif'],
