@@ -1,5 +1,5 @@
 import React from "react";
 
-export interface ButtonProps {
+export interface HeadingProps {
   children: React.ReactNode
 }
