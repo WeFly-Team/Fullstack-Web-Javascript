@@ -40,7 +40,7 @@ const Typography: React.FC<TypographyProps> = ({
   }
 
   return (
-    <Component className={className} style={{ color }}>
+    <Component className={className} style={{ color,fontFamily: fontFamily }}>
       {children}
     </Component>
   );
