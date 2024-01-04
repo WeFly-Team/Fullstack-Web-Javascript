@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        /** Custom Colors disini */
+        /** Custom Colors */
         neutral: {
           '01': 'rgb(255, 255, 255)',
           '02': 'rgb(245, 245, 245)',
