@@ -4,14 +4,15 @@ import Heading from '../components/Heading';
 const Register = () => {
   return (
     <div className="h-dvh">
-      <div className="grid grid-cols-2 justify-items-center">
-        <div className="hidden lg:block">
+      <div className="grid grid-cols-2 justify-items-center lg:grid-cols-5 xl:grid-cols-6 xxl:grid-cols-7">
+        <div className="hidden md:block md:col-span-1 lg:col-span-3 xl:col-span-4 xxl:col-span-5">
           <img
             src="https://i.ibb.co/p04HSxH/image-1.png"
             alt="plane-register"
+            className="object-cover mix-blend-overlay h-screen w-screen"
           />
         </div>
-        <div className="col-span-12 h-screen flex flex-col justify-center px-10">
+        <div className="col-span-2 w-full h-screen flex flex-col justify-center px-10 md:col-span-1 lg:col-span-2 xl:col-span-2 xxl:col-span-2">
           <div className="mx-auto">
             <Heading>REGISTER NOW!</Heading>
           </div>
