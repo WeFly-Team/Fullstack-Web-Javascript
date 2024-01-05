@@ -5,7 +5,7 @@ const Register = () => {
   return (
     <div className="h-dvh">
       <div className="grid grid-cols-2 justify-items-center lg:grid-cols-5 xl:grid-cols-6 xxl:grid-cols-7">
-        <div className="hidden md:block md:col-span-1 lg:col-span-3 xl:col-span-4 xxl:col-span-5">
+        <div className="bg-gradient-to-r from-transparent to-white hidden md:block md:col-span-1 lg:col-span-3 xl:col-span-4 xxl:col-span-5">
           <img
             src="https://i.ibb.co/p04HSxH/image-1.png"
             alt="plane-register"
