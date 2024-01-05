@@ -19,7 +19,7 @@ const Login = () => {
   return (
     <>
       <div className="flex items-center h-screen justify-center">
-        <div className="form p-7 rounded-xl md:w-[40%] flex flex-col justify-center items-center sm:w-full">
+        <div className="form p-7 rounded-xl md:w-2/5 flex flex-col justify-center items-center sm:w-full">
           <Heading children="Welcome Back" />
           <FormInput
             children="Email"
@@ -41,7 +41,7 @@ const Login = () => {
           />
           <Button children="Sign in" />
         </div>
-        <div className="md:w-[60%] h-screen relative bg-gradient-to-l from-transparent to-white sm:block hidden">
+        <div className="md:w-3/5 h-screen relative bg-gradient-to-l from-transparent to-white sm:block hidden">
           <img
             src="https://i.ibb.co/p04HSxH/image-1.png"
             className=" object-cover mix-blend-overlay h-screen w-screen"
