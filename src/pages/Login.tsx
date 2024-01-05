@@ -18,8 +18,8 @@ const Login = () => {
 
   return (
     <>
-      <div className="flex items-center justify-end h-screen">
-        <div className="form p-7 rounded-xl w-1/3">
+      <div className="flex items-center h-screen">
+        <div className="form p-7 rounded-xl w-[40%] flex flex-col justify-center items-center">
           <Heading children="Welcome Back" />
           <FormInput
             children="Email"
@@ -28,7 +28,7 @@ const Login = () => {
             name="email"
             value={email}
             onChange={handleEmail}
-            placeholder="Please enter your email"
+            placeholder="Enter your email"
           />
           <FormInput
             children="Password"
@@ -37,11 +37,11 @@ const Login = () => {
             name="Password"
             value={password}
             onChange={handlePassword}
-            placeholder="Please enter your password"
+            placeholder="**********"
           />
           <Button children="Sign in" />
         </div>
-        <div className="w-2/3 h-screen relative bg-gradient-to-l from-transparent to-white ">
+        <div className="w-[60%] h-screen relative bg-gradient-to-l from-transparent to-white ">
           <img
             src="https://i.ibb.co/p04HSxH/image-1.png"
             className=" object-cover mix-blend-overlay h-screen w-screen"
