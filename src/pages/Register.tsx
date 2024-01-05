@@ -12,7 +12,7 @@ const Register = () => {
             className="object-cover mix-blend-overlay h-screen w-screen"
           />
         </div>
-        <div className="col-span-2 w-full h-screen flex flex-col justify-center px-10 md:col-span-1 lg:col-span-2 xl:col-span-2 xxl:col-span-2">
+        <div className="bg-[url('https://i.ibb.co/p04HSxH/image-1.png')] bg-cover md:bg-none col-span-2 w-full h-screen flex flex-col justify-center px-10 md:col-span-1 lg:col-span-2 xl:col-span-2 xxl:col-span-2">
           <div className="mx-auto">
             <Heading>REGISTER NOW!</Heading>
           </div>
@@ -51,7 +51,7 @@ const Register = () => {
                 <select
                   name="day"
                   id="day"
-                  className="bg-transparent border-neutral-04 border-2 rounded-lg p-2 w-full focus:outline-none focus:border-primary-blue  transition"
+                  className=" border-neutral-04 border-2 rounded-lg p-2 w-full focus:outline-none focus:border-primary-blue  transition"
                 >
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -63,7 +63,7 @@ const Register = () => {
                 <select
                   name="day"
                   id="day"
-                  className="bg-transparent border-neutral-04 border-2 rounded-lg p-2 w-full focus:outline-none focus:border-primary-blue  transition"
+                  className=" border-neutral-04 border-2 rounded-lg p-2 w-full focus:outline-none focus:border-primary-blue  transition"
                 >
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -75,7 +75,7 @@ const Register = () => {
                 <select
                   name="day"
                   id="day"
-                  className="bg-transparent border-neutral-04 border-2 rounded-lg p-2 w-full focus:outline-none focus:border-primary-blue  transition"
+                  className=" border-neutral-04 border-2 rounded-lg p-2 w-full focus:outline-none focus:border-primary-blue  transition"
                 >
                   <option value="1">1</option>
                   <option value="2">2</option>
