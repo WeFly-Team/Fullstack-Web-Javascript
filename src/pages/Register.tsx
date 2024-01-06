@@ -8,7 +8,6 @@ const Register = () => {
   const [email, setEmail] = useState<String>('');
   const [username, setUsername] = useState<String>('');
   const [password, setPassword] = useState<String>('');
-  const [confirmPassword, setConfirmPassword] = useState<String>('');
   const [date, setDate] = useState<Number>(1);
   const [month, setMonth] = useState<String>('January');
   const [year, setYear] = useState<Number>(2024);
@@ -38,6 +37,7 @@ const Register = () => {
             label="email"
             name="email"
             onChange={(e) => setEmail(e.target.value)}
+            className="w-full"
           >
             Email
           </FormInput>
@@ -49,6 +49,7 @@ const Register = () => {
             label="username"
             name="username"
             onChange={(e) => setUsername(e.target.value)}
+            className="w-full"
           >
             Username
           </FormInput>
@@ -107,6 +108,7 @@ const Register = () => {
             label="phoneNumber"
             name="phoneNumber"
             onChange={(e) => setPhoneNumber(e.target.value)}
+            className="w-full"
           >
             Phone Number
           </FormInput>
@@ -118,6 +120,7 @@ const Register = () => {
             label="password"
             name="password"
             onChange={(e) => setPassword(e.target.value)}
+            className="w-full"
           >
             Password
           </FormInput>
