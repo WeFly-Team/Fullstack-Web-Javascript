@@ -10,6 +10,6 @@ export interface FormProps {
   placeholder: string;
   //   error: boolean;
   disabled?: boolean;
-  className?: boolean;
+  className?: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
