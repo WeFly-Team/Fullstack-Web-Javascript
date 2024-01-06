@@ -1,7 +1,21 @@
+import { ChangeEvent, useState } from 'react';
 import Button from '../components/Button';
+import FormInput from '../components/FormInput';
 import Heading from '../components/Heading';
 
 const Register = () => {
+  // state
+  const [email, setEmail] = useState<String>('');
+  const [username, setUsername] = useState<String>('');
+  const [password, setPassword] = useState<String>('');
+  const [confirmPassword, setConfirmPassword] = useState<String>('');
+  const [date, setDate] = useState<Number>(1);
+  const [month, setMonth] = useState<String>('January');
+  const [year, setYear] = useState<Number>(2024);
+  const [phoneNumber, setPhoneNumber] = useState<String>('');
+
+  // handler
+
   return (
     <div className="h-dvh">
       <div className="grid grid-cols-2 justify-items-center lg:grid-cols-5 xl:grid-cols-6 xxl:grid-cols-7">
@@ -12,38 +26,38 @@ const Register = () => {
             className="object-cover mix-blend-overlay h-screen w-screen"
           />
         </div>
-        <div className="bg-[url('https://i.ibb.co/p04HSxH/image-1.png')] bg-cover md:bg-none col-span-2 w-full h-screen flex flex-col justify-center px-10 md:col-span-1 lg:col-span-2 xl:col-span-2 xxl:col-span-2">
-          <div className="mx-auto">
+        <div className="col-span-2 w-full h-screen flex flex-col justify-center px-10 md:col-span-1 lg:col-span-2 xl:col-span-2 xxl:col-span-2">
+          <div className="mx-auto md:mx-0">
             <Heading>REGISTER NOW!</Heading>
           </div>
 
-          <div className="mb-4">
-            <label htmlFor="email" className="font-bold">
-              Email
-            </label>
-            <input
-              type="text"
-              id="email"
-              name="email"
-              className="border-neutral-04 border-2 rounded-lg p-2 w-full focus:outline-none focus:border-primary-blue  transition"
-            />
-          </div>
+          <FormInput
+            type="text"
+            value={email}
+            placeholder="example@gmail.com"
+            label="email"
+            name="email"
+            onChange={(e) => setEmail(e.target.value)}
+          >
+            Email
+          </FormInput>
+
+          <FormInput
+            type="text"
+            value={username}
+            placeholder="Enter your name"
+            label="username"
+            name="username"
+            onChange={(e) => setUsername(e.target.value)}
+          >
+            Username
+          </FormInput>
 
           <div className="mb-4">
-            <label htmlFor="username" className="block font-bold">
-              Username
-            </label>
-            <input
-              id="username"
-              name="username"
-              type="text"
-              placeholder="Enter your name"
-              className="border-neutral-04 border-2 rounded-lg p-2 w-full focus:outline-none focus:border-primary-blue  transition"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label htmlFor="Date of Birth" className="block font-bold">
+            <label
+              htmlFor="Date of Birth"
+              className="block text-left text-black text-sm font-semibold pb-3"
+            >
               Date of Birth{' '}
             </label>
             <div className="grid grid-cols-4 gap-4">
@@ -51,7 +65,7 @@ const Register = () => {
                 <select
                   name="day"
                   id="day"
-                  className=" border-neutral-04 border-2 rounded-lg p-2 w-full focus:outline-none focus:border-primary-blue  transition"
+                  className="bg-white shadow border rounded-xl px-4 py-3 mb-2 focus:outline-none focus:border-primary-blue transition w-full"
                 >
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -63,7 +77,7 @@ const Register = () => {
                 <select
                   name="day"
                   id="day"
-                  className=" border-neutral-04 border-2 rounded-lg p-2 w-full focus:outline-none focus:border-primary-blue  transition"
+                  className="bg-white shadow border rounded-xl px-4 py-3 mb-2 focus:outline-none focus:border-primary-blue transition w-full"
                 >
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -75,7 +89,7 @@ const Register = () => {
                 <select
                   name="day"
                   id="day"
-                  className=" border-neutral-04 border-2 rounded-lg p-2 w-full focus:outline-none focus:border-primary-blue  transition"
+                  className="bg-white shadow border rounded-xl px-4 py-3 mb-2 focus:outline-none focus:border-primary-blue transition w-full"
                 >
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -86,47 +100,35 @@ const Register = () => {
             </div>
           </div>
 
-          <div className="mb-4">
-            <label htmlFor="phone" className="block font-bold">
-              Phone Number
-            </label>
-            <input
-              type="text"
-              id="phone"
-              name="phone"
-              placeholder="081234567890"
-              className="border-neutral-04 border-2 rounded-lg p-2 w-full focus:outline-none focus:border-primary-blue  transition"
-            />
-          </div>
+          <FormInput
+            type="text"
+            value={phoneNumber}
+            placeholder="081234567890"
+            label="phoneNumber"
+            name="phoneNumber"
+            onChange={(e) => setPhoneNumber(e.target.value)}
+          >
+            Phone Number
+          </FormInput>
 
-          <div className="mb-4">
-            <label htmlFor="password" className="block font-bold">
-              Password
-            </label>
-            <input
-              type="text"
-              id="password"
-              name="password"
-              placeholder="*********"
-              className="border-neutral-04 border-2 rounded-lg p-2 w-full focus:outline-none focus:border-primary-blue  transition"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label htmlFor="confirm" className="block font-bold">
-              Confirm Password
-            </label>
-            <input
-              type="text"
-              id="confirm"
-              name="confirm"
-              placeholder="*********"
-              className="border-neutral-04 border-2 rounded-lg p-2 w-full focus:outline-none focus:border-primary-blue  transition"
-            />
-          </div>
+          <FormInput
+            type="password"
+            value={password}
+            placeholder="*******"
+            label="password"
+            name="password"
+            onChange={(e) => setPassword(e.target.value)}
+          >
+            Password
+          </FormInput>
           <div className="flex mb-4">
             <input type="checkbox" id="check" className="mr-2" />
-            <p className="font-bold">Saya Menyetujui Syarat & Ketentuan</p>
+            <label
+              htmlFor="check"
+              className="text-left text-black text-sm font-semibold"
+            >
+              Saya Menyetujui Syarat & Ketentuan
+            </label>
           </div>
           {/* <Button className="mb-4">Sign Up</Button> */}
           <Button>Sign Up</Button>
