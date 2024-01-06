@@ -51,7 +51,7 @@ const Register = () => {
                 <select
                   name="day"
                   id="day"
-                  className=" border-neutral-04 border-2 rounded-lg p-2 w-full focus:outline-none focus:border-primary-blue  transition"
+                  className=" border-neutral-04 border-2 rounded-lg p-2 w-full focus:outline-none focus:border-primary-blue transition"
                 >
                   <option value="1">1</option>
                   <option value="2">2</option>

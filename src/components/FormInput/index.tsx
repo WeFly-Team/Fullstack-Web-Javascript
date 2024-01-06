@@ -17,7 +17,7 @@ const FormInput = ({
           {children}
         </label>
         <input
-          className="shadow appearance-none border rounded-xl text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-[300px] h-11 px-4 py-3 mb-2"
+          className="shadow appearance-none border rounded-xl text-gray-700 leading-tight focus:outline-none focus:border-primary-blue transition w-[300px] h-11 px-4 py-3 mb-2"
           type={type}
           id={label}
           value={value}
