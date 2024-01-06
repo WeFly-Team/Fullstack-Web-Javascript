@@ -1,20 +1,56 @@
-import { ChangeEvent, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '../components/Button';
 import FormInput from '../components/FormInput';
 import Heading from '../components/Heading';
-
+import Select from 'react-select';
 const Register = () => {
+  // vars
+  const today = new Date();
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  // interface
+  interface yearProp {
+    value: string;
+    label: string;
+  }
   // state
-  const [email, setEmail] = useState<String>('');
-  const [username, setUsername] = useState<String>('');
-  const [password, setPassword] = useState<String>('');
-  const [date, setDate] = useState<Number>(1);
-  const [month, setMonth] = useState<String>('January');
-  const [year, setYear] = useState<Number>(2024);
-  const [phoneNumber, setPhoneNumber] = useState<String>('');
+  const [years, setYears] = useState<yearProp[]>([]);
+  const [email, setEmail] = useState<string>('');
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [date, setDate] = useState<string>('1');
+  const [month, setMonth] = useState<string>('January');
+  const [year, setYear] = useState<string>('2024');
+  const [sizeYear, setSizeYear] = useState<number>(0);
+  const [phoneNumber, setPhoneNumber] = useState<string>('');
 
   // handler
+  const handlerYear = (pYear: string) => {
+    setYear(pYear);
+    setSizeYear(0);
+  };
+  // effect
+  useEffect(() => {
+    const tahun: yearProp[] = [];
 
+    for (let i = today.getFullYear(); i >= 1950; i--) {
+      tahun.push({ value: i.toString(), label: i.toString() });
+    }
+    setYears(tahun);
+    setMonth(months[today.getMonth()]);
+  }, []);
   return (
     <div className="h-dvh">
       <div className="grid grid-cols-2 justify-items-center lg:grid-cols-5 xl:grid-cols-6 xxl:grid-cols-7">
@@ -67,6 +103,8 @@ const Register = () => {
                   name="day"
                   id="day"
                   className="bg-white shadow border rounded-xl px-4 py-3 mb-2 focus:outline-none focus:border-primary-blue transition w-full"
+                  onChange={(e) => setDate(e.target.value)}
+                  value={date}
                 >
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -76,27 +114,52 @@ const Register = () => {
               </div>
               <div className="col-span-2">
                 <select
-                  name="day"
-                  id="day"
+                  name="month"
+                  id="month"
                   className="bg-white shadow border rounded-xl px-4 py-3 mb-2 focus:outline-none focus:border-primary-blue transition w-full"
+                  onChange={(e) => setMonth(e.target.value)}
+                  value={month}
                 >
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
+                  {months &&
+                    months.map((e) => (
+                      <option key={e} value={e}>
+                        {e}
+                      </option>
+                    ))}
                 </select>
               </div>
               <div>
-                <select
-                  name="day"
-                  id="day"
+                {/* <select
+                  name="year"
+                  id="year"
                   className="bg-white shadow border rounded-xl px-4 py-3 mb-2 focus:outline-none focus:border-primary-blue transition w-full"
+                  onChange={(e) => handlerYear(e.target.value)}
+                  value={year}
+                  size={sizeYear}
+                  onMouseDown={() => {
+                    setSizeYear(5);
+                  }}
+                  onBlur={() => setSizeYear(0)}
                 >
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                </select>
+                  {years &&
+                    years.map((e) => (
+                      <option key={e} value={e}>
+                        {e}
+                      </option>
+                    ))}
+                </select> */}
+                <Select
+                  name="year"
+                  id="year"
+                  defaultValue={years[1]}
+                  options={years}
+                  classNames={{
+                    control: (state) =>
+                      state.isFocused
+                        ? 'bg-white !shadow !border !rounded-xl py-1 w-full border-primary-blue transition'
+                        : 'bg-white !shadow !border !rounded-xl py-1 w-full',
+                  }}
+                />
               </div>
             </div>
           </div>
