@@ -8,16 +8,17 @@ const FormInput = ({
   name,
   placeholder,
   disabled,
+  className,
   onChange,
 }: FormProps) => {
   return (
     <>
-      <div className='pb-4'>
+      <div className="pb-4">
         <label className="block text-left text-black text-sm font-semibold pb-3">
           {children}
         </label>
         <input
-          className="shadow appearance-none border rounded-xl text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-[300px] h-11 px-4 py-3 mb-2"
+          className={`shadow appearance-none border rounded-xl text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-[300px] h-11 px-4 py-3 mb-2 ${className}`}
           type={type}
           id={label}
           value={value}
