@@ -1,6 +1,6 @@
 import './index.css';
 import Login from './pages/Login';
-import Register from './pages/Register';
+import Register from './pages/Register/Register';
 import Homepage from './pages/Homepage';
 
 function App() {
