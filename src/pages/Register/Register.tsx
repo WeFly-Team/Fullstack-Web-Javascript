@@ -45,7 +45,14 @@ const Register = () => {
             className="object-cover mix-blend-overlay h-screen w-screen"
           />
         </div>
-        <div className="col-span-2 w-full h-screen flex flex-col justify-center px-10 md:col-span-1 lg:col-span-2 xl:col-span-2 xxl:col-span-2">
+        <div className="relative col-span-2 w-full h-screen flex flex-col justify-center px-10 md:col-span-1 lg:col-span-2 xl:col-span-2 xxl:col-span-2">
+          <div className="absolute left-2 top-2 md:right-2 md:left-auto">
+            <img
+              src="https://i.ibb.co/pxQ7DPC/logo-We-Fly.png"
+              alt="logo"
+              className="w-16"
+            />
+          </div>
           <div className="mx-auto md:mx-0">
             <Heading>REGISTER NOW!</Heading>
           </div>
@@ -81,8 +88,8 @@ const Register = () => {
             >
               Date of Birth
             </label>
-            <div className="grid grid-cols-4 gap-4">
-              <div>
+            <div className="grid grid-cols-3 xl:grid-cols-4 gap-4">
+              <div className="col-span-1">
                 <Select
                   name="day"
                   id="day"
@@ -105,7 +112,7 @@ const Register = () => {
                 />
               </div>
 
-              <div className="col-span-2">
+              <div className="col-span-1 xl:col-span-2">
                 <Select
                   name="month"
                   id="month"
@@ -127,7 +134,7 @@ const Register = () => {
                   }}
                 />
               </div>
-              <div>
+              <div className="col-span-1">
                 <Select
                   name="year"
                   id="year"
