@@ -190,7 +190,9 @@ const Register = () => {
               Saya Menyetujui Syarat & Ketentuan
             </label>
           </div>
-          <Button children="Sign up" className='w-full' variant='primary' size='md' />
+          <Button className="w-full" variant="primary" size="md" id="signup">
+            Sign Up
+          </Button>
         </div>
       </div>
     </div>
