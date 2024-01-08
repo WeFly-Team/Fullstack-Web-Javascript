@@ -46,7 +46,7 @@ const Login = () => {
             onChange={handlePassword}
             placeholder="**********"
           />
-          <Button children="Sign in" />
+          <Button children="Sign in" variant='primary' size='md' />
         </div>
         <div className="md:w-3/5 h-screen relative bg-gradient-to-l from-transparent to-white sm:block hidden">
           <img
