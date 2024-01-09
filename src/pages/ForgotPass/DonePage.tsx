@@ -1,6 +1,6 @@
-import { ChangeEvent, useState } from 'react';
+// import { ChangeEvent, useState } from 'react';
 import Button from '../../components/Button';
-import FormInput from '../../components/FormInput';
+// import FormInput from '../../components/FormInput';
 import Heading from '../../components/Heading';
 import { Link } from 'react-router-dom';
 
@@ -18,10 +18,10 @@ const DonePage = () => {
           </div>
           <Heading children="All Done!" />
           <h2 className="text-center text-gray-500 text-sm mb-5">
-          Your password has been reset.</h2>
+            Your password has been reset.</h2>
           <h2 className="text-center text-gray-500 text-sm mb-5">Please log in with your email or phone number and new password</h2>
           <Link to="/login">
-          <Button children="Log In" variant='primary' size='md' />
+            <Button children="Log In" variant='primary' size='md' />
           </Link>
         </div>
         <div className="md:w-3/5 h-screen relative bg-gradient-to-l from-transparent to-white sm:block hidden">

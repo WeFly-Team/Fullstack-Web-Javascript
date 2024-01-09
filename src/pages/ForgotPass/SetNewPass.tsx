@@ -51,7 +51,7 @@ const SetNewPass = () => {
             placeholder="Comfirm your new password"
           />
           <Link to="/done">
-          <Button children="Reset Password" variant='primary' size='md' />
+            <Button children="Reset Password" variant='primary' size='md' />
           </Link>
           <a href='/login' className="text-center text-black-500 text-sm mt-5">← Back to Login</a>
         </div>

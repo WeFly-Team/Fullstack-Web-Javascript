@@ -5,19 +5,17 @@ import Heading from '../../components/Heading';
 import { Link } from 'react-router-dom';
 
 const PageOTP = () => {
-  const [email, setEmail] = useState('');
+  // const [email, setEmail] = useState('');
   const [code, setCode] = useState('');
 
-  const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-    console.log(setEmail);
-  };
+  // const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
+  //   setEmail(e.target.value);
+  //   console.log(setEmail);
+  // };
   const handleCode = (e: ChangeEvent<HTMLInputElement>) => {
     setCode(e.target.value);
     console.log(setCode);
-    };
-
-
+  };
 
   return (
     <>
@@ -32,18 +30,18 @@ const PageOTP = () => {
           </div>
           <Heading children="Forgot Password" />
           <h2 className="text-center text-gray-500 text-sm mb-5">
-          We sent a code to <b>syalala@gmail.com</b></h2>
+            We sent a code to <b>syalala@gmail.com</b></h2>
           <FormInput
-                children=""
-                type="text"
-                label=""
-                name="code"
-                value={code}
-                onChange={handleCode}
-                placeholder=""
+            children=""
+            type="text"
+            label=""
+            name="code"
+            value={code}
+            onChange={handleCode}
+            placeholder=""
           />
           <Link to="/reset-password">
-          <Button children="Continue" variant='primary' size='md' />
+            <Button children="Continue" variant='primary' size='md' />
           </Link>
           <p className="text-center text-black-500 text-sm mt-5">Didn’t recieve the email? <a href='' className='font-bold'>Click to resend</a></p>
           <a href='/login' className="text-center text-black-500 text-sm mt-5" >← Back to Login</a>

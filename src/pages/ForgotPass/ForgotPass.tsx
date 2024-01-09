@@ -6,16 +6,16 @@ import { Link } from 'react-router-dom';
 
 const ForgotPass = () => {
   const [email, setEmail] = useState('');
-//   const [phoneNumber, setPhoneNumber] = useState('');
+  //   const [phoneNumber, setPhoneNumber] = useState('');
 
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
     console.log(setEmail);
   };
-//   const handlePassword = (e: ChangeEvent<HTMLInputElement>) => {
-//     setPassword(e.target.value);
-//     console.log(setPassword);
-//   };
+  //   const handlePassword = (e: ChangeEvent<HTMLInputElement>) => {
+  //     setPassword(e.target.value);
+  //     console.log(setPassword);
+  //   };
 
   return (
     <>
@@ -30,7 +30,7 @@ const ForgotPass = () => {
           </div>
           <Heading children="Forgot Password" />
           <h2 className="text-center text-gray-500 text-sm mb-5">
-          No worries, we’ll send you reset instructions.</h2>
+            No worries, we’ll send you reset instructions.</h2>
           <FormInput
             children="Email"
             type="email"
@@ -41,7 +41,7 @@ const ForgotPass = () => {
             placeholder="Enter your email or Phone Number"
           />
           <Link to="/otp">
-          <Button children="Reset Password" variant='primary' size='md' />
+            <Button children="Reset Password" variant='primary' size='md' />
           </Link>
           <a href='/login' className="text-center text-black-500 text-sm mt-5">← Back to Login</a>
         </div>
