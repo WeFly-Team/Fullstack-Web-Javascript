@@ -8,7 +8,7 @@ const today = new Date();
 const Register = () => {
   // state
   const [email, setEmail] = useState<string>('');
-  const [username, setUsername] = useState<string>('');
+  const [fullname, setFullname] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [date, setDate] = useState<string>('1');
   const [month, setMonth] = useState<string>('January');
@@ -71,14 +71,14 @@ const Register = () => {
 
           <FormInput
             type="text"
-            value={username}
-            placeholder="Enter your name"
-            label="username"
-            name="username"
-            onChange={(e) => setUsername(e.target.value)}
+            value={fullname}
+            placeholder="Enter your full name"
+            label="fullname"
+            name="fullname"
+            onChange={(e) => setFullname(e.target.value)}
             className="w-full"
           >
-            Username
+            Full Name
           </FormInput>
 
           <div className="mb-4">
