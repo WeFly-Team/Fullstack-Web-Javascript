@@ -2,6 +2,7 @@ import { ChangeEvent, useState } from 'react';
 import Button from '../components/Button';
 import FormInput from '../components/FormInput';
 import Heading from '../components/Heading';
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -49,6 +50,22 @@ const Login = () => {
           <Button variant="primary" size="md" id="signin">
             Sign in
           </Button>
+          <div className="mt-4 shadow-03">
+            <GoogleOAuthProvider clientId="785790667634-1r362pmk4q48l0j2i0vcl3v6nfesn60m.apps.googleusercontent.com">
+              <GoogleLogin
+                onSuccess={(credentialResponse) => {
+                  console.log(credentialResponse);
+                }}
+                onError={() => {
+                  console.log('Login Failed');
+                }}
+                shape="rectangular"
+                size="large"
+                width={300}
+                text="signin_with"
+              />
+            </GoogleOAuthProvider>
+          </div>
         </div>
         <div className="md:w-3/5 h-screen relative bg-gradient-to-l from-transparent to-white sm:block hidden">
           <img

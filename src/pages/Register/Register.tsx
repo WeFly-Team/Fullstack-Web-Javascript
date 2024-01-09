@@ -4,6 +4,8 @@ import FormInput from '../../components/FormInput';
 import Heading from '../../components/Heading';
 import Select from 'react-select';
 import { datesOption, monthsOption, yearsOption } from './data';
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+
 const today = new Date();
 const Register = () => {
   // state
@@ -193,6 +195,22 @@ const Register = () => {
           <Button className="w-full" variant="primary" size="md" id="signup">
             Sign Up
           </Button>
+          <div className="mt-4 shadow-03 w-full">
+            <GoogleOAuthProvider clientId="785790667634-1r362pmk4q48l0j2i0vcl3v6nfesn60m.apps.googleusercontent.com">
+              <GoogleLogin
+                onSuccess={(credentialResponse) => {
+                  console.log(credentialResponse);
+                }}
+                onError={() => {
+                  console.log('Login Failed');
+                }}
+                shape="rectangular"
+                size="large"
+                width={400}
+                text="signup_with"
+              />
+            </GoogleOAuthProvider>
+          </div>
         </div>
       </div>
     </div>
