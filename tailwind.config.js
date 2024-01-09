@@ -2,9 +2,16 @@
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
+    screens: {
+      sm: '360px',
+      // => @media (min-width: 360px) { ... }
+      md: '768px',
+      // => @media (min-width: 768px) { ... }
+      lg: '1440px',
+      // => @media (min-width: 14440px) { ... }
+    },
     extend: {
       colors: {
-        /** Custom Colors */
         neutral: {
           '01': 'rgb(255, 255, 255)',
           '02': 'rgb(245, 245, 245)',
@@ -37,7 +44,6 @@ export default {
           red: 'rgba(203, 58, 49, 0.1)',
         },
       },
-      /** Custom box shadow disini */
       boxShadow: {
         '01': '0px 0.5px 2px 0px rgba(96, 97, 112, 0.16), 0px 0px 1px 0px rgba(40, 41, 61, 0.08)',
         '02': '0px 2px 4px 0px rgba(96, 97, 112, 0.16), 0px 0px 1px 0px rgba(40, 41, 61, 0.04)',
