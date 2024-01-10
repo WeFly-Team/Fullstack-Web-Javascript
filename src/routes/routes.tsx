@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Homepage from '../pages/Homepage';
-import Login from '../pages/Login';
+import Login from '../pages/Login/Login';
 import Register from '../pages/Register/Register';
 import ForgotPass from '../pages/ForgotPass/ForgotPass';
 import SetNewPass from '../pages/ForgotPass/SetNewPass';
@@ -30,12 +30,12 @@ const router = createBrowserRouter([
   },
   {
     path: '/done',
-    element: <DonePage/>,
+    element: <DonePage />,
   },
   {
     path: '/otp',
-    element: <PageOTP/>
-  }
+    element: <PageOTP />,
+  },
 ]);
 
 export default router;
