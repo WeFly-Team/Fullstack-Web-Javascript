@@ -9,7 +9,13 @@ import { SubmitHandler, Controller, useForm } from 'react-hook-form';
 const today = new Date();
 const Register = () => {
   // hook form
-  const { control, handleSubmit, watch, setValue } = useForm<IFormInput>({
+  const {
+    control,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<IFormInput>({
     defaultValues: {
       email: '',
       fullname: '',
@@ -89,7 +95,11 @@ const Register = () => {
                   type="text"
                   placeholder="example@gmail.com"
                   label="email"
-                  className="w-full"
+                  className={
+                    errors.email
+                      ? 'border-secondary-danger focus:border-secondary-danger w-full'
+                      : 'w-full'
+                  }
                   value={value}
                   name={name}
                   onChange={onChange}
@@ -97,7 +107,13 @@ const Register = () => {
                   Email
                 </FormInput>
               )}
+              rules={{ required: true }}
             />
+            {errors.email?.type === 'required' && (
+              <p className="-mt-5 text-right text-secondary-danger">
+                Email is required
+              </p>
+            )}
             <Controller
               name="fullname"
               control={control}
@@ -114,6 +130,7 @@ const Register = () => {
                   Full Name
                 </FormInput>
               )}
+              rules={{ required: true }}
             />
 
             <div className="mb-4">
