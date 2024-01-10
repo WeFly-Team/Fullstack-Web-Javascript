@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+// import { ChangeEvent, useState } from 'react';
 import Button from '../../components/Button';
 import FormInput from '../../components/FormInput';
 import Heading from '../../components/Heading';
@@ -7,8 +7,8 @@ import { SubmitHandler, Controller, useForm } from 'react-hook-form';
 import { IFormInput } from './types';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
   // hook form
   const {
     control,
@@ -24,15 +24,15 @@ const Login = () => {
     console.log(data);
   };
 
-  const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-    console.log(setEmail);
-  };
+  // const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
+  //   setEmail(e.target.value);
+  //   console.log(setEmail);
+  // };
 
-  const handlePassword = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-    console.log(setPassword);
-  };
+  // const handlePassword = (e: ChangeEvent<HTMLInputElement>) => {
+  //   setPassword(e.target.value);
+  //   console.log(setPassword);
+  // };
 
   return (
     <>
@@ -46,92 +46,93 @@ const Login = () => {
             />
           </div>
           <Heading children="Welcome Back" />
-          <form onSubmit={handleSubmit(onSubmit)}></form>
-          <Controller
-            name="email"
-            control={control}
-            render={({ field: { name, onChange, value } }) => (
-              <FormInput
-                type="email"
-                label="Email"
-                className={
-                  errors.email
-                    ? 'border-secondary-danger focus:border-secondary-danger'
-                    : ''
-                }
-                name={name}
-                value={value}
-                onChange={onChange}
-                placeholder="Enter your email"
-              >
-                Email
-              </FormInput>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Controller
+              name="email"
+              control={control}
+              render={({ field: { name, onChange, value } }) => (
+                <FormInput
+                  type="email"
+                  label="Email"
+                  className={
+                    errors.email
+                      ? 'border-secondary-danger focus:border-secondary-danger'
+                      : ''
+                  }
+                  name={name}
+                  value={value}
+                  onChange={onChange}
+                  placeholder="Enter your email"
+                >
+                  Email
+                </FormInput>
+              )}
+              rules={{
+                required: true,
+                pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i,
+              }}
+            />
+            {errors.email?.type === 'required' && (
+              <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold">
+                Email is required
+              </p>
             )}
-            rules={{
-              required: true,
-              pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i,
-            }}
-          />
-          {errors.email?.type === 'required' && (
-            <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold">
-              Email is required
-            </p>
-          )}
-          {errors.email?.type === 'pattern' && (
-            <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold">
-              Please input a valid email format
-            </p>
-          )}
-          <Controller
-            name="password"
-            control={control}
-            render={({ field: { name, onChange, value } }) => (
-              <FormInput
-                type="password"
-                value={value}
-                placeholder="*******"
-                label="password"
-                name={name}
-                onChange={onChange}
-                // className="!w-full"
-              >
-                Password
-              </FormInput>
+            {errors.email?.type === 'pattern' && (
+              <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold">
+                Please input a valid email format
+              </p>
             )}
-            rules={{
-              required: true,
-              pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i,
-            }}
-          />
-          {errors.password?.type === 'required' && (
-            <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold">
-              Password is required
-            </p>
-          )}
-          {errors.password?.type === 'pattern' && (
-            <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold">
-              Password require minimum eight characters, at least one letter and
-              one number
-            </p>
-          )}
+            <Controller
+              name="password"
+              control={control}
+              render={({ field: { name, onChange, value } }) => (
+                <FormInput
+                  type="password"
+                  value={value}
+                  placeholder="*******"
+                  label="password"
+                  name={name}
+                  onChange={onChange}
+                  // className="!w-full"
+                >
+                  Password
+                </FormInput>
+              )}
+              rules={{
+                required: true,
+                pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i,
+              }}
+            />
+            {errors.password?.type === 'required' && (
+              <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold">
+                Password is required
+              </p>
+            )}
+            {errors.password?.type === 'pattern' && (
+              <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold">
+                Password require minimum eight characters, at least one letter
+                and one number
+              </p>
+            )}
 
-          <div className="flex mb-4 gap-16">
-            <div className="checkbox-input">
-              <input type="checkbox" id="check" className="mr-2" />
-              <label
-                htmlFor="check"
-                className="text-left text-black text-sm font-semibold"
-              >
-                Remember me
-              </label>
+            <div className="flex mb-4 gap-16">
+              <div className="checkbox-input">
+                <input type="checkbox" id="check" className="mr-2" />
+                <label
+                  htmlFor="check"
+                  className="text-left text-black text-sm font-semibold"
+                >
+                  Remember me
+                </label>
+              </div>
+              <a href="#" className="text-black text-sm font-semibold">
+                Forgot password
+              </a>
             </div>
-            <a href="#" className="text-black text-sm font-semibold">
-              Forgot password
-            </a>
-          </div>
-          <Button variant="primary" size="md" id="signin">
-            Sign in
-          </Button>
+            <Button variant="primary" size="md" id="signin">
+              Sign in
+            </Button>
+          </form>
           <div className="mt-4 shadow-03">
             <GoogleOAuthProvider clientId="785790667634-1r362pmk4q48l0j2i0vcl3v6nfesn60m.apps.googleusercontent.com">
               <GoogleLogin
