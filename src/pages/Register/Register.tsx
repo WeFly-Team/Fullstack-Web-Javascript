@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Button from '../../components/Button';
 import FormInput from '../../components/FormInput';
 import Heading from '../../components/Heading';
@@ -6,17 +6,29 @@ import Select from 'react-select';
 import { datesOption, monthsOption, yearsOption } from './data';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 
+import { IFormInput } from './types';
+import { SubmitHandler, Controller, useForm } from 'react-hook-form';
 const today = new Date();
 const Register = () => {
-  // state
-  const [email, setEmail] = useState<string>('');
-  const [fullname, setFullname] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [date, setDate] = useState<string>('1');
-  const [month, setMonth] = useState<string>('January');
-  const [year, setYear] = useState<string>('2024');
-  const [phoneNumber, setPhoneNumber] = useState<string>('');
+  // hook form
+  const {
+    control,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<IFormInput>({
+    defaultValues: {
+      email: '',
+      fullname: '',
+      phoneNumber: '',
+      password: '',
+    },
+  });
 
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    console.log(data);
+  };
   // function
   const getAllDatesInMonth = (year: number, month: string): void => {
     const monthConverted =
@@ -30,13 +42,31 @@ const Register = () => {
   };
   // effect
   useEffect(() => {
-    setMonth(monthsOption[today.getMonth()].value);
+    setValue('year', {
+      value: today.getFullYear(),
+      label: today.getFullYear(),
+    });
+    setValue('month', {
+      value: monthsOption[today.getMonth()].value,
+      label: monthsOption[today.getMonth()].value,
+    });
+
+    getAllDatesInMonth(
+      today.getFullYear(),
+      monthsOption[today.getMonth()].value
+    );
   }, []);
 
   useEffect(() => {
-    getAllDatesInMonth(Number(year), month);
-    console.log(date);
-  }, [month, year]);
+    const subscription = watch((value, { name }) => {
+      if (name === 'month' || name === 'year') {
+        if (value.year?.value && value.month?.value) {
+          getAllDatesInMonth(value.year?.value, value.month?.value);
+        }
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
   return (
     <div className="h-dvh">
       <div className="grid grid-cols-2 justify-items-center lg:grid-cols-5 xl:grid-cols-6 xxl:grid-cols-7">
@@ -58,143 +88,185 @@ const Register = () => {
           <div className="mx-auto md:mx-0">
             <Heading>REGISTER NOW!</Heading>
           </div>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Controller
+              name="email"
+              control={control}
+              render={({ field: { name, onChange, value } }) => (
+                <FormInput
+                  type="text"
+                  placeholder="example@gmail.com"
+                  label="email"
+                  className={
+                    errors.email
+                      ? 'border-secondary-danger focus:border-secondary-danger w-full'
+                      : 'w-full'
+                  }
+                  value={value}
+                  name={name}
+                  onChange={onChange}
+                >
+                  Email
+                </FormInput>
+              )}
+              rules={{ required: true }}
+            />
+            {errors.email?.type === 'required' && (
+              <p className="-mt-5 text-right text-secondary-danger">
+                Email is required
+              </p>
+            )}
+            <Controller
+              name="fullname"
+              control={control}
+              render={({ field: { name, onChange, value } }) => (
+                <FormInput
+                  type="text"
+                  value={value}
+                  placeholder="Enter your full name"
+                  label="fullname"
+                  name={name}
+                  onChange={onChange}
+                  className="w-full"
+                >
+                  Full Name
+                </FormInput>
+              )}
+              rules={{ required: true }}
+            />
 
-          <FormInput
-            type="text"
-            value={email}
-            placeholder="example@gmail.com"
-            label="email"
-            name="email"
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full"
-          >
-            Email
-          </FormInput>
+            <div className="mb-4">
+              <label
+                htmlFor="Date of Birth"
+                className="block text-left text-black text-sm font-semibold pb-3"
+              >
+                Date of Birth
+              </label>
+              <div className="grid grid-cols-3 xl:grid-cols-4 gap-4">
+                <div className="col-span-1">
+                  <Controller
+                    name="day"
+                    control={control}
+                    render={({ field: { name, onChange } }) => (
+                      <Select
+                        name={name}
+                        id="day"
+                        styles={{
+                          indicatorSeparator: () => ({ display: 'none' }),
+                        }}
+                        options={datesOption}
+                        onChange={onChange}
+                        classNames={{
+                          control: (state) =>
+                            state.isFocused
+                              ? 'bg-white !shadow !border !rounded-xl py-1 w-full border-primary-blue transition'
+                              : 'bg-white !shadow !border !rounded-xl py-1 w-full',
+                        }}
+                      />
+                    )}
+                  />
+                </div>
 
-          <FormInput
-            type="text"
-            value={fullname}
-            placeholder="Enter your full name"
-            label="fullname"
-            name="fullname"
-            onChange={(e) => setFullname(e.target.value)}
-            className="w-full"
-          >
-            Full Name
-          </FormInput>
-
-          <div className="mb-4">
-            <label
-              htmlFor="Date of Birth"
-              className="block text-left text-black text-sm font-semibold pb-3"
-            >
-              Date of Birth
-            </label>
-            <div className="grid grid-cols-3 xl:grid-cols-4 gap-4">
-              <div className="col-span-1">
-                <Select
-                  name="day"
-                  id="day"
-                  styles={{
-                    indicatorSeparator: () => ({ display: 'none' }),
-                  }}
-                  defaultValue={{ value: '1', label: '1' }}
-                  options={datesOption}
-                  onChange={(choice) => {
-                    if (choice?.value) {
-                      setDate(choice.value);
-                    }
-                  }}
-                  classNames={{
-                    control: (state) =>
-                      state.isFocused
-                        ? 'bg-white !shadow !border !rounded-xl py-1 w-full border-primary-blue transition'
-                        : 'bg-white !shadow !border !rounded-xl py-1 w-full',
-                  }}
-                />
-              </div>
-
-              <div className="col-span-1 xl:col-span-2">
-                <Select
-                  name="month"
-                  id="month"
-                  defaultValue={monthsOption[today.getMonth()]}
-                  options={monthsOption}
-                  onChange={(choice) => {
-                    if (choice?.value) {
-                      setMonth(choice.value);
-                    }
-                  }}
-                  styles={{
-                    indicatorSeparator: () => ({ display: 'none' }),
-                  }}
-                  classNames={{
-                    control: (state) =>
-                      state.isFocused
-                        ? 'bg-white !shadow !border !rounded-xl py-1 w-full border-primary-blue transition'
-                        : 'bg-white !shadow !border !rounded-xl py-1 w-full',
-                  }}
-                />
-              </div>
-              <div className="col-span-1">
-                <Select
-                  name="year"
-                  id="year"
-                  defaultValue={yearsOption[0]}
-                  options={yearsOption}
-                  onChange={(choice) => {
-                    if (choice?.value) {
-                      setYear(choice.value);
-                    }
-                  }}
-                  styles={{
-                    indicatorSeparator: () => ({ display: 'none' }),
-                  }}
-                  classNames={{
-                    control: (state) =>
-                      state.isFocused
-                        ? 'bg-white !shadow !border !rounded-xl py-1 w-full border-primary-blue transition'
-                        : 'bg-white !shadow !border !rounded-xl py-1 w-full',
-                  }}
-                />
+                <div className="col-span-1 xl:col-span-2">
+                  <Controller
+                    name="month"
+                    control={control}
+                    render={({ field: { name, onChange } }) => (
+                      <Select
+                        name={name}
+                        id="month"
+                        defaultValue={monthsOption[today.getMonth()]}
+                        options={monthsOption}
+                        onChange={onChange}
+                        styles={{
+                          indicatorSeparator: () => ({ display: 'none' }),
+                        }}
+                        classNames={{
+                          control: (state) =>
+                            state.isFocused
+                              ? 'bg-white !shadow !border !rounded-xl py-1 w-full border-primary-blue transition'
+                              : 'bg-white !shadow !border !rounded-xl py-1 w-full',
+                        }}
+                      />
+                    )}
+                  />
+                </div>
+                <div className="col-span-1">
+                  <Controller
+                    name="year"
+                    control={control}
+                    render={({ field: { name, onChange } }) => (
+                      <Select
+                        name={name}
+                        id="year"
+                        defaultValue={yearsOption[0]}
+                        options={yearsOption}
+                        onChange={onChange}
+                        styles={{
+                          indicatorSeparator: () => ({ display: 'none' }),
+                        }}
+                        classNames={{
+                          control: (state) =>
+                            state.isFocused
+                              ? 'bg-white !shadow !border !rounded-xl py-1 w-full border-primary-blue transition'
+                              : 'bg-white !shadow !border !rounded-xl py-1 w-full',
+                        }}
+                      />
+                    )}
+                  />
+                </div>
               </div>
             </div>
-          </div>
-          <FormInput
-            type="text"
-            value={phoneNumber}
-            placeholder="081234567890"
-            label="phoneNumber"
-            name="phoneNumber"
-            onChange={(e) => setPhoneNumber(e.target.value)}
-            className="w-full"
-          >
-            Phone Number
-          </FormInput>
 
-          <FormInput
-            type="password"
-            value={password}
-            placeholder="*******"
-            label="password"
-            name="password"
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full"
-          >
-            Password
-          </FormInput>
-          <div className="flex mb-4">
-            <input type="checkbox" id="check" className="mr-2" />
-            <label
-              htmlFor="check"
-              className="text-left text-black text-sm font-semibold"
-            >
-              Saya Menyetujui Syarat & Ketentuan
-            </label>
-          </div>
-          <Button className="w-full" variant="primary" size="md" id="signup">
-            Sign Up
-          </Button>
+            <Controller
+              name="phoneNumber"
+              control={control}
+              render={({ field: { name, onChange, value } }) => (
+                <FormInput
+                  type="text"
+                  value={value}
+                  placeholder="081234567890"
+                  label="phoneNumber"
+                  name={name}
+                  onChange={onChange}
+                  className="w-full"
+                >
+                  Phone Number
+                </FormInput>
+              )}
+            />
+
+            <Controller
+              name="phoneNumber"
+              control={control}
+              render={({ field: { name, onChange, value } }) => (
+                <FormInput
+                  type="password"
+                  value={value}
+                  placeholder="*******"
+                  label="password"
+                  name={name}
+                  onChange={onChange}
+                  className="w-full"
+                >
+                  Password
+                </FormInput>
+              )}
+            />
+
+            <div className="flex mb-4">
+              <input type="checkbox" id="check" className="mr-2" />
+              <label
+                htmlFor="check"
+                className="text-left text-black text-sm font-semibold"
+              >
+                Saya Menyetujui Syarat & Ketentuan
+              </label>
+            </div>
+            <Button className="w-full" variant="primary" size="md" id="signup">
+              Sign Up
+            </Button>
+          </form>
           <div className="mt-4 shadow-03 w-full">
             <GoogleOAuthProvider clientId="785790667634-1r362pmk4q48l0j2i0vcl3v6nfesn60m.apps.googleusercontent.com">
               <GoogleLogin
