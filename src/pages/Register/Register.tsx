@@ -109,11 +109,19 @@ const Register = () => {
                   Email
                 </FormInput>
               )}
-              rules={{ required: true }}
+              rules={{
+                required: true,
+                pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i,
+              }}
             />
             {errors.email?.type === 'required' && (
-              <p className="-mt-5 text-right text-secondary-danger">
+              <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold">
                 Email is required
+              </p>
+            )}
+            {errors.email?.type === 'pattern' && (
+              <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold">
+                Please input a valid email format
               </p>
             )}
             <Controller
@@ -134,7 +142,11 @@ const Register = () => {
               )}
               rules={{ required: true }}
             />
-
+            {errors.fullname?.type === 'required' && (
+              <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold">
+                Full Name is required
+              </p>
+            )}
             <div className="mb-4">
               <label
                 htmlFor="Date of Birth"
@@ -154,6 +166,7 @@ const Register = () => {
                         styles={{
                           indicatorSeparator: () => ({ display: 'none' }),
                         }}
+                        value={datesOption[0]}
                         options={datesOption}
                         onChange={onChange}
                         classNames={{
@@ -164,7 +177,13 @@ const Register = () => {
                         }}
                       />
                     )}
+                    rules={{ required: true }}
                   />
+                  {errors.day?.type === 'required' && (
+                    <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold">
+                      Date is required
+                    </p>
+                  )}
                 </div>
 
                 <div className="col-span-1 xl:col-span-2">
@@ -234,10 +253,24 @@ const Register = () => {
                   Phone Number
                 </FormInput>
               )}
+              rules={{
+                required: true,
+                pattern: /^(\+62|62|0)8[1-9][0-9]{6,9}$/i,
+              }}
             />
+            {errors.phoneNumber?.type === 'required' && (
+              <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold">
+                Phone Number is required
+              </p>
+            )}
+            {errors.phoneNumber?.type === 'pattern' && (
+              <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold">
+                Invalid phone number
+              </p>
+            )}
 
             <Controller
-              name="phoneNumber"
+              name="password"
               control={control}
               render={({ field: { name, onChange, value } }) => (
                 <FormInput
@@ -252,7 +285,22 @@ const Register = () => {
                   Password
                 </FormInput>
               )}
+              rules={{
+                required: true,
+                pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i,
+              }}
             />
+            {errors.password?.type === 'required' && (
+              <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold">
+                Password is required
+              </p>
+            )}
+            {errors.password?.type === 'pattern' && (
+              <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold">
+                Password require minimum eight characters, at least one letter
+                and one number
+              </p>
+            )}
 
             <div className="flex mb-4">
               <input type="checkbox" id="check" className="mr-2" />
