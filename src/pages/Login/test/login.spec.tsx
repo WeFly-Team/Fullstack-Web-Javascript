@@ -2,8 +2,8 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import Login from '../Login';
 
-describe('Register Page', () => {
-  it('should render register page', () => {
+describe('Login Page', () => {
+  it('should render Login page', () => {
     render(<Login />);
   });
 
