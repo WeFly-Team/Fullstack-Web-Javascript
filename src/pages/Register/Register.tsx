@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '../../components/Button';
 import FormInput from '../../components/FormInput';
 import Heading from '../../components/Heading';
@@ -25,6 +25,14 @@ const Register = () => {
       password: '',
     },
   });
+
+  const [buttonColor, setButtonColor] = useState('grey');
+  const [accept, setAccept] =useState(false);
+
+  const HandleChecked = (event : any) => {
+    setAccept(!accept);
+    setButtonColor(accept? 'grey' : 'blue')
+  };
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     console.log(data);
@@ -317,7 +325,7 @@ const Register = () => {
             )}
 
             <div className="flex mb-4">
-              <input type="checkbox" id="check" className="mr-2" />
+              <input type="checkbox" id="check" className="mr-2" onClick={HandleChecked}/>
               <label
                 htmlFor="check"
                 className="text-left text-black text-sm font-semibold"
@@ -325,9 +333,11 @@ const Register = () => {
                 Saya Menyetujui Syarat & Ketentuan
               </label>
             </div>
-            <Button className="w-full" variant="primary" size="md" id="signup">
+
+            <Button disabled={!accept} style={{backgroundColor: buttonColor}} className="w-full disabled" size="md" id="signup">
               Sign Up
             </Button>
+
           </form>
           <div className="mt-4 shadow-03 w-full">
             <GoogleOAuthProvider clientId="785790667634-1r362pmk4q48l0j2i0vcl3v6nfesn60m.apps.googleusercontent.com">

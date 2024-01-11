@@ -129,7 +129,7 @@ const Login = () => {
                 Forgot password
               </a>
             </div>
-            <Button variant="primary" size="md" id="signin">
+            <Button disabled={false} variant="primary" size="md" id="signin">
               Sign in
             </Button>
           </form>
