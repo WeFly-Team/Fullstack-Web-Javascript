@@ -26,10 +26,12 @@ const Register = () => {
     },
   });
 
+  const [buttonColor, setButtonColor] = useState('grey');
   const [accept, setAccept] =useState(false);
 
   const HandleChecked = (event : any) => {
-    setAccept(event.target.checked);
+    setAccept(!accept);
+    setButtonColor(accept? 'grey' : 'blue')
   };
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
@@ -318,7 +320,7 @@ const Register = () => {
               </label>
             </div>
 
-            <Button disabled={!accept} className="w-full disabled" variant="primary" size="md" id="signup">
+            <Button disabled={!accept} style={{backgroundColor: buttonColor}} className="w-full disabled" size="md" id="signup">
               Sign Up
             </Button>
 
