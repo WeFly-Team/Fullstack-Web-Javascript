@@ -27,11 +27,11 @@ const Register = () => {
   });
 
   const [buttonColor, setButtonColor] = useState('grey');
-  const [accept, setAccept] =useState(false);
+  const [accept, setAccept] = useState(false);
 
-  const HandleChecked = (event : any) => {
+  const HandleChecked = () => {
     setAccept(!accept);
-    setButtonColor(accept? 'grey' : 'blue')
+    setButtonColor(accept ? 'grey' : 'blue');
   };
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
@@ -325,7 +325,12 @@ const Register = () => {
             )}
 
             <div className="flex mb-4">
-              <input type="checkbox" id="check" className="mr-2" onClick={HandleChecked}/>
+              <input
+                type="checkbox"
+                id="check"
+                className="mr-2"
+                onClick={HandleChecked}
+              />
               <label
                 htmlFor="check"
                 className="text-left text-black text-sm font-semibold"
@@ -334,10 +339,15 @@ const Register = () => {
               </label>
             </div>
 
-            <Button disabled={!accept} style={{backgroundColor: buttonColor}} className="w-full disabled" size="md" id="signup">
+            <Button
+              disabled={!accept}
+              style={{ backgroundColor: buttonColor }}
+              className="w-full disabled"
+              size="md"
+              id="signup"
+            >
               Sign Up
             </Button>
-
           </form>
           <div className="mt-4 shadow-03 w-full">
             <GoogleOAuthProvider clientId="785790667634-1r362pmk4q48l0j2i0vcl3v6nfesn60m.apps.googleusercontent.com">
