@@ -109,7 +109,7 @@ const Login = () => {
               </p>
             )}
             {errors.password?.type === 'pattern' && (
-              <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold">
+              <p className="w-[300px] -mt-5 text-right text-secondary-danger text-sm font-semibold">
                 Password require minimum eight characters, at least one letter
                 and one number
               </p>
