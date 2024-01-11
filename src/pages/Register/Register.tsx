@@ -55,6 +55,8 @@ const Register = () => {
       today.getFullYear(),
       monthsOption[today.getMonth()].value
     );
+
+    setValue('day', { label: '1', value: '1' });
   }, []);
 
   useEffect(() => {
@@ -135,7 +137,11 @@ const Register = () => {
                   label="fullname"
                   name={name}
                   onChange={onChange}
-                  className="w-full"
+                  className={
+                    errors.fullname
+                      ? 'border-secondary-danger focus:border-secondary-danger w-full'
+                      : 'w-full'
+                  }
                 >
                   Full Name
                 </FormInput>
@@ -162,11 +168,11 @@ const Register = () => {
                     render={({ field: { name, onChange } }) => (
                       <Select
                         name={name}
+                        value={datesOption[0]}
                         id="day"
                         styles={{
                           indicatorSeparator: () => ({ display: 'none' }),
                         }}
-                        value={datesOption[0]}
                         options={datesOption}
                         onChange={onChange}
                         classNames={{
@@ -248,7 +254,11 @@ const Register = () => {
                   label="phoneNumber"
                   name={name}
                   onChange={onChange}
-                  className="w-full"
+                  className={
+                    errors.phoneNumber
+                      ? 'border-secondary-danger focus:border-secondary-danger w-full'
+                      : 'w-full'
+                  }
                 >
                   Phone Number
                 </FormInput>
@@ -280,7 +290,11 @@ const Register = () => {
                   label="password"
                   name={name}
                   onChange={onChange}
-                  className="w-full"
+                  className={
+                    errors.password
+                      ? 'border-secondary-danger focus:border-secondary-danger w-full'
+                      : 'w-full'
+                  }
                 >
                   Password
                 </FormInput>
