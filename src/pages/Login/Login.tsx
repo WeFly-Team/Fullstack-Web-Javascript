@@ -133,7 +133,13 @@ const Login = () => {
                 Forgot password
               </a>
             </div>
-            <Button className="w-full" variant="primary" size="md" id="signin">
+            <Button
+              disabled={false}
+              className="w-full"
+              variant="primary"
+              size="md"
+              id="signin"
+            >
               Sign in
             </Button>
           </form>

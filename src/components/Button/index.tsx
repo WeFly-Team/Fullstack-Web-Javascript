@@ -23,10 +23,10 @@ const buttonVariants = cva("rounded-xl", {
   }
 })
 
-const Button = ({ children, className, variant, size, ...props }: ButtonProps) => {
+const Button = ({ children, disabled, className, variant, size, ...props }: ButtonProps) => {
   return (
     <>
-      <button {...props} className={cn(buttonVariants({ variant, size, className }))}>{children}</button>
+      <button {...props} disabled={disabled} className={cn(buttonVariants({ variant, size, className,}))}>{children}</button>
     </>
   )
 }
