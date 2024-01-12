@@ -9,6 +9,7 @@ import { IFormInput } from './types';
 import { SubmitHandler, Controller, useForm } from 'react-hook-form';
 import axiosInstance from '../../axios/axios';
 import { AxiosError } from 'axios';
+import { Link } from 'react-router-dom';
 const today = new Date();
 const Register = () => {
   // useState
@@ -439,6 +440,12 @@ const Register = () => {
               />
             </GoogleOAuthProvider>
           </div> */}
+          <label className="mt-4 mx-auto">
+            Already have account? &nbsp;
+            <Link to="/login" className="font-semibold text-primary-darkBlue">
+              Sign In
+            </Link>
+          </label>
         </div>
       </div>
     </div>

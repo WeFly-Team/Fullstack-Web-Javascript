@@ -9,6 +9,7 @@ import { useAuth } from '../../customHooks/useAuth/useAuth';
 import axiosInstance from '../../axios/axios';
 import { useState } from 'react';
 import { AxiosError } from 'axios';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   // useState
@@ -178,9 +179,12 @@ const Login = () => {
                   Remember me
                 </label>
               </div>
-              <a href="#" className="text-black text-sm font-semibold">
+              <Link
+                to="/forgot-password"
+                className="text-black text-sm font-semibold"
+              >
                 Forgot password
-              </a>
+              </Link>
             </div>
             <Button
               disabled={false}
@@ -192,7 +196,7 @@ const Login = () => {
               Sign in
             </Button>
           </form>
-          <div className="mt-4 w-full">
+          <div className="mt-4 w-full mb-4">
             <Button
               className="border w-full"
               variant="secondary"
@@ -203,6 +207,15 @@ const Login = () => {
               Log in with Google
             </Button>
           </div>
+          <label>
+            Don't have account? &nbsp;
+            <Link
+              to="/register"
+              className="font-semibold text-primary-darkBlue"
+            >
+              Sign Up
+            </Link>
+          </label>
         </div>
         <div className="md:w-3/5 h-screen relative bg-gradient-to-l from-transparent to-white md:block hidden">
           <img
