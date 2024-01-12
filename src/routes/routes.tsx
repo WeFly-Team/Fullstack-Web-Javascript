@@ -6,6 +6,7 @@ import ForgotPass from '../pages/ForgotPass/ForgotPass';
 import SetNewPass from '../pages/ForgotPass/SetNewPass';
 import DonePage from '../pages/ForgotPass/DonePage';
 import PageOTP from '../pages/ForgotPass/PageOTP';
+import PrivateRoutes from '../utils/PrivateRoutes';
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,15 @@ const router = createBrowserRouter([
   {
     path: '/otp',
     element: <PageOTP />,
+  },
+  {
+    element: <PrivateRoutes />,
+    children: [
+      // {
+      //   path:'/exampleProtectedRoute',
+      //   element:<ProtectedPage/>
+      // }
+    ],
   },
 ]);
 
