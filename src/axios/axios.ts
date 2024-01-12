@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const baseURL =
-  import.meta.env['VITE_BACKEND_URL'] || 'http://188.166.196.8:8081/api';
+  import.meta.env['VITE_BACKEND_URL'] || 'http://188.166.196.8:8081/api/v1';
 const axiosInstance = axios.create({
   baseURL,
 });
