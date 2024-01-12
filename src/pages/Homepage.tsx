@@ -9,10 +9,11 @@ const Homepage = () => {
   return (
     <>
       <Heading children="Ini Homepage" />
-      {user?.email && <p>hai {user?.email}</p>}
-      <Button size="sm" onClick={logout}>
-        Log out
-      </Button>
+      {user?.user_name && <p>hai {user?.user_name}</p> && (
+        <Button size="sm" onClick={logout}>
+          Log out
+        </Button>
+      )}
     </>
   );
 };

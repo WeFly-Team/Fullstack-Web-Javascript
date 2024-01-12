@@ -16,15 +16,19 @@ export const useAuth = () => {
       if (decode.exp && decode.exp * 1000 < Date.now()) {
         logout();
       } else {
-        setIsAuthenticated(true);
-        const authUser: IUser = {
-          fullname: decode.fullname,
-          email: decode.email,
-        };
-        setUser(authUser);
+        generateUser(decode);
       }
     }
   }, []);
+
+  const generateUser = (decode: IJwtPayload) => {
+    setIsAuthenticated(true);
+    const authUser: IUser = {
+      fullname: decode.fullname,
+      user_name: decode.user_name,
+    };
+    setUser(authUser);
+  };
 
   const login = (token: string) => {
     verifyToken(token);
@@ -38,12 +42,7 @@ export const useAuth = () => {
       return;
     }
     localStorage.setItem('token', token);
-    setIsAuthenticated(true);
-    const authUser: IUser = {
-      fullname: decode.fullname,
-      email: decode.email,
-    };
-    setUser(authUser);
+    generateUser(decode);
     navigate('/');
   };
   const logout = () => {
