@@ -46,7 +46,7 @@ const Login = () => {
             />
           </div>
           <Heading children="Welcome Back" />
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)} className="w-full">
             <Controller
               name="email"
               control={control}
@@ -56,8 +56,8 @@ const Login = () => {
                   label="Email"
                   className={
                     errors.email
-                      ? 'border-secondary-danger focus:border-secondary-danger'
-                      : ''
+                      ? 'w-full border-secondary-danger focus:border-secondary-danger'
+                      : 'w-full'
                   }
                   name={name}
                   value={value}
@@ -93,7 +93,11 @@ const Login = () => {
                   label="password"
                   name={name}
                   onChange={onChange}
-                  // className="!w-full"
+                  className={
+                    errors.password
+                      ? 'w-full border-secondary-danger focus:border-secondary-danger'
+                      : 'w-full'
+                  }
                 >
                   Password
                 </FormInput>
@@ -109,13 +113,13 @@ const Login = () => {
               </p>
             )}
             {errors.password?.type === 'pattern' && (
-              <p className="w-[300px] -mt-5 text-right text-secondary-danger text-sm font-semibold">
+              <p className="w-md-[300px] -mt-5 text-right text-secondary-danger text-sm font-semibold">
                 Password require minimum eight characters, at least one letter
                 and one number
               </p>
             )}
 
-            <div className="flex mb-4 gap-16">
+            <div className="flex mb-4 gap-16 justify-between">
               <div className="checkbox-input">
                 <input type="checkbox" id="check" className="mr-2" />
                 <label
@@ -129,11 +133,11 @@ const Login = () => {
                 Forgot password
               </a>
             </div>
-            <Button variant="primary" size="md" id="signin">
+            <Button className="w-full" variant="primary" size="md" id="signin">
               Sign in
             </Button>
           </form>
-          <div className="mt-4 shadow-03">
+          <div className="mt-4 shadow-03 w-full">
             <GoogleOAuthProvider clientId="785790667634-1r362pmk4q48l0j2i0vcl3v6nfesn60m.apps.googleusercontent.com">
               <GoogleLogin
                 onSuccess={(credentialResponse) => {
@@ -150,10 +154,10 @@ const Login = () => {
             </GoogleOAuthProvider>
           </div>
         </div>
-        <div className="md:w-3/5 h-screen relative bg-gradient-to-l from-transparent to-white sm:block hidden">
+        <div className="md:w-3/5 h-screen relative bg-gradient-to-l from-transparent to-white md:block hidden">
           <img
             src="https://i.ibb.co/p04HSxH/image-1.png"
-            className=" object-cover mix-blend-overlay h-screen w-screen"
+            className="object-cover mix-blend-overlay h-screen w-screen"
           />
         </div>
       </div>
