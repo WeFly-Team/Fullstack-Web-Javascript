@@ -8,6 +8,7 @@ import { IFormInput } from './types';
 import { useAuth } from '../../customHooks/useAuth/useAuth';
 import axiosInstance from '../../axios/axios';
 import { useState } from 'react';
+import { AxiosError } from 'axios';
 
 const Login = () => {
   // useState
@@ -18,6 +19,7 @@ const Login = () => {
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<IFormInput>({
     defaultValues: {
@@ -26,19 +28,23 @@ const Login = () => {
     },
   });
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    console.log(data);
     try {
       const result = await axiosInstance.post('/user-login/login', data);
       if (result.data.code == 200) {
         const token = result.data.access_token;
         login(token);
       } else if (result.data.code == 400) {
-        if (result.data.error === 'wrong password') {
-          setErrorMessage("User not found or password didn't match");
-        }
+        setErrorMessage("User not found or password didn't match");
+        setValue('password', '');
       }
     } catch (err) {
-      console.error(err);
+      if (err instanceof AxiosError) {
+        setErrorMessage(err.message);
+      } else if (err instanceof Error) {
+        setErrorMessage(err.message);
+      }
+      setValue('email', '');
+      setValue('password', '');
     }
   };
 
@@ -64,7 +70,7 @@ const Login = () => {
               </span>
               <span
                 className="absolute top-0 bottom-0 right-0 px-4 py-3"
-                onClick={() => !errorMessage}
+                onClick={() => setErrorMessage('')}
               >
                 <svg
                   className="fill-current h-6 w-6 text-red-500"
