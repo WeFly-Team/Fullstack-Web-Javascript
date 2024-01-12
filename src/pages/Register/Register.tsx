@@ -4,12 +4,16 @@ import FormInput from '../../components/FormInput';
 import Heading from '../../components/Heading';
 import Select from 'react-select';
 import { datesOption, monthsOption, yearsOption } from './data';
-import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 
 import { IFormInput } from './types';
 import { SubmitHandler, Controller, useForm } from 'react-hook-form';
+import axiosInstance from '../../axios/axios';
+import { AxiosError } from 'axios';
 const today = new Date();
 const Register = () => {
+  // useState
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [successMessage, setSuccessMessage] = useState<string>('');
   // hook form
   const {
     control,
@@ -34,8 +38,33 @@ const Register = () => {
     setButtonColor(accept ? 'grey' : 'blue');
   };
 
-  const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    console.log(data);
+  const resetValue = () => {
+    setValue('email', '');
+    setValue('password', '');
+    setValue('phoneNumber', '');
+    setValue('password', '');
+  };
+
+  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    try {
+      const result = await axiosInstance.post('/user-register/register-user', {
+        ...data,
+        fullName: data.fullname,
+      });
+      if (result.data.code == 200) {
+        setSuccessMessage(result.data.data);
+        resetValue();
+      } else if (result.data.code == 400) {
+        setErrorMessage(result.data.error);
+      }
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        setErrorMessage(err.message);
+      } else if (err instanceof Error) {
+        setErrorMessage(err.message);
+      }
+      resetValue();
+    }
   };
   // function
   const getAllDatesInMonth = (year: number, month: string): void => {
@@ -98,6 +127,50 @@ const Register = () => {
           <div className="mx-auto md:mx-0">
             <Heading>REGISTER NOW!</Heading>
           </div>
+          {errorMessage && (
+            <div
+              className="bg-red-100 border border-red-400 text-red-700 pl-4 pr-8 sm:pr-4 py-3 rounded relative w-full mb-2"
+              role="alert"
+            >
+              <span className="block sm:inline">{errorMessage}</span>
+              <span
+                className="absolute top-0 bottom-0 right-0 px-4 py-3"
+                onClick={() => setErrorMessage('')}
+              >
+                <svg
+                  className="fill-current h-6 w-6 text-red-500"
+                  role="button"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <title>Close</title>
+                  <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                </svg>
+              </span>
+            </div>
+          )}
+          {successMessage && (
+            <div
+              className="bg-blue-100 border border-blue-400 text-blue-700 pl-4 pr-8 sm:pr-4 py-3 rounded relative w-full mb-2"
+              role="alert"
+            >
+              <span className="block sm:inline">{successMessage}</span>
+              <span
+                className="absolute top-0 bottom-0 right-0 px-4 py-3"
+                onClick={() => setSuccessMessage('')}
+              >
+                <svg
+                  className="fill-current h-6 w-6 text-blue-500"
+                  role="button"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <title>Close</title>
+                  <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                </svg>
+              </span>
+            </div>
+          )}
           <form onSubmit={handleSubmit(onSubmit)}>
             <Controller
               name="email"
@@ -309,7 +382,8 @@ const Register = () => {
               )}
               rules={{
                 required: true,
-                pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i,
+                pattern:
+                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/i,
               }}
             />
             {errors.password?.type === 'required' && (
@@ -349,7 +423,7 @@ const Register = () => {
               Sign Up
             </Button>
           </form>
-          <div className="mt-4 shadow-03 w-full">
+          {/* <div className="mt-4 shadow-03 w-full">
             <GoogleOAuthProvider clientId="785790667634-1r362pmk4q48l0j2i0vcl3v6nfesn60m.apps.googleusercontent.com">
               <GoogleLogin
                 onSuccess={(credentialResponse) => {
@@ -364,7 +438,7 @@ const Register = () => {
                 text="signup_with"
               />
             </GoogleOAuthProvider>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
