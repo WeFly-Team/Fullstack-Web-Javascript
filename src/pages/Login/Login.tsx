@@ -2,7 +2,7 @@
 import Button from '../../components/Button';
 import FormInput from '../../components/FormInput';
 import Heading from '../../components/Heading';
-import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+import { useGoogleLogin } from '@react-oauth/google';
 import { SubmitHandler, Controller, useForm } from 'react-hook-form';
 import { IFormInput } from './types';
 import { useAuth } from '../../customHooks/useAuth/useAuth';
@@ -47,6 +47,19 @@ const Login = () => {
       setValue('password', '');
     }
   };
+
+  const googleLogin = useGoogleLogin({
+    // flow: 'auth-code',
+    onSuccess: async (codeResponse) => {
+      console.log(codeResponse);
+      const tokens = await axiosInstance.get(
+        `/user-login/signin_google/${codeResponse.access_token}`
+      );
+
+      console.log(tokens);
+    },
+    onError: (errorResponse) => console.log(errorResponse),
+  });
 
   return (
     <>
@@ -180,21 +193,16 @@ const Login = () => {
               Sign in
             </Button>
           </form>
-          <div className="mt-4 shadow-03 w-full">
-            <GoogleOAuthProvider clientId="785790667634-1r362pmk4q48l0j2i0vcl3v6nfesn60m.apps.googleusercontent.com">
-              <GoogleLogin
-                onSuccess={(credentialResponse) => {
-                  console.log(credentialResponse);
-                }}
-                onError={() => {
-                  console.log('Login Failed');
-                }}
-                shape="rectangular"
-                size="large"
-                width={300}
-                text="signin_with"
-              />
-            </GoogleOAuthProvider>
+          <div className="mt-4 w-full">
+            <Button
+              className="border w-full"
+              variant="secondary"
+              onClick={() => {
+                googleLogin();
+              }}
+            >
+              Log in with Google
+            </Button>
           </div>
         </div>
         <div className="md:w-3/5 h-screen relative bg-gradient-to-l from-transparent to-white md:block hidden">
