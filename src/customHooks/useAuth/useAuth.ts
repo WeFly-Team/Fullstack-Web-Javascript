@@ -24,7 +24,7 @@ export const useAuth = () => {
   const generateUser = (decode: IJwtPayload) => {
     setIsAuthenticated(true);
     const authUser: IUser = {
-      fullname: decode.fullname,
+      full_name: decode.full_name,
       user_name: decode.user_name,
     };
     setUser(authUser);

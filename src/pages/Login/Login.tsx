@@ -51,12 +51,11 @@ const Login = () => {
   const googleLogin = useGoogleLogin({
     // flow: 'auth-code',
     onSuccess: async (codeResponse) => {
-      console.log(codeResponse);
-      const tokens = await axiosInstance.get(
+      const result = await axiosInstance.post(
         `/user-login/signin_google/${codeResponse.access_token}`
       );
-
-      console.log(tokens);
+      const accToken = result.data.data.access_token;
+      login(accToken);
     },
     onError: (errorResponse) => console.log(errorResponse),
   });

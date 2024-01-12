@@ -1,6 +1,6 @@
 export interface IUser {
   user_name: string;
-  fullname: string;
+  full_name: string;
 }
 
 export interface IJwtPayload extends IUser {
