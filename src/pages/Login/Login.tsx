@@ -7,8 +7,6 @@ import { SubmitHandler, Controller, useForm } from 'react-hook-form';
 import { IFormInput } from './types';
 
 const Login = () => {
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
   // hook form
   const {
     control,
@@ -23,16 +21,6 @@ const Login = () => {
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     console.log(data);
   };
-
-  // const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setEmail(e.target.value);
-  //   console.log(setEmail);
-  // };
-
-  // const handlePassword = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setPassword(e.target.value);
-  //   console.log(setPassword);
-  // };
 
   return (
     <>
@@ -104,7 +92,6 @@ const Login = () => {
               )}
               rules={{
                 required: true,
-                pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i,
               }}
             />
             {errors.password?.type === 'required' && (
