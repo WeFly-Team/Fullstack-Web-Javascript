@@ -3,6 +3,9 @@ import { createContext } from 'react';
 export interface IFormInput {
   email: string;
 }
+export interface IPasswordInput {
+  password: string;
+}
 
 export interface forgotPasswordContextType {
   handleEmail: (email: string) => void;

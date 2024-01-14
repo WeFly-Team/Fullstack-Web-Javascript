@@ -2,7 +2,8 @@ import { ChangeEvent, useState } from 'react';
 import Button from '../../../components/Button';
 import FormInput from '../../../components/FormInput';
 import Heading from '../../../components/Heading';
-import { Link } from 'react-router-dom';
+import { IPasswordInput } from '../types';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
 const SetNewPass = () => {
   const [password, setPassword] = useState('');
@@ -16,6 +17,21 @@ const SetNewPass = () => {
   const confirmNewPassword = (e: ChangeEvent<HTMLInputElement>) => {
     setConfirmPassword(e.target.value);
     console.log(setConfirmPassword);
+  };
+
+  // useForm
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<IPasswordInput>({
+    defaultValues: {
+      password: '',
+    },
+  });
+
+  const onSubmit: SubmitHandler<IPasswordInput> = (data) => {
+    console.log(data);
   };
 
   return (
@@ -33,15 +49,41 @@ const SetNewPass = () => {
           <h2 className="text-center text-gray-500 text-sm mb-5">
             Must be at least 8 characters
           </h2>
-          <FormInput
-            children="Password"
-            type="password"
-            label="Password"
+          <Controller
             name="password"
-            value={password}
-            onChange={newPassword}
-            placeholder="Enter your new Password"
+            control={control}
+            render={({ field: { name, onChange, value } }) => (
+              <FormInput
+                children="Password"
+                type="password"
+                label="Password"
+                name={name}
+                value={value}
+                onChange={onChange}
+                placeholder="Enter your new Password"
+                className={
+                  errors.password &&
+                  'border-secondary-danger focus:border-secondary-danger '
+                }
+              />
+            )}
+            rules={{
+              required: true,
+              pattern:
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/i,
+            }}
           />
+          {errors.password?.type === 'required' && (
+            <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold w-[300px]">
+              Password is required
+            </p>
+          )}
+          {errors.password?.type === 'pattern' && (
+            <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold w-[300px]">
+              Password require minimum eight characters, at least one letter,
+              one number, and one special characters
+            </p>
+          )}
           <FormInput
             children="Password"
             type="password"
@@ -51,9 +93,12 @@ const SetNewPass = () => {
             onChange={confirmNewPassword}
             placeholder="Comfirm your new password"
           />
-          <Link to="/done">
-            <Button children="Reset Password" variant="primary" size="md" />
-          </Link>
+          <Button
+            children="Reset Password"
+            variant="primary"
+            size="md"
+            onClick={handleSubmit(onSubmit)}
+          />
           <a href="/login" className="text-center text-black-500 text-sm mt-5">
             ← Back to Login
           </a>
