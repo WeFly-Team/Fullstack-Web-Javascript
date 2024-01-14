@@ -1,24 +1,35 @@
-import { ChangeEvent, useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Button from '../../../components/Button';
-import FormInput from '../../../components/FormInput';
 import Heading from '../../../components/Heading';
-import { Link } from 'react-router-dom';
 import { FrogotPassContext, forgotPasswordContextType } from '../types';
+import OTPInput from 'react-otp-input';
 
 const PageOTP = () => {
   // const [email, setEmail] = useState('');
-  const { email } = useContext(FrogotPassContext) as forgotPasswordContextType;
-  const [code, setCode] = useState('');
+  const { email, handleComponent } = useContext(
+    FrogotPassContext
+  ) as forgotPasswordContextType;
+  const [code, setCode] = useState<string>('');
+  const [disable, setDisable] = useState<boolean>(true);
+  const [btnDisable, setBtnDisable] = useState<string>('disabled:opacity-25');
 
-  // const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setEmail(e.target.value);
-  //   console.log(setEmail);
-  // };
-  const handleCode = (e: ChangeEvent<HTMLInputElement>) => {
-    setCode(e.target.value);
-    console.log(setCode);
+  const handleCode = (otpCode: string) => {
+    setCode(otpCode);
   };
 
+  useEffect(() => {
+    if (code.length == 4) {
+      setDisable(false);
+      setBtnDisable('');
+    } else {
+      setDisable(true);
+      setBtnDisable('disabled:opacity-25');
+    }
+  }, [code]);
+
+  const submitOtp = () => {
+    handleComponent('newPass');
+  };
   return (
     <>
       <div className="flex items-center h-screen justify-center">
@@ -34,53 +45,33 @@ const PageOTP = () => {
           <h2 className="text-center text-gray-500 text-sm mb-5">
             We sent a code to <b>{email}</b>
           </h2>
-          <div className="grid grid-cols-4 gap-4 max-w-[250px]">
-            <FormInput
-              children=""
-              type="text"
-              label=""
-              name="code"
+          <div className="w-[250px] mb-3">
+            <OTPInput
               value={code}
               onChange={handleCode}
-              placeholder=""
-              className="w-full"
-            />
-            <FormInput
-              children=""
-              type="text"
-              label=""
-              name="code"
-              value={code}
-              onChange={handleCode}
-              placeholder=""
-              className="w-full"
-            />
-            <FormInput
-              children=""
-              type="text"
-              label=""
-              name="code"
-              value={code}
-              onChange={handleCode}
-              placeholder=""
-              className="w-full"
-            />
-            <FormInput
-              children=""
-              type="text"
-              label=""
-              name="code"
-              value={code}
-              onChange={handleCode}
-              placeholder=""
-              className="w-full"
+              numInputs={4}
+              inputType="tel"
+              shouldAutoFocus={true}
+              skipDefaultStyles={true}
+              containerStyle={{ gap: '1rem' }}
+              renderInput={(props) => (
+                <input
+                  {...props}
+                  className="shadow appearance-none border rounded-xl text-gray-700 leading-tight focus:outline-none focus:border-primary-blue transition w-full h-11 px-4 py-3 mb-2"
+                />
+              )}
             />
           </div>
-          <Link to="/reset-password">
-            <Button children="Continue" variant="primary" size="md" />
-          </Link>
+          <Button
+            disabled={disable}
+            children="Continue"
+            variant="primary"
+            size="md"
+            className={btnDisable}
+            onClick={() => submitOtp()}
+          />
           <p className="text-center text-black-500 text-sm mt-5">
-            Didn’t recieve the email?{' '}
+            Didn't recieve the email?{' '}
             <a href="" className="font-bold">
               Click to resend
             </a>
