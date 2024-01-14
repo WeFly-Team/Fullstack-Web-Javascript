@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from 'react';
-import Button from '../../components/Button';
-import FormInput from '../../components/FormInput';
-import Heading from '../../components/Heading';
+import Button from '../../../components/Button';
+import FormInput from '../../../components/FormInput';
+import Heading from '../../../components/Heading';
 import { Link } from 'react-router-dom';
 
 const SetNewPass = () => {
@@ -18,7 +18,6 @@ const SetNewPass = () => {
     console.log(setConfirmPassword);
   };
 
-
   return (
     <>
       <div className="flex items-center h-screen justify-center">
@@ -31,7 +30,9 @@ const SetNewPass = () => {
             />
           </div>
           <Heading children="Set new Password" />
-          <h2 className="text-center text-gray-500 text-sm mb-5">Must be at least 8 characters</h2>
+          <h2 className="text-center text-gray-500 text-sm mb-5">
+            Must be at least 8 characters
+          </h2>
           <FormInput
             children="Password"
             type="password"
@@ -51,9 +52,11 @@ const SetNewPass = () => {
             placeholder="Comfirm your new password"
           />
           <Link to="/done">
-            <Button children="Reset Password" variant='primary' size='md' />
+            <Button children="Reset Password" variant="primary" size="md" />
           </Link>
-          <a href='/login' className="text-center text-black-500 text-sm mt-5">← Back to Login</a>
+          <a href="/login" className="text-center text-black-500 text-sm mt-5">
+            ← Back to Login
+          </a>
         </div>
         <div className="md:w-3/5 h-screen relative bg-gradient-to-l from-transparent to-white sm:block hidden">
           <img
