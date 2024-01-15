@@ -73,6 +73,7 @@ const Login = () => {
             />
           </div>
           <Heading children="Welcome Back" />
+          <label className="mb-8">Please enter your details.</label>
           {errorMessage && (
             <div
               className="bg-red-100 border border-red-400 text-red-700 pl-4 pr-8 sm:pr-4 py-3 rounded relative w-full mb-2"
@@ -198,17 +199,22 @@ const Login = () => {
           </form>
           <div className="mt-4 w-full mb-4">
             <Button
-              className="border w-full"
+              className="border w-full flex justify-center p-2"
               variant="secondary"
               onClick={() => {
                 googleLogin();
               }}
             >
+              <img
+                src="https://i.ibb.co/VjNmDct/free-icon-google-300221-1.png"
+                alt="google_logo"
+                className="mr-4 w-6 h-6"
+              />
               Log in with Google
             </Button>
           </div>
           <label>
-            Don't have account? &nbsp;
+            Don't have an account? &nbsp;
             <Link
               to="/register"
               className="font-semibold text-primary-darkBlue"

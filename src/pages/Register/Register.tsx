@@ -4,12 +4,13 @@ import FormInput from '../../components/FormInput';
 import Heading from '../../components/Heading';
 import Select from 'react-select';
 import { datesOption, monthsOption, yearsOption } from './data';
-
+import { useGoogleLogin } from '@react-oauth/google';
 import { IFormInput } from './types';
 import { SubmitHandler, Controller, useForm } from 'react-hook-form';
 import axiosInstance from '../../axios/axios';
 import { AxiosError } from 'axios';
 import { Link } from 'react-router-dom';
+
 const today = new Date();
 const Register = () => {
   // useState
@@ -70,6 +71,19 @@ const Register = () => {
       resetValue();
     }
   };
+
+  const googleSignUp = useGoogleLogin({
+    // flow: 'auth-code',
+    onSuccess: async (codeResponse) => {
+      const result = await axiosInstance.post(
+        `/user-login/signin_google/${codeResponse.access_token}`
+      );
+      const signupToken = result.data.data.access_token;
+      Register(signupToken);
+    },
+    onError: (errorResponse) => console.log(errorResponse),
+  });
+
   // function
   const getAllDatesInMonth = (year: number, month: string): void => {
     const monthConverted =
@@ -111,6 +125,7 @@ const Register = () => {
     });
     return () => subscription.unsubscribe();
   }, [watch]);
+
   return (
     <div className="h-dvh">
       <div className="grid grid-cols-2 justify-items-center lg:grid-cols-5 xl:grid-cols-6 xxl:grid-cols-7">
@@ -428,27 +443,33 @@ const Register = () => {
               Sign Up
             </Button>
           </form>
-          {/* <div className="mt-4 shadow-03 w-full">
-            <GoogleOAuthProvider clientId="785790667634-1r362pmk4q48l0j2i0vcl3v6nfesn60m.apps.googleusercontent.com">
-              <GoogleLogin
-                onSuccess={(credentialResponse) => {
-                  console.log(credentialResponse);
-                }}
-                onError={() => {
-                  console.log('Login Failed');
-                }}
-                shape="rectangular"
-                size="large"
-                width={400}
-                text="signup_with"
+          <div className="mt-4 w-full">
+            <Button
+              className="border w-full flex justify-center p-2"
+              variant="secondary"
+              onClick={() => {
+                googleSignUp();
+              }}
+            >
+              <img
+                src="https://i.ibb.co/VjNmDct/free-icon-google-300221-1.png"
+                alt="google_logo"
+                className="mr-4 w-6 h-6"
               />
-            </GoogleOAuthProvider>
-          </div> */}
+              Sign up with Google
+            </Button>
+          </div>
           <label className="mt-4 mx-auto">
             Already have account? &nbsp;
             <Link to="/login" className="font-semibold text-primary-darkBlue">
               Sign In
             </Link>
+          </label>
+          <label className="mt-4 p-5 text-center">
+            By registering, you agree to our
+            <div className="underline">Terms & Conditions</div>
+            and that you have read our
+            <div className="underline">Privacy Notice.</div>
           </label>
         </div>
       </div>
