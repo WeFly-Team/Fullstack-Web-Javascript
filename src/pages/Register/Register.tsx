@@ -10,9 +10,12 @@ import { SubmitHandler, Controller, useForm } from 'react-hook-form';
 import axiosInstance from '../../axios/axios';
 import { AxiosError } from 'axios';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../customHooks/useAuth/useAuth';
 
 const today = new Date();
 const Register = () => {
+  // useAuth
+  const { login } = useAuth();
   // useState
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [successMessage, setSuccessMessage] = useState<string>('');
@@ -79,7 +82,7 @@ const Register = () => {
         `/user-login/signin_google/${codeResponse.access_token}`
       );
       const signupToken = result.data.data.access_token;
-      Register(signupToken);
+      login(signupToken);
     },
     onError: (errorResponse) => console.log(errorResponse),
   });
