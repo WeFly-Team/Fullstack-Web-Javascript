@@ -6,9 +6,14 @@ import SetNewPass from './Components/SetNewPass';
 import DonePage from './Components/DonePage';
 
 const ForgotPass = () => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState<string>('');
+  const [otpCode, setOtpCode] = useState<string>('');
   const handleEmail = (email: string) => {
     setEmail(email);
+  };
+
+  const handleOtpCode = (otp: string) => {
+    setOtpCode(otp);
   };
 
   const handleComponent = (comp: string) => {
@@ -24,7 +29,9 @@ const ForgotPass = () => {
   const [component, setComponent] = useState<React.JSX.Element>(<SetEmail />);
 
   return (
-    <FrogotPassContext.Provider value={{ email, handleEmail, handleComponent }}>
+    <FrogotPassContext.Provider
+      value={{ email, otpCode, handleOtpCode, handleEmail, handleComponent }}
+    >
       <>
         <div className="flex items-center h-screen justify-center">
           {component}
