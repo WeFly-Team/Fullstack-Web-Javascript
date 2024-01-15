@@ -1,18 +1,26 @@
+import { googleLogout } from '@react-oauth/google';
 import Button from '../components/Button';
 import Heading from '../components/Heading';
 import { useAuth } from '../customHooks/useAuth/useAuth';
 
 const Homepage = () => {
   const { user, logout } = useAuth();
-  console.log(user?.full_name);
+
+  const handleLogout = () => {
+    googleLogout();
+    logout();
+  };
 
   return (
     <>
       <Heading children="Ini Homepage" />
-      {user && <p>hai {user.user_name}</p> && (
-        <Button size="sm" onClick={logout}>
-          Log out
-        </Button>
+      {user && (
+        <div>
+          <p>hai {user.full_name}</p>
+          <Button size="sm" onClick={handleLogout}>
+            Log out
+          </Button>
+        </div>
       )}
     </>
   );
