@@ -35,14 +35,6 @@ const Register = () => {
     },
   });
 
-  const [buttonColor, setButtonColor] = useState('grey');
-  const [accept, setAccept] = useState(false);
-
-  const HandleChecked = () => {
-    setAccept(!accept);
-    setButtonColor(accept ? 'grey' : 'blue');
-  };
-
   const resetValue = () => {
     setValue('email', '');
     setValue('password', '');
@@ -421,28 +413,7 @@ const Register = () => {
               </p>
             )}
 
-            <div className="flex mb-4">
-              <input
-                type="checkbox"
-                id="check"
-                className="mr-2"
-                onClick={HandleChecked}
-              />
-              <label
-                htmlFor="check"
-                className="text-left text-black text-sm font-semibold"
-              >
-                Saya Menyetujui Syarat & Ketentuan
-              </label>
-            </div>
-
-            <Button
-              disabled={!accept}
-              style={{ backgroundColor: buttonColor }}
-              className="w-full disabled"
-              size="md"
-              id="signup"
-            >
+            <Button className="w-full" size="md" id="signup">
               Sign Up
             </Button>
           </form>
