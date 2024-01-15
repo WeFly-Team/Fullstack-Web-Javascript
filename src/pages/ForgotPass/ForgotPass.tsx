@@ -25,7 +25,17 @@ const ForgotPass = () => {
 
   return (
     <FrogotPassContext.Provider value={{ email, handleEmail, handleComponent }}>
-      {component}
+      <>
+        <div className="flex items-center h-screen justify-center">
+          {component}
+          <div className="md:w-3/5 h-screen relative bg-gradient-to-l from-transparent to-white sm:block hidden">
+            <img
+              src="https://i.ibb.co/p04HSxH/image-1.png"
+              className=" object-cover mix-blend-overlay h-screen w-screen"
+            />
+          </div>
+        </div>
+      </>
     </FrogotPassContext.Provider>
   );
 };
