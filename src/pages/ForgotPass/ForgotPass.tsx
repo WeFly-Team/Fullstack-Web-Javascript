@@ -3,12 +3,12 @@ import SetEmail from './Components/SetEmail';
 import { FrogotPassContext } from './types';
 import PageOTP from './Components/PageOTP';
 import SetNewPass from './Components/SetNewPass';
+import DonePage from './Components/DonePage';
 
 const ForgotPass = () => {
   const [email, setEmail] = useState('');
   const handleEmail = (email: string) => {
     setEmail(email);
-    console.log(email);
   };
 
   const handleComponent = (comp: string) => {
@@ -16,6 +16,8 @@ const ForgotPass = () => {
       setComponent(<PageOTP />);
     } else if (comp === 'newPass') {
       setComponent(<SetNewPass />);
+    } else if (comp === 'done') {
+      setComponent(<DonePage />);
     }
   };
 

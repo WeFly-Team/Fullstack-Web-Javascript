@@ -1,37 +1,55 @@
-import { ChangeEvent, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import Button from '../../../components/Button';
 import FormInput from '../../../components/FormInput';
 import Heading from '../../../components/Heading';
-import { IPasswordInput } from '../types';
+import {
+  FrogotPassContext,
+  IPasswordInput,
+  forgotPasswordContextType,
+} from '../types';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 
 const SetNewPass = () => {
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-
-  const newPassword = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-    console.log(setPassword);
-  };
-
-  const confirmNewPassword = (e: ChangeEvent<HTMLInputElement>) => {
-    setConfirmPassword(e.target.value);
-    console.log(setConfirmPassword);
-  };
-
+  const { handleComponent } = useContext(
+    FrogotPassContext
+  ) as forgotPasswordContextType;
   // useForm
   const {
     handleSubmit,
     control,
+    watch,
+    setError,
+    clearErrors,
     formState: { errors },
   } = useForm<IPasswordInput>({
     defaultValues: {
       password: '',
+      confirmPassword: '',
     },
   });
 
+  useEffect(() => {
+    const subscription = watch((value, { name }) => {
+      if (name === 'password' || name === 'confirmPassword') {
+        if (value.password !== value.confirmPassword) {
+          if (!errors.confirmPassword) {
+            setError('confirmPassword', {
+              type: 'unmatch',
+              message: 'Password does not match',
+            });
+          }
+        } else if (value.password === value.confirmPassword) {
+          clearErrors(['confirmPassword']);
+        }
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
+
   const onSubmit: SubmitHandler<IPasswordInput> = (data) => {
     console.log(data);
+    handleComponent('done');
   };
 
   return (
@@ -68,40 +86,56 @@ const SetNewPass = () => {
               />
             )}
             rules={{
-              required: true,
-              pattern:
-                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/i,
+              required: {
+                value: true,
+                message: 'Password is required',
+              },
+              pattern: {
+                value:
+                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/i,
+                message:
+                  'Password require minimum eight characters, at least one letter,one number, and one special characters',
+              },
             }}
           />
-          {errors.password?.type === 'required' && (
+          {errors.password && (
             <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold w-[300px]">
-              Password is required
+              {errors.password.message}
             </p>
           )}
-          {errors.password?.type === 'pattern' && (
-            <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold w-[300px]">
-              Password require minimum eight characters, at least one letter,
-              one number, and one special characters
-            </p>
-          )}
-          <FormInput
-            children="Password"
-            type="password"
-            label="Confirm password"
-            name="password"
-            value={confirmPassword}
-            onChange={confirmNewPassword}
-            placeholder="Comfirm your new password"
+          <Controller
+            name="confirmPassword"
+            control={control}
+            render={({ field: { value, name, onChange } }) => (
+              <FormInput
+                children="Confirm Password"
+                type="password"
+                label="Confirm password"
+                name={name}
+                value={value}
+                onChange={onChange}
+                placeholder="Comfirm your new password"
+                className={
+                  errors.confirmPassword &&
+                  'border-secondary-danger focus:border-secondary-danger '
+                }
+              />
+            )}
           />
+          {errors.confirmPassword && (
+            <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold  w-[300px]">
+              {errors.confirmPassword.message}
+            </p>
+          )}
           <Button
             children="Reset Password"
             variant="primary"
             size="md"
             onClick={handleSubmit(onSubmit)}
           />
-          <a href="/login" className="text-center text-black-500 text-sm mt-5">
+          <Link to="/login" className="text-center text-black-500 text-sm mt-5">
             ← Back to Login
-          </a>
+          </Link>
         </div>
         <div className="md:w-3/5 h-screen relative bg-gradient-to-l from-transparent to-white sm:block hidden">
           <img

@@ -5,6 +5,7 @@ export interface IFormInput {
 }
 export interface IPasswordInput {
   password: string;
+  confirmPassword: string;
 }
 
 export interface forgotPasswordContextType {
