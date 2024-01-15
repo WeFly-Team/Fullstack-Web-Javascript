@@ -10,8 +10,10 @@ export interface IPasswordInput {
 
 export interface forgotPasswordContextType {
   handleEmail: (email: string) => void;
+  handleOtpCode: (otp: string) => void;
   handleComponent: (comp: string) => void;
   email: string;
+  otpCode: string;
 }
 
 export const FrogotPassContext =
