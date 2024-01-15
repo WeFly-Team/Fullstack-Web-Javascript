@@ -51,6 +51,9 @@ const Register = () => {
       const result = await axiosInstance.post('/user-register/register-user', {
         ...data,
         fullName: data.fullname,
+        day: data.day.value,
+        month: data.month.value,
+        year: data.year.value,
       });
       if (result.data.code == 200) {
         setSuccessMessage(result.data.data);
@@ -102,6 +105,7 @@ const Register = () => {
       if (name === 'month' || name === 'year') {
         if (value.year?.value && value.month?.value) {
           getAllDatesInMonth(value.year?.value, value.month?.value);
+          setValue('day', { label: '1', value: '1' });
         }
       }
     });
@@ -247,14 +251,14 @@ const Register = () => {
                   <Controller
                     name="day"
                     control={control}
-                    render={({ field: { name, onChange } }) => (
+                    render={({ field: { name, onChange, value } }) => (
                       <Select
                         name={name}
-                        value={datesOption[0]}
                         id="day"
                         styles={{
                           indicatorSeparator: () => ({ display: 'none' }),
                         }}
+                        value={value}
                         options={datesOption}
                         onChange={onChange}
                         classNames={{
