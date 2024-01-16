@@ -53,16 +53,15 @@ const SetNewPass = () => {
 
   const onSubmit: SubmitHandler<IPasswordInput> = async (data) => {
     try {
-      const result = await axiosInstance.post(
+      const result = await axiosInstance.put(
         '/forget-password/change-password',
         {
+          email: email,
           newPassword: data.password,
           confirmPassword: data.confirmPassword,
-          email: email,
           otp: otpCode,
         }
       );
-
       if (result.data.code == 200) {
         handleComponent('done');
       } else if (result.data.code == 400) {
@@ -72,6 +71,8 @@ const SetNewPass = () => {
       if (err instanceof AxiosError) {
         if (err.response?.data && err.response?.data.code == 400) {
           setErrorMessage(err.response.data.error);
+        } else if (err.response?.data && err.response?.data.code == 200) {
+          handleComponent('done');
         } else setErrorMessage(err.message);
       } else if (err instanceof Error) {
         setErrorMessage(err.message);
