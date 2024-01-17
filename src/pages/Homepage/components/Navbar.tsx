@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { AlignJustify, X } from 'react-feather';
+import { AlignJustify, User, X } from 'react-feather';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
@@ -7,8 +7,8 @@ const Navbar = () => {
 
   return (
     <nav className="">
-      <div className="p-4">
-        <div className="flex justify-between items-center bg-red-500">
+      <div className="lg:container mx-auto p-4">
+        <div className="flex justify-between items-center">
           <img
             src="https://i.ibb.co/pxQ7DPC/logo-We-Fly.png"
             alt="logo"
@@ -18,20 +18,46 @@ const Navbar = () => {
             className="text-gray-500 cursor-pointer order-2 sm:order-1 lg:hidden"
             onClick={() => setOpen(true)}
           />
-          <div className="hidden sm:flex gap-2 items-center order-3">
-            <Link to="/login" className="text-white font-semibold">
+          <div className="hidden md:flex gap-2 items-center order-3">
+            <div className="hidden lg:flex items-center gap-3">
+              <img src="https://i.ibb.co/cD6nyQg/fb.png" alt="facebook" />
+              <img src="https://i.ibb.co/3sY3SBY/linkedin.png" alt="linkedin" />
+              <img src="https://i.ibb.co/p0yHtCF/twitter.png" alt="twitter" />
+            </div>
+            <span className="text-white text-opacity-50 mx-5 hidden lg:inline">
+              |
+            </span>
+            <Link to="/login" className="text-white font-semibold text-sm">
               Log In
             </Link>
             <Link
               to="/register"
-              className="text-white rounded-xl border-white border-2 py-2 px-2 outline-2 hover:bg-white hover:bg-opacity-20 transition"
+              className="text-white text-sm rounded-full border-white border-2 py-2 px-2 outline-2 hover:bg-white hover:bg-opacity-20 transition"
             >
               Sign Up
+            </Link>
+            <span className="text-white text-opacity-50 mx-5 hidden lg:inline">
+              |
+            </span>
+            <Link
+              to="/profile"
+              className="hidden lg:flex items-center text-white text-sm"
+            >
+              <User className="mr-2" />
+              Profile
             </Link>
           </div>
         </div>
       </div>
       <hr />
+      <div className="hidden lg:block w-full lg:container mx-auto">
+        <ul className="flex justify-end gap-7">
+          <li className="text-white font-semibold">Home</li>
+          <li className="text-white font-semibold">My Booking</li>
+          <li className="text-white font-semibold">About</li>
+          <li className="text-white font-semibold">Contact Us</li>
+        </ul>
+      </div>
       <div
         className={`fixed bottom-0 top-0 left-0 right-0 transition-all duration-500 lg:hidden ${
           !open
@@ -41,13 +67,12 @@ const Navbar = () => {
       >
         <div className="relative">
           <div className="absolute inset-0 bg-black bg-opacity-50">
-            <div className="py-4 pl-3 flex">
+            <div className="py-4 pl-3 flex border-b border-white border-opacity-50">
               <button className="cursor-pointer" onClick={() => setOpen(false)}>
                 <X className="text-white" />
               </button>
               <p className="text-white ml-3 font-semibold">Menu</p>
             </div>
-            <hr className="opacity-50" />
             <ul className="mt-4">
               <li className="text-white py-4 text-center hover:cursor-pointer transition hover:bg-white hover:bg-opacity-20">
                 Home
@@ -64,6 +89,19 @@ const Navbar = () => {
               <li className="text-white py-4 text-center hover:cursor-pointer transition hover:bg-white hover:bg-opacity-20">
                 Profile
               </li>
+              <li className="text-white py-4 text-center hover:cursor-pointer transition hover:bg-white hover:bg-opacity-20">
+                <div className="flex items-center justify-center gap-3">
+                  <img src="https://i.ibb.co/cD6nyQg/fb.png" alt="facebook" />
+                  <img
+                    src="https://i.ibb.co/3sY3SBY/linkedin.png"
+                    alt="linkedin"
+                  />
+                  <img
+                    src="https://i.ibb.co/p0yHtCF/twitter.png"
+                    alt="twitter"
+                  />
+                </div>
+              </li>
             </ul>
             <div className="absolute bottom-0 pb-8 flex justify-center gap-3 w-full items-center">
               <Link to="/login" className="text-white font-semibold">
@@ -71,7 +109,7 @@ const Navbar = () => {
               </Link>
               <Link
                 to="/register"
-                className="text-white rounded-xl border-white border-2 py-2 px-2 outline-2 hover:bg-white hover:bg-opacity-20 transition"
+                className="text-white rounded-full border-white border-2 py-2 px-2 outline-2 hover:bg-white hover:bg-opacity-20 transition"
               >
                 Sign Up
               </Link>
