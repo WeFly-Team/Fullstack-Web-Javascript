@@ -24,7 +24,7 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
             className="w-12 order-1 sm:order-2"
           />
           <AlignJustify
-            className="text-gray-500 cursor-pointer order-2 sm:order-1 lg:hidden"
+            className="text-white cursor-pointer order-2 sm:order-1 lg:hidden"
             onClick={() => setOpen(!open)}
           />
           <div className="hidden md:flex gap-2 items-center order-3">
@@ -71,7 +71,7 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
         </div>
       </div>
       <hr />
-      <div className="hidden lg:block w-full lg:container mx-auto">
+      <div className="hidden lg:block w-full lg:container mx-auto pt-2">
         <ul className="flex justify-end gap-7">
           <li className="text-white font-semibold">Home</li>
           <li className="text-white font-semibold">My Booking</li>
