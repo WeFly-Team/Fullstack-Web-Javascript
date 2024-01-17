@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import Button from '../../../components/Button';
 import Heading from '../../../components/Heading';
-import { FrogotPassContext, forgotPasswordContextType } from '../types';
+import { ForgotPassContext, forgotPasswordContextType } from '../types';
 import OTPInput from 'react-otp-input';
 import { Link } from 'react-router-dom';
 import axiosInstance from '../../../axios/axios';
@@ -12,7 +12,7 @@ const PageOTP = () => {
   const [errorMessage, setErrorMessage] = useState<string>('');
   // context
   const { email, handleComponent, handleOtpCode } = useContext(
-    FrogotPassContext
+    ForgotPassContext
   ) as forgotPasswordContextType;
   const [code, setCode] = useState<string>('');
   const [disable, setDisable] = useState<boolean>(true);

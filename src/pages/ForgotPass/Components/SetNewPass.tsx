@@ -3,7 +3,7 @@ import Button from '../../../components/Button';
 import FormInput from '../../../components/FormInput';
 import Heading from '../../../components/Heading';
 import {
-  FrogotPassContext,
+  ForgotPassContext,
   IPasswordInput,
   forgotPasswordContextType,
 } from '../types';
@@ -16,7 +16,7 @@ const SetNewPass = () => {
   const [errorMessage, setErrorMessage] = useState<string>('');
 
   const { handleComponent, otpCode, email } = useContext(
-    FrogotPassContext
+    ForgotPassContext
   ) as forgotPasswordContextType;
   // useForm
   const {

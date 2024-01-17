@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import SetEmail from './Components/SetEmail';
-import { FrogotPassContext } from './types';
+import { ForgotPassContext } from './types';
 import PageOTP from './Components/PageOTP';
 import SetNewPass from './Components/SetNewPass';
 import DonePage from './Components/DonePage';
@@ -29,7 +29,7 @@ const ForgotPass = () => {
   const [component, setComponent] = useState<React.JSX.Element>(<SetEmail />);
 
   return (
-    <FrogotPassContext.Provider
+    <ForgotPassContext.Provider
       value={{ email, otpCode, handleOtpCode, handleEmail, handleComponent }}
     >
       <>
@@ -43,7 +43,7 @@ const ForgotPass = () => {
           </div>
         </div>
       </>
-    </FrogotPassContext.Provider>
+    </ForgotPassContext.Provider>
   );
 };
 

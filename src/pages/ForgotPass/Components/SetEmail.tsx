@@ -4,7 +4,7 @@ import Heading from '../../../components/Heading';
 import Button from '../../../components/Button';
 import { useContext, useState } from 'react';
 import {
-  FrogotPassContext,
+  ForgotPassContext,
   IFormInput,
   forgotPasswordContextType,
 } from '../types';
@@ -14,7 +14,7 @@ import { AxiosError } from 'axios';
 
 const SetEmail = () => {
   const { handleEmail, handleComponent } = useContext(
-    FrogotPassContext
+    ForgotPassContext
   ) as forgotPasswordContextType;
   // useState
   const [errorMessage, setErrorMessage] = useState<string>('');

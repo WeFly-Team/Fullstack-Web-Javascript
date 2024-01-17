@@ -16,5 +16,5 @@ export interface forgotPasswordContextType {
   otpCode: string;
 }
 
-export const FrogotPassContext =
+export const ForgotPassContext =
   createContext<forgotPasswordContextType | null>(null);
