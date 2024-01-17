@@ -439,11 +439,11 @@ const Register = () => {
               Sign In
             </Link>
           </label>
-          <label className="mt-4 p-5 text-center">
-            By registering, you agree to our
-            <div className="underline">Terms & Conditions</div>
-            and that you have read our
-            <div className="underline">Privacy Notice.</div>
+          <label className="mt-5 text-center">
+            By registering, you agree to our {''}
+            <span className="underline">Terms & Conditions</span>
+            {''} and that you have read our {''}
+            <span className="underline">Privacy Notice.</span>
           </label>
         </div>
       </div>
