@@ -35,12 +35,12 @@ const Login = () => {
         const token = result.data.access_token;
         login(token);
       } else if (result.data.code == 400) {
-        setErrorMessage("User not found or password didn't match");
+        setErrorMessage(result.data.error);
         setValue('password', '');
       }
     } catch (err) {
       if (err instanceof AxiosError) {
-        if (err.response?.data && err.response?.data.code == 400) {
+        if (err.response?.data) {
           setErrorMessage(err.response.data.error);
         } else setErrorMessage(err.message);
       } else if (err instanceof Error) {
@@ -81,9 +81,7 @@ const Login = () => {
               className="bg-red-100 border border-red-400 text-red-700 pl-4 pr-8 sm:pr-4 py-3 rounded relative w-full mb-2"
               role="alert"
             >
-              <span className="block sm:inline">
-                User not found or password didn't match
-              </span>
+              <span className="block sm:inline">{errorMessage}</span>
               <span
                 className="absolute top-0 bottom-0 right-0 px-4 py-3"
                 onClick={() => setErrorMessage('')}

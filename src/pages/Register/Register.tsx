@@ -43,24 +43,29 @@ const Register = () => {
     setValue('password', '');
   };
 
+  const formatDate = (day: string, month: string, year: number): string => {
+    const date = new Date(`${month} ${day}, ${year}`);
+    const yyyy = date.getFullYear();
+    let mm: string = (date.getMonth() + 1).toString(); // Months start at 0!
+    let dd: string = date.getDate().toString();
+
+    if (Number(dd) < 10) dd = '0' + dd;
+    if (Number(mm) < 10) mm = '0' + mm;
+
+    const formattedDate = dd + '-' + mm + '-' + yyyy;
+    return formattedDate;
+  };
+
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     try {
-      const day = data.day.value;
-      let month = 0;
-      monthsOption.forEach((val, idx) => {
-        if (val.value === data.month.value) {
-          month = idx;
-          return;
-        }
-      });
-      const year = data.year.value;
-      const dateOfBirth = `${day}-${month}-${year}`;
+      const dateOfBirth = formatDate(
+        data.day.value,
+        data.month.value,
+        data.year.value
+      );
       const result = await axiosInstance.post('/user-register/register-user', {
         ...data,
         fullName: data.fullname,
-        day: data.day.value,
-        month: data.month.value,
-        year: data.year.value,
         dateOfBirth,
       });
       if (result.data.code == 200) {
@@ -77,7 +82,6 @@ const Register = () => {
       } else if (err instanceof Error) {
         setErrorMessage(err.message);
       }
-      resetValue();
     }
   };
 
