@@ -59,7 +59,9 @@ const Register = () => {
       }
     } catch (err) {
       if (err instanceof AxiosError) {
-        setErrorMessage(err.message);
+        if (err.response?.data && err.response?.data.code == 400) {
+          setErrorMessage(err.response.data.error);
+        } else setErrorMessage(err.message);
       } else if (err instanceof Error) {
         setErrorMessage(err.message);
       }
