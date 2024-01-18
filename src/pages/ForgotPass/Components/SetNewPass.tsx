@@ -139,10 +139,9 @@ const SetNewPass = () => {
             message: 'Password is required',
           },
           pattern: {
-            value:
-              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/i,
+            value: /^(?=.*[A-Z])(?=.*\d).{8,}$/i,
             message:
-              'Password require minimum eight characters, at least one letter,one number, and one special characters',
+              'Password require minimum eight characters, at least one uppercase and one number',
           },
         }}
       />

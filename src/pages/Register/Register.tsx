@@ -38,18 +38,30 @@ const Register = () => {
   const resetValue = () => {
     setValue('email', '');
     setValue('password', '');
+    setValue('fullname', '');
     setValue('phoneNumber', '');
     setValue('password', '');
   };
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     try {
+      const day = data.day.value;
+      let month = 0;
+      monthsOption.forEach((val, idx) => {
+        if (val.value === data.month.value) {
+          month = idx;
+          return;
+        }
+      });
+      const year = data.year.value;
+      const dateOfBirth = `${day}-${month}-${year}`;
       const result = await axiosInstance.post('/user-register/register-user', {
         ...data,
         fullName: data.fullname,
         day: data.day.value,
         month: data.month.value,
         year: data.year.value,
+        dateOfBirth,
       });
       if (result.data.code == 200) {
         setSuccessMessage(result.data.data);
@@ -399,8 +411,7 @@ const Register = () => {
               )}
               rules={{
                 required: true,
-                pattern:
-                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/i,
+                pattern: /^(?=.*[A-Z])(?=.*\d).{8,}$/i,
               }}
             />
             {errors.password?.type === 'required' && (
@@ -410,8 +421,8 @@ const Register = () => {
             )}
             {errors.password?.type === 'pattern' && (
               <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold">
-                Password require minimum eight characters, at least one letter
-                and one number
+                Password require minimum eight characters, at least one
+                uppercase and one number
               </p>
             )}
 
