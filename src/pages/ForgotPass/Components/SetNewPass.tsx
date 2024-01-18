@@ -139,7 +139,7 @@ const SetNewPass = () => {
             message: 'Password is required',
           },
           pattern: {
-            value: /^(?=.*[A-Z])(?=.*\d).{8,}$/i,
+            value: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$/i,
             message:
               'Password require minimum eight characters, at least one uppercase and one number',
           },
@@ -161,7 +161,7 @@ const SetNewPass = () => {
             name={name}
             value={value}
             onChange={onChange}
-            placeholder="Comfirm your new password"
+            placeholder="Confirm your new password"
             className={
               errors.confirmPassword &&
               'border-secondary-danger focus:border-secondary-danger '

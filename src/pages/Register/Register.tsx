@@ -415,7 +415,7 @@ const Register = () => {
               )}
               rules={{
                 required: true,
-                pattern: /^(?=.*[A-Z])(?=.*\d).{8,}$/i,
+                pattern: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$/i,
               }}
             />
             {errors.password?.type === 'required' && (
