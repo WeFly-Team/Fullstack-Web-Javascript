@@ -4,6 +4,7 @@ import Login from '../pages/Login/Login';
 import Register from '../pages/Register/Register';
 import ForgotPass from '../pages/ForgotPass/ForgotPass';
 import PrivateRoutes from '../utils/PrivateRoutes';
+import FlightList from '../pages/FlightList/FlightList';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: '/forgot-password',
     element: <ForgotPass />,
+  },
+  {
+    path: '/flight-list',
+    element: <FlightList />,
   },
   {
     element: <PrivateRoutes />,
