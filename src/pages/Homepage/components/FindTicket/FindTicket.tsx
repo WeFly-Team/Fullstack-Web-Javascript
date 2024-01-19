@@ -89,94 +89,98 @@ const FindTicket = () => {
                   <div className="relative w-full">
                     <div
                       className={`z-10 bg-white rounded-lg shadow absolute top-2 right-0 left-0 w-full  ${
-                        showInputPassenger ? 'opacity-100' : 'opacity-0'
-                      } transition-all duration-200 ease-in`}
+                        showInputPassenger
+                          ? 'max-h-[400px]'
+                          : 'max-h-0 overflow-hidden'
+                      } transition-all duration-300 ease-in`}
                     >
-                      <div className="text-gray-500 flex justify-between py-2 px-3 items-center">
-                        <h4 className="font-semibold text-lg">
-                          No. of Passengers
-                        </h4>
-                        <X
-                          className="cursor-pointer"
-                          onClick={() =>
-                            setShowInputPassenger(!showInputPassenger)
-                          }
-                        />
-                      </div>
-                      {/* adult */}
-                      <div className="pr-2 pb-2">
-                        <div className="flex items-center">
-                          <FaPerson
-                            size={25}
-                            className="w-1/6 text-primary-blue"
+                      <div>
+                        <div className="text-gray-500 flex justify-between py-2 px-3 items-center">
+                          <h4 className="font-semibold text-lg">
+                            No. of Passengers
+                          </h4>
+                          <X
+                            className="cursor-pointer"
+                            onClick={() =>
+                              setShowInputPassenger(!showInputPassenger)
+                            }
                           />
-                          <div className="w-2/6">
-                            <p className="font-semibold">Adult</p>
-                            <p className="text-xs text-slate-400">
-                              (age 12 and over)
-                            </p>
-                          </div>
-                          <div className="flex items-stretch w-1/2 justify-evenly">
-                            <button
-                              className="bg-blue-50 rounded px-4"
-                              onClick={minAdult}
-                            >
-                              <FaMinus className="text-primary-blue" />
-                            </button>
-                            <p className=" py-2 px-4 border-b-2 w-12">
-                              {adult}
-                            </p>
-                            <button
-                              className="bg-blue-50 rounded px-4"
-                              onClick={addAdult}
-                            >
-                              <FaPlus className="text-primary-blue" />
-                            </button>
+                        </div>
+                        {/* adult */}
+                        <div className="pr-2 pb-2">
+                          <div className="flex items-center">
+                            <FaPerson
+                              size={25}
+                              className="w-1/6 text-primary-blue"
+                            />
+                            <div className="w-2/6">
+                              <p className="font-semibold">Adult</p>
+                              <p className="text-xs text-slate-400">
+                                (age 12 and over)
+                              </p>
+                            </div>
+                            <div className="flex items-stretch w-1/2 justify-evenly">
+                              <button
+                                className="bg-blue-50 rounded px-4"
+                                onClick={minAdult}
+                              >
+                                <FaMinus className="text-primary-blue" />
+                              </button>
+                              <p className=" py-2 px-4 border-b-2 w-12">
+                                {adult}
+                              </p>
+                              <button
+                                className="bg-blue-50 rounded px-4"
+                                onClick={addAdult}
+                              >
+                                <FaPlus className="text-primary-blue" />
+                              </button>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      {/* child */}
-                      <div className="pr-2 pb-2 mt-2">
-                        <div className="flex items-center">
-                          <FaChild
-                            size={20}
-                            className="w-1/6 text-primary-blue"
-                          />
-                          <div className="w-2/6">
-                            <p className="font-semibold">Child</p>
-                            <p className="text-xs text-slate-400">
-                              (age 2 - 11)
-                            </p>
-                          </div>
-                          <div className="flex items-stretch w-1/2 justify-evenly">
-                            <button
-                              className="bg-blue-50 rounded px-4"
-                              onClick={minChild}
-                            >
-                              <FaMinus className="text-primary-blue" />
-                            </button>
-                            <p className=" py-2 px-4 border-b-2 w-12">
-                              {child}
-                            </p>
-                            <button
-                              className="bg-blue-50 rounded px-4"
-                              onClick={addChild}
-                            >
-                              <FaPlus className="text-primary-blue" />
-                            </button>
+                        {/* child */}
+                        <div className="pr-2 pb-2 mt-2">
+                          <div className="flex items-center">
+                            <FaChild
+                              size={20}
+                              className="w-1/6 text-primary-blue"
+                            />
+                            <div className="w-2/6">
+                              <p className="font-semibold">Child</p>
+                              <p className="text-xs text-slate-400">
+                                (age 2 - 11)
+                              </p>
+                            </div>
+                            <div className="flex items-stretch w-1/2 justify-evenly">
+                              <button
+                                className="bg-blue-50 rounded px-4"
+                                onClick={minChild}
+                              >
+                                <FaMinus className="text-primary-blue" />
+                              </button>
+                              <p className=" py-2 px-4 border-b-2 w-12">
+                                {child}
+                              </p>
+                              <button
+                                className="bg-blue-50 rounded px-4"
+                                onClick={addChild}
+                              >
+                                <FaPlus className="text-primary-blue" />
+                              </button>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      {/* button done */}
-                      <div className="text-center pb-2 mt-2">
-                        <Button
-                          className="mx-auto"
-                          onClick={() =>
-                            setShowInputPassenger(!showInputPassenger)
-                          }
-                        >
-                          Done
-                        </Button>
+                        {/* button done */}
+                        <div className="text-center pb-2 mt-2">
+                          <Button
+                            className="mx-auto"
+                            onClick={() =>
+                              setShowInputPassenger(!showInputPassenger)
+                            }
+                          >
+                            Done
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -213,7 +217,7 @@ const FindTicket = () => {
                     <MapPin className="text-white mr-2" />
                     <Select
                       className="w-full"
-                      placeholder="Where are you now?"
+                      placeholder="Where are your destination?"
                       styles={{
                         indicatorSeparator: () => ({ display: 'none' }),
                         indicatorsContainer: () => ({ display: 'none' }),
