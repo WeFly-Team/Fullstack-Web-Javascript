@@ -75,18 +75,18 @@ const FindTicket = () => {
               Book tickets and track flights with the WeFly website.
             </p>
 
-            <div className="mt-20 flex w-full md:w-3/4">
-              <div className="w-1/2">
+            <div className="mt-20 lg:flex w-full lg:w-3/4">
+              <div className="w-full lg:w-1/2">
                 <Button>One Way / Round Trip</Button>
                 <Button
                   variant="tertiary"
-                  className="bg-white text-black md:w-[200px] mt-3 md:mt-0 md:ml-3"
+                  className="bg-white text-black lg:w-[200px] mt-3 lg:mt-0 md:ml-3"
                 >
                   Multi City
                 </Button>
               </div>
-              <div className="w-1/2 flex gap-2">
-                <div className="w-3/5">
+              <div className="mt-3 lg:mt-0 w-full lg:w-1/2 md:flex gap-3">
+                <div className="w-[300px] lg:w-3/5">
                   <Button
                     className="bg-transparent border-white border text-sm px-5 py-2.5 text-center inline-flex items-center w-full"
                     onClick={() => setShowInputPassenger(!showInputPassenger)}
@@ -229,7 +229,7 @@ const FindTicket = () => {
                     </div>
                   </div>
                 </div>
-                <div className="w-2/5">
+                <div className="w-[300px] mt-3 md:mt-0 lg:w-2/5">
                   <Select
                     className="react-select-container"
                     classNamePrefix="react-select"
@@ -238,7 +238,6 @@ const FindTicket = () => {
                     options={classOptions}
                     styles={{
                       dropdownIndicator: (base) => {
-                        console.log(base);
                         return {
                           ...base,
                           color: 'white',
