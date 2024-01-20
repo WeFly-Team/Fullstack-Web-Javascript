@@ -6,6 +6,7 @@ const VoucherCard = ({
   vouchercode,
   voucherdescription,
   voucherimageurl,
+  className,
 }: VoucherProps) => {
   const [showPopUp, setShowPopUp] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
@@ -28,7 +29,9 @@ const VoucherCard = ({
       });
   };
   return (
-    <div className="relative top-32 ml-7 w-[363px] overflow-x-hidden h-[190px]">
+    <div
+      className={`relative top-36 ml-7 w-[363px] overflow-x-hidden h-[190px] ${className}`}
+    >
       <div className="flex flex-row gap-[13px] w-screen relative ">
         <div className="voucher-card ml-1 grid gap-5 w-[302px] h-[186px] rounded-[20px] shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] border-[20px] border-transparent">
           <div className="voucher-body flex gap-3">
@@ -62,7 +65,7 @@ const VoucherCard = ({
           <svg
             data-slot="icon"
             fill="none"
-            stroke-width="1.5"
+            strokeWidth="1.5"
             stroke="currentColor"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -70,8 +73,8 @@ const VoucherCard = ({
             className="h-5 w-5 text-white"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               d="m8.25 4.5 7.5 7.5-7.5 7.5"
             ></path>
           </svg>
