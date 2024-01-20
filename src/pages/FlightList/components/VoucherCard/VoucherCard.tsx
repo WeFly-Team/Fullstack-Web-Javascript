@@ -83,7 +83,7 @@ const VoucherCard = ({
       {showPopUp && (
         <div
           id="voucher-popup"
-          className="voucher-popup fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+          className="voucher-popup z-10 fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
           onClick={handleShowPopUp}
         >
           <div className="bg-white p-2 rounded-[4px] w-[902px] max-w-[902px] h-[600px] min-h-[200px] my-6">
