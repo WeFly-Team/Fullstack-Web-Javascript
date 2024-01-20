@@ -7,12 +7,13 @@ import DatePicker from 'react-datepicker';
 import { CustomInputProps } from './types';
 import {
   FaAngleDown,
+  FaBaby,
   FaChild,
   FaMinus,
   FaPerson,
   FaPlus,
 } from 'react-icons/fa6';
-
+import { classOptions } from './data';
 const FindTicket = () => {
   // state
   const [departureDate, setDepartureDate] = useState<Date | null>(new Date());
@@ -20,6 +21,8 @@ const FindTicket = () => {
   const [showInputPassenger, setShowInputPassenger] = useState<boolean>(false);
   const [adult, setAdult] = useState<number>(1);
   const [child, setChild] = useState<number>(0);
+  const [infant, setInfant] = useState<number>(0);
+  const [classPassenger, setClassPassenger] = useState<string>('Economy');
 
   const addAdult = () => {
     setAdult(adult + 1);
@@ -35,6 +38,14 @@ const FindTicket = () => {
   const minChild = () => {
     if (child > 0) {
       setChild(child - 1);
+    }
+  };
+  const addInfant = () => {
+    setInfant(infant + 1);
+  };
+  const minInfant = () => {
+    if (infant > 0) {
+      setInfant(infant - 1);
     }
   };
   // forwardRef
@@ -73,13 +84,13 @@ const FindTicket = () => {
                   Multi City
                 </Button>
               </div>
-              <div className="w-1/2 ">
+              <div className="w-1/2 flex gap-2">
                 <div className="w-3/5">
                   <Button
                     className="bg-transparent border-white border text-sm px-5 py-2.5 text-center inline-flex items-center w-full"
                     onClick={() => setShowInputPassenger(!showInputPassenger)}
                   >
-                    {adult} Adult, {child} Child &nbsp;{' '}
+                    {adult} Adult, {child} Child, {infant} Infant &nbsp;{' '}
                     <FaAngleDown
                       className={`ml-auto transition-transform ${
                         showInputPassenger ? 'rotate-180' : ''
@@ -92,7 +103,7 @@ const FindTicket = () => {
                         showInputPassenger
                           ? 'max-h-[400px]'
                           : 'max-h-0 overflow-hidden'
-                      } transition-all duration-300 ease-in`}
+                      }`}
                     >
                       <div>
                         <div className="text-gray-500 flex justify-between py-2 px-3 items-center">
@@ -170,6 +181,38 @@ const FindTicket = () => {
                             </div>
                           </div>
                         </div>
+                        {/* infant */}
+                        <div className="pr-2 pb-2 mt-2">
+                          <div className="flex items-center">
+                            <FaBaby
+                              size={20}
+                              className="w-1/6 text-primary-blue"
+                            />
+                            <div className="w-2/6">
+                              <p className="font-semibold">Infant</p>
+                              <p className="text-xs text-slate-400">
+                                (age under 2)
+                              </p>
+                            </div>
+                            <div className="flex items-stretch w-1/2 justify-evenly">
+                              <button
+                                className="bg-blue-50 rounded px-4"
+                                onClick={minInfant}
+                              >
+                                <FaMinus className="text-primary-blue" />
+                              </button>
+                              <p className=" py-2 px-4 border-b-2 w-12">
+                                {infant}
+                              </p>
+                              <button
+                                className="bg-blue-50 rounded px-4"
+                                onClick={addInfant}
+                              >
+                                <FaPlus className="text-primary-blue" />
+                              </button>
+                            </div>
+                          </div>
+                        </div>
                         {/* button done */}
                         <div className="text-center pb-2 mt-2">
                           <Button
@@ -184,6 +227,32 @@ const FindTicket = () => {
                       </div>
                     </div>
                   </div>
+                </div>
+                <div className="w-2/5">
+                  <Select
+                    className="react-select-container"
+                    classNamePrefix="react-select"
+                    defaultValue={classOptions[0]}
+                    onChange={(choice) => setClassPassenger(choice!.value)}
+                    options={classOptions}
+                    styles={{
+                      dropdownIndicator: (base) => {
+                        console.log(base);
+                        return {
+                          ...base,
+                          color: 'white',
+                        };
+                      },
+                      singleValue: (base) => ({ ...base, color: 'white' }),
+                      indicatorSeparator: () => ({ display: 'none' }),
+                    }}
+                    classNames={{
+                      control: (state) =>
+                        state.isFocused
+                          ? '!bg-transparent !shadow !border !border-white !rounded-xl py-1'
+                          : '!bg-transparent !shadow !border !border-white !rounded-xl py-1',
+                    }}
+                  />
                 </div>
               </div>
             </div>
