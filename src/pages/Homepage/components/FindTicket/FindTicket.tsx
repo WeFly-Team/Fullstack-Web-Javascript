@@ -23,6 +23,7 @@ const FindTicket = () => {
   const [child, setChild] = useState<number>(0);
   const [infant, setInfant] = useState<number>(0);
   const [classPassenger, setClassPassenger] = useState<string>('Economy');
+  console.log(classPassenger);
 
   const addAdult = () => {
     setAdult(adult + 1);
