@@ -1,7 +1,8 @@
+import { CSSProperties } from 'react';
 import Button from '../../../../components/Button';
 
 const HeroSection = () => {
-  const style: React.CSSProperties = {
+  const style: CSSProperties = {
     backgroundImage: 'url(https://i.ibb.co/NL7CL8M/image-13.png)',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
