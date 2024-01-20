@@ -8,11 +8,24 @@ const VoucherCard = ({
   voucherimageurl,
 }: VoucherProps) => {
   const [showPopUp, setShowPopUp] = useState(false);
-
+  const [isCopied, setIsCopied] = useState(false);
   const handleShowPopUp = async (e: any) => {
     if (e.target.id === 'voucher-popup') {
       setShowPopUp(false);
     }
+  };
+  const handleCopyToClipboard = () => {
+    navigator.clipboard
+      .writeText(vouchercode)
+      .then(() => {
+        setIsCopied(true);
+        setTimeout(() => {
+          setIsCopied(false);
+        }, 3000);
+      })
+      .catch((error) => {
+        console.error('Error copying to clipboard:', error);
+      });
   };
   return (
     <div className="relative top-32 ml-7 w-[363px] overflow-x-hidden h-[190px]">
@@ -32,8 +45,12 @@ const VoucherCard = ({
 
           <div className="flex voucher-code h-12 rounded-[10px] border-dashed border-black border-[1px] bg-gray-100 items-center px-[15px] justify-between">
             <p className="text-sm font-semibold">{vouchercode}</p>
-            <a href="#" className="text-blue-700">
-              Copy
+            <a
+              href="#"
+              className="text-blue-700"
+              onClick={handleCopyToClipboard}
+            >
+              {isCopied ? 'Copied!' : 'Copy'}
             </a>
           </div>
         </div>
