@@ -120,8 +120,12 @@ const VoucherCard = ({
                 </div>
                 <div className="flex voucher-code h-12 rounded-[10px] border-dashed border-black border-[1px] bg-gray-100 items-center px-[15px] justify-between">
                   <p className="text-sm font-semibold">{vouchercode}</p>
-                  <a href="#" className="text-blue-700">
-                    Copy
+                  <a
+                    href="#"
+                    className="text-blue-700"
+                    onClick={handleCopyToClipboard}
+                  >
+                    {isCopied ? 'Copied!' : 'Copy'}
                   </a>
                 </div>
               </div>
