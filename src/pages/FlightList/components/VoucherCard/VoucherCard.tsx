@@ -19,26 +19,19 @@ const VoucherCard = ({
       <div className="flex flex-row gap-[13px] w-screen relative ">
         <div className="voucher-card ml-1 grid gap-5 w-[302px] h-[186px] rounded-[20px] shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] border-[20px] border-transparent">
           <div className="voucher-body flex gap-3">
-            <img
-              src={
-                voucherimageurl ||
-                'https://i.ibb.co/xgP9hXt/1705387995965-06335942abf22232a4caa74eb239ad59.jpg'
-              }
-              className="w-16 h-16"
-            />
+            <img src={voucherimageurl} className="w-16 h-16" />
             <div className="voucher-desc grid">
               <p className="text-sm font-semibold text-ellipsis text-left">
-                {vouchertitle} ini voucher asik
+                {vouchertitle}
               </p>
               <p className="text-sm font-light text-ellipsis text-left">
-                {voucherdescription} voucher ini dapat di tukarkan ke toko
-                terdekat
+                {voucherdescription}
               </p>
             </div>
           </div>
 
           <div className="flex voucher-code h-12 rounded-[10px] border-dashed border-black border-[1px] bg-gray-100 items-center px-[15px] justify-between">
-            <p className="text-sm font-semibold">{vouchercode}asik2000</p>
+            <p className="text-sm font-semibold">{vouchercode}</p>
             <a href="#" className="text-blue-700">
               Copy
             </a>
@@ -98,25 +91,18 @@ const VoucherCard = ({
             <div className="content grid grid-cols-3 gap-3">
               <div className="voucher-card grid gap-2 h-[186px] rounded-[20px] shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] border-[20px] border-transparent">
                 <div className="voucher-body flex gap-3">
-                  <img
-                    src={
-                      voucherimageurl ||
-                      'https://i.ibb.co/xgP9hXt/1705387995965-06335942abf22232a4caa74eb239ad59.jpg'
-                    }
-                    className="w-16 h-16"
-                  />
+                  <img src={voucherimageurl} className="w-16 h-16" />
                   <div className="voucher-desc grid">
                     <p className="text-sm font-semibold text-warp">
-                      {vouchertitle} ini voucher asik
+                      {vouchertitle}
                     </p>
                     <p className="text-sm font-normal text-warp">
-                      {voucherdescription} voucher ini dapat di tukarkan ke toko
-                      terdekat
+                      {voucherdescription}
                     </p>
                   </div>
                 </div>
                 <div className="flex voucher-code h-12 rounded-[10px] border-dashed border-black border-[1px] bg-gray-100 items-center px-[15px] justify-between">
-                  <p className="text-sm font-semibold">{vouchercode}asik2000</p>
+                  <p className="text-sm font-semibold">{vouchercode}</p>
                   <a href="#" className="text-blue-700">
                     Copy
                   </a>
