@@ -15,7 +15,8 @@ const VoucherCard = ({
       setShowPopUp(false);
     }
   };
-  const handleCopyToClipboard = () => {
+  const handleCopyToClipboard = (e: any) => {
+    e.preventDefault();
     navigator.clipboard
       .writeText(vouchercode)
       .then(() => {
@@ -49,7 +50,7 @@ const VoucherCard = ({
           <div className="flex voucher-code h-12 rounded-[10px] border-dashed border-black border-[1px] bg-gray-100 items-center px-[15px] justify-between">
             <p className="text-sm font-semibold">{vouchercode}</p>
             <a
-              href="#"
+              href=" "
               className="text-blue-700"
               onClick={handleCopyToClipboard}
             >
@@ -124,7 +125,7 @@ const VoucherCard = ({
                 <div className="flex voucher-code h-12 rounded-[10px] border-dashed border-black border-[1px] bg-gray-100 items-center px-[15px] justify-between">
                   <p className="text-sm font-semibold">{vouchercode}</p>
                   <a
-                    href="#"
+                    href=" "
                     className="text-blue-700"
                     onClick={handleCopyToClipboard}
                   >
