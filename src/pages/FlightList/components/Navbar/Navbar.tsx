@@ -18,13 +18,13 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
     <nav {...props}>
       <div className="lg:container mx-auto p-4">
         <div className="flex justify-between items-center">
-          <img
-            src="https://i.ibb.co/pxQ7DPC/logo-We-Fly.png"
-            alt="logo"
-            className="w-12 order-1 sm:order-2"
-          />
-          <div className="text-primary-darkBlue order-2 sm:order-3 mr-auto ml-3">
-            <h1>WeFly</h1>
+          <div className="flex order-1 sm:order-2 items-center ml-3">
+            <img
+              src="https://i.ibb.co/pxQ7DPC/logo-We-Fly.png"
+              alt="logo"
+              className="w-12 "
+            />
+            <h1 className="hidden md:block text-primary-darkBlue">WeFly</h1>
           </div>
           <AlignJustify
             className="cursor-pointer order-2 sm:order-1 lg:hidden text-primary-darkBlue"
@@ -87,8 +87,8 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
         {/* */}
       </div>
       <hr />
-      <div className="hidden lg:block w-full lg:container mx-auto pt-4 bg-neutral-03 p-4 shadow-md">
-        <ul className="flex justify-end gap-7">
+      <div className="hidden lg:block w-full  pt-4 bg-neutral-03 p-4 shadow-md">
+        <ul className="flex justify-end gap-7 lg:container mx-auto px-4">
           <li className="text-primary-darkBlue font-semibold">Home</li>
           <li className="text-primary-darkBlue font-semibold">My Booking</li>
           <li className="text-primary-darkBlue font-semibold">About</li>
@@ -104,29 +104,29 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
       >
         <div className="relative">
           <div className="absolute inset-0 bg-black bg-opacity-50">
-            <div className="py-4 pl-3 flex border-b border-primary-darkBlue border-opacity-50">
+            <div className="py-4 pl-3 flex border-b border-white border-opacity-50">
               <button className="cursor-pointer" onClick={() => setOpen(!open)}>
-                <X className="text-primary-darkBlue" />
+                <X className="text-white" />
               </button>
-              <p className="text-primary-darkBlue ml-3 font-semibold">Menu</p>
+              <p className="text-white ml-3 font-semibold">Menu</p>
             </div>
             <ul className="mt-4">
-              <li className="text-primary-darkBlue py-4 text-center hover:cursor-pointer transition hover:bg-primary-darkBlue hover:bg-opacity-20">
+              <li className="text-white py-4 text-center hover:cursor-pointer transition hover:bg-white hover:bg-opacity-20">
                 Home
               </li>
-              <li className="text-primary-darkBlue py-4 text-center hover:cursor-pointer transition hover:bg-primary-darkBlue hover:bg-opacity-20">
+              <li className="text-white py-4 text-center hover:cursor-pointer transition hover:bg-white hover:bg-opacity-20">
                 My Booking
               </li>
-              <li className="text-primary-darkBlue py-4 text-center hover:cursor-pointer transition hover:bg-primary-darkBlue hover:bg-opacity-20">
+              <li className="text-white py-4 text-center hover:cursor-pointer transition hover:bg-white hover:bg-opacity-20">
                 About
               </li>
-              <li className="text-primary-darkBlue py-4 text-center hover:cursor-pointer transition hover:bg-primary-darkBlue hover:bg-opacity-20">
+              <li className="text-white py-4 text-center hover:cursor-pointer transition hover:bg-white hover:bg-opacity-20">
                 Contact Us
               </li>
-              <li className="text-primary-darkBlue py-4 text-center hover:cursor-pointer transition hover:bg-primary-darkBlue hover:bg-opacity-20">
+              <li className="text-white py-4 text-center hover:cursor-pointer transition hover:bg-white hover:bg-opacity-20">
                 Profile
               </li>
-              <li className="text-primary-darkBlue py-4 text-center hover:cursor-pointer transition hover:bg-primary-darkBlue hover:bg-opacity-20">
+              <li className="text-white py-4 text-center hover:cursor-pointer transition hover:bg-white hover:bg-opacity-20">
                 <div className="flex items-center justify-center gap-3">
                   <img src="https://i.ibb.co/cD6nyQg/fb.png" alt="facebook" />
                   <img
@@ -142,17 +142,14 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
             </ul>
             <div className="absolute bottom-0 pb-8 flex justify-center gap-3 w-full items-center">
               {!user && (
-                <Link
-                  to="/login"
-                  className="text-primary-darkBlue font-semibold"
-                >
+                <Link to="/login" className="text-white font-semibold">
                   Log In
                 </Link>
               )}
               {!user && (
                 <Link
                   to="/register"
-                  className="text-primary-darkBlue rounded-full border-primary-darkBlue border-2 py-1 px-2 outline-2 hover:bg-primary-darkBlue hover:bg-opacity-20 transition"
+                  className="text-white rounded-full border-white border-2 py-1 px-2 outline-2 hover:bg-white hover:bg-opacity-20 transition"
                 >
                   Sign Up
                 </Link>
@@ -160,7 +157,7 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
               {user && (
                 <button
                   onClick={handleLogout}
-                  className="text-primary-darkBlue rounded-full border-primary-darkBlue border-2 py-1 px-2 outline-2 hover:bg-primary-darkBlue hover:bg-opacity-20 transition"
+                  className="text-white rounded-full border-white border-2 py-1 px-2 outline-2 hover:bg-white hover:bg-opacity-20 transition"
                 >
                   Log Out
                 </button>
