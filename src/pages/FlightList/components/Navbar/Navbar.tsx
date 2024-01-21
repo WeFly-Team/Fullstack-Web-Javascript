@@ -32,9 +32,18 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
           />
           <div className="hidden md:flex gap-2 items-center order-3">
             <div className="hidden lg:flex items-center gap-3 primary">
-              <img src="https://i.ibb.co/cD6nyQg/fb.png" alt="facebook" />
-              <img src="https://i.ibb.co/3sY3SBY/linkedin.png" alt="linkedin" />
-              <img src="https://i.ibb.co/p0yHtCF/twitter.png" alt="twitter" />
+              <img
+                src="https://i.ibb.co/gWFLCyG/blue-facebook.png"
+                alt="facebook"
+              />
+              <img
+                src="https://i.ibb.co/qd3DHmf/blue-linkedin.png"
+                alt="linkedin"
+              />
+              <img
+                src="https://i.ibb.co/rGR64GZ/blue-twitter.png"
+                alt="twitter"
+              />
             </div>
             <span className="text-opacity-50 mx-5 hidden lg:inline text-primary-darkBlue">
               |
