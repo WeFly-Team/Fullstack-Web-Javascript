@@ -1,16 +1,9 @@
-<<<<<<< Updated upstream
 import { FaCalendar } from 'react-icons/fa6';
 
 const Detail = () => {
   return (
     <div className="bg-primary-blue rounded-lg p-8 shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]">
       <div className="rounded-lg bg-white p-8 w-3/5 mb-4">
-=======
-const Detail = () => {
-  return (
-    <div className="bg-primary-blue rounded-lg p-8">
-      <div className="rounded-lg bg-white p-8 w-3/5">
->>>>>>> Stashed changes
         <p>Jakarta (JKTA) - Bali (DPS)</p>
         <div className="flex mt-5 justify-between">
           <p>Sun, 14 Jan 2024</p>
@@ -18,7 +11,6 @@ const Detail = () => {
           <p>Economy</p>
         </div>
       </div>
-<<<<<<< Updated upstream
       <div className="rounded-lg bg-white p-8 flex gap-3">
         <div className="bg-primary-blue py-3 rounded-lg basis-[30%]">
           <p className="text-center text-white">Sun, 14 Jan</p>
@@ -36,8 +28,6 @@ const Detail = () => {
           <FaCalendar className="text-primary-blue" size={50} />
         </div>
       </div>
-=======
->>>>>>> Stashed changes
     </div>
   );
 };

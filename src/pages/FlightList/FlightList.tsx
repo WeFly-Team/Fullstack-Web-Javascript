@@ -7,7 +7,6 @@ import VoucherCard from './components/VoucherCard/VoucherCard';
 const FlightList = () => {
   return (
     <>
-<<<<<<< Updated upstream
       <Navbar className="fixed top-0 right-0 left-0 z-10 bg-white" />
       <div className="px-8 lg:px-0 lg:container mx-auto ">
         <div className="pt-48 flex">
@@ -20,12 +19,6 @@ const FlightList = () => {
               vouchercode="asik2000"
             />
           </div>
-=======
-      <Navbar className="fixed top-0 right-0 left-0 z-10" />
-      <div className="container mx-auto ">
-        <div className="pt-48 flex">
-          <div className="w-1/4"></div>
->>>>>>> Stashed changes
           <div className="w-3/4">
             <Detail />
           </div>
@@ -34,16 +27,11 @@ const FlightList = () => {
           {/* filter */}
           <div className="w-1/4"></div>
           {/* card ticket */}
-<<<<<<< Updated upstream
           <div className="w-3/4 mt-4">
             <PriceFilter />
             <CardTicket className="mt-4" />
             <CardTicket className="mt-4" />
             <CardTicket className="mt-4" />
-=======
-          <div className="w-3/4">
-            <CardTicket />
->>>>>>> Stashed changes
           </div>
         </div>
       </div>
