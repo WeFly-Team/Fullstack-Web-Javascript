@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import { HTMLAttributes } from 'react';
 import Button from '../../../../components/Button';
 
@@ -12,6 +13,16 @@ const CardTicket = ({ className }: HTMLAttributes<HTMLDivElement>) => {
           <div className="mb-3 flex items-center">
             <img src="https://i.ibb.co/bHGk6bM/garuda.png" alt="garuda" />
             <label className="ml-3">Garuda Indonesia</label>
+=======
+const CardTicket = () => {
+  return (
+    <div className="rounded-lg p-6">
+      <div className="flex">
+        <div>
+          <div className="mb-3">
+            <img src="https://i.ibb.co/bHGk6bM/garuda.png" alt="garuda" />
+            <label>Garuda Indonesia</label>
+>>>>>>> Stashed changes
           </div>
           <div className="border rounded-full px-4 py-2 inline">20</div>
         </div>
@@ -38,6 +49,7 @@ const CardTicket = ({ className }: HTMLAttributes<HTMLDivElement>) => {
             <p className="text-gray-300 text-center">DPS</p>
           </div>
         </div>
+<<<<<<< Updated upstream
         <div>
           <p className="text-secondary-warning font-bold">
             Rp1.150.000
@@ -69,6 +81,8 @@ const CardTicket = ({ className }: HTMLAttributes<HTMLDivElement>) => {
           <p>Promos</p>
         </div>
         <Button className="w-auto px-8 rounded-full">Choose</Button>
+=======
+>>>>>>> Stashed changes
       </div>
     </div>
   );

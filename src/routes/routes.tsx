@@ -5,6 +5,7 @@ import Register from '../pages/Register/Register';
 import ForgotPass from '../pages/ForgotPass/ForgotPass';
 import PrivateRoutes from '../utils/PrivateRoutes';
 import FlightList from '../pages/FlightList/FlightList';
+import OrderDetails from '../pages/OrderDetails/OrderDetails';
 
 const router = createBrowserRouter([
   {
@@ -30,10 +31,10 @@ const router = createBrowserRouter([
   {
     element: <PrivateRoutes />,
     children: [
-      // {
-      //   path:'/exampleProtectedRoute',
-      //   element:<ProtectedPage/>
-      // }
+      {
+        path: '/orderDetails',
+        element: <OrderDetails />,
+      },
     ],
   },
 ]);
