@@ -31,17 +31,17 @@ const VoucherCard = ({
   };
   return (
     <div
-      className={`relative top-36 ml-7 w-[363px] overflow-x-hidden h-[190px] ${className}`}
+      className={`relative lg:top-40 md:top-[173px]  max-w-full lg:mr-3 md:mr-2 overflow-x-hidden h-[190px] ${className}`}
     >
-      <div className="flex flex-row gap-[13px] w-screen relative ">
-        <div className="voucher-card ml-1 grid gap-5 w-[302px] h-[186px] rounded-[20px] shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] border-[20px] border-transparent">
+      <div className="flex flex-row lg:gap-[13px] md:gap-2 w-screen relative ">
+        <div className="voucher-card ml-1 grid gap-5 lg:w-[288px] lg:h-[186px] md:max-w-[266px] md:h-[174px] rounded-[20px] shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] border-[20px] border-transparent">
           <div className="voucher-body flex gap-3">
             <img src={voucherimageurl} className="w-16 h-16" />
             <div className="voucher-desc grid">
-              <p className="text-sm font-semibold text-ellipsis text-left">
+              <p className="text-sm font-semibold text-left overflow-hidden line-clamp-2 ">
                 {vouchertitle}
               </p>
-              <p className="text-sm font-light text-ellipsis text-left">
+              <p className="text-sm font-light text-left lg:line-clamp-3 md:line-clamp-2 ">
                 {voucherdescription}
               </p>
             </div>
@@ -60,7 +60,7 @@ const VoucherCard = ({
         </div>
 
         <button
-          className="flex w-8 h-8 rounded-full bg-blue-700 absolute left-[24%] top-[45%] justify-center items-center"
+          className="flex w-8 h-8 rounded-full bg-blue-700 absolute md:left-[20%]  lg:left-[21%] top-[45%] justify-center items-center"
           onClick={() => setShowPopUp(true)}
         >
           <svg
