@@ -6,6 +6,8 @@ import ForgotPass from '../pages/ForgotPass/ForgotPass';
 import PrivateRoutes from '../utils/PrivateRoutes';
 import FlightList from '../pages/FlightList/FlightList';
 import OrderDetails from '../pages/OrderDetails/OrderDetails';
+import MyBooking from '../pages/MyBooking/MyBooking';
+import ProfileLayout from '../pages/ProfileLayout/ProfileLayout';
 
 const router = createBrowserRouter([
   {
@@ -32,8 +34,34 @@ const router = createBrowserRouter([
     element: <PrivateRoutes />,
     children: [
       {
-        path: '/orderDetails',
+        path: '/order-details',
         element: <OrderDetails />,
+      },
+      {
+        path: '/user',
+        element: <ProfileLayout />,
+        children: [
+          {
+            path: '/user/my-booking',
+            element: <MyBooking />,
+          },
+          {
+            path: '/user/my-account',
+            element: <p>Account</p>,
+          },
+          {
+            path: '/user/promos',
+            element: <p>Promo</p>,
+          },
+          {
+            path: '/user/history',
+            element: <p>History</p>,
+          },
+          {
+            path: '/user/notification',
+            element: <p>Notif</p>,
+          },
+        ],
       },
     ],
   },

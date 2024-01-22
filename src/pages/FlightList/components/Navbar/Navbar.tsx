@@ -90,7 +90,9 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
       <div className="hidden lg:block w-full  pt-4 bg-neutral-03 p-4 shadow-md">
         <ul className="flex justify-end gap-7 lg:container mx-auto px-4">
           <li className="text-primary-darkBlue font-semibold">Home</li>
-          <li className="text-primary-darkBlue font-semibold">My Booking</li>
+          <li className="text-primary-darkBlue font-semibold">
+            <Link to="/user/my-booking">My Booking</Link>
+          </li>
           <li className="text-primary-darkBlue font-semibold">About</li>
           <li className="text-primary-darkBlue font-semibold">Contact Us</li>
         </ul>
