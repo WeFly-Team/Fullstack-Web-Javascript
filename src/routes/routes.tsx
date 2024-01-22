@@ -45,6 +45,22 @@ const router = createBrowserRouter([
             path: '/user/my-booking',
             element: <MyBooking />,
           },
+          {
+            path: '/user/my-account',
+            element: <p>Account</p>,
+          },
+          {
+            path: '/user/promos',
+            element: <p>Promo</p>,
+          },
+          {
+            path: '/user/history',
+            element: <p>History</p>,
+          },
+          {
+            path: '/user/notification',
+            element: <p>Notif</p>,
+          },
         ],
       },
     ],

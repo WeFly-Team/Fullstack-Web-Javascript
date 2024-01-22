@@ -51,6 +51,7 @@ export default {
         '04': '0px 8px 16px 0px rgba(96, 97, 112, 0.16), 0px 2px 4px 0px rgba(40, 41, 61, 0.04)',
         '05': '0px 16px 24px 0px rgba(96, 97, 112, 0.16), 0px 2px 8px 0px rgba(40, 41, 61, 0.04)',
         '06': '0px 20px 32px 0px rgba(96, 97, 112, 0.24), 0px 2px 8px 0px rgba(40, 41, 61, 0.08)',
+        card: '0 4px 4px 0 rgba(0,0,0,0.25)',
       },
     },
     fontFamily: {
