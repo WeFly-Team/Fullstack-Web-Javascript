@@ -8,10 +8,11 @@ const HeroSection = () => {
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
     width: 'full',
+    height: '678px',
   };
 
   return (
-    <section id="hero" style={style} className="md:position-relative">
+    <section id="hero" style={style} className="md:position-relative pb-20">
       <div className="grid grid-cols-3 md:grid-cols-8 xl:container ">
         <div className="text-white w-full sm:h-3/6 pt-10 pb-4 lg:pl-16 pl-4 pr-4 lg:mt-12 md:mt-10  col-span-3">
           <div className="md:pb-4 pb-2 flex ">

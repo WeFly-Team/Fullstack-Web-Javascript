@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
-    <footer>
-      <div className="container py-16 mx-auto">
+    <footer className="pt-16">
+      <div className="container py-16 mx-auto ">
         <hr className="border-t border-t-black" />
         <ul className="flex justify-between my-4 px-4">
           <li className="font-semibold">Home</li>
