@@ -6,6 +6,7 @@ import ForgotPass from '../pages/ForgotPass/ForgotPass';
 import PrivateRoutes from '../utils/PrivateRoutes';
 import FlightList from '../pages/FlightList/FlightList';
 import OrderDetails from '../pages/OrderDetails/OrderDetails';
+import MyBooking from '../pages/MyBooking/MyBooking';
 
 const router = createBrowserRouter([
   {
@@ -32,8 +33,12 @@ const router = createBrowserRouter([
     element: <PrivateRoutes />,
     children: [
       {
-        path: '/orderDetails',
+        path: '/order-details',
         element: <OrderDetails />,
+      },
+      {
+        path: '/my-booking',
+        element: <MyBooking />,
       },
     ],
   },
