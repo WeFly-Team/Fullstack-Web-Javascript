@@ -7,6 +7,7 @@ import PrivateRoutes from '../utils/PrivateRoutes';
 import FlightList from '../pages/FlightList/FlightList';
 import OrderDetails from '../pages/OrderDetails/OrderDetails';
 import MyBooking from '../pages/MyBooking/MyBooking';
+import ProfileLayout from '../pages/ProfileLayout/ProfileLayout';
 
 const router = createBrowserRouter([
   {
@@ -37,8 +38,14 @@ const router = createBrowserRouter([
         element: <OrderDetails />,
       },
       {
-        path: '/my-booking',
-        element: <MyBooking />,
+        path: '/user',
+        element: <ProfileLayout />,
+        children: [
+          {
+            path: '/user/my-booking',
+            element: <MyBooking />,
+          },
+        ],
       },
     ],
   },
