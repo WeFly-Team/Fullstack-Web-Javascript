@@ -1,5 +1,6 @@
 import CardTicket from './components/CardTicket/CardTicket';
 import Detail from './components/Detail/Details';
+import Footer from './components/Footer/Footer';
 import Navbar from './components/Navbar/Navbar';
 import PriceFilter from './components/PriceFilter/PriceFilter';
 import VoucherCard from './components/VoucherCard/VoucherCard';
@@ -35,6 +36,7 @@ const FlightList = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </>
   );
 };
