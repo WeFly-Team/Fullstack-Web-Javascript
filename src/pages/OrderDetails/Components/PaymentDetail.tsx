@@ -3,7 +3,9 @@ import { FaRegCopy } from 'react-icons/fa6';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import Accordion from '../../../utils/Accordion';
-const PaymentDetail = () => {
+import Button from '../../../components/Button';
+import { PaymentDetailProp } from './types';
+const PaymentDetail = ({ orderDetail, continueOrder }: PaymentDetailProp) => {
   const [virtualAccount, setVirtualAccount] = useState<string>('');
   const [price, setPrice] = useState<string>('');
 
@@ -102,6 +104,17 @@ const PaymentDetail = () => {
         title="Transfer via Internet Banking"
         content={internetBankingTransfer()}
       />
+
+      <div className="w-full flex justify-end gap-4 mb-8  ">
+        <Button
+          variant="secondary"
+          className="border border-primary-darkBlue text-primary-darkBlue"
+          onClick={continueOrder}
+        >
+          Change Payment Method
+        </Button>
+        <Button onClick={orderDetail}>View Order List</Button>
+      </div>
       <ToastContainer />
     </div>
   );

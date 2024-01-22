@@ -15,15 +15,24 @@ const OrderDetails = () => {
   const [pageTitle, setPageTitle] = useState<string>('Order Details');
 
   const continueOrder = () => {
-    setOrderDetail(!orderDetail);
-    setPaymentMethod(!paymentMethod);
+    setOrderDetail(false);
+    setPaymentMethod(true);
+    setPaymentDetail(false);
     setPageTitle('Choose Payment Method');
   };
 
   const payNow = () => {
-    setPaymentMethod(!paymentMethod);
-    setPaymentDetail(!paymentDetail);
+    setOrderDetail(false);
+    setPaymentMethod(false);
+    setPaymentDetail(true);
     setPageTitle('');
+  };
+
+  const orderDetailComponent = () => {
+    setOrderDetail(true);
+    setPaymentMethod(false);
+    setPaymentDetail(false);
+    setPageTitle('Order Details');
   };
 
   return (
@@ -53,7 +62,12 @@ const OrderDetails = () => {
             )}
             {paymentMethod && <PaymentMethod />}
 
-            {paymentDetail && <PaymentDetail />}
+            {paymentDetail && (
+              <PaymentDetail
+                orderDetail={orderDetailComponent}
+                continueOrder={continueOrder}
+              />
+            )}
           </div>
 
           <div className="w-full md:w-1/2 order-1 md:order-2">

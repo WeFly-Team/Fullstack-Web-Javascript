@@ -13,3 +13,7 @@ export interface PassengerCardProp extends HTMLAttributes<HTMLDivElement> {
 export interface TotalPriceProp extends HTMLAttributes<HTMLDivElement> {
   payNow: () => void;
 }
+export interface PaymentDetailProp extends HTMLAttributes<HTMLDivElement> {
+  continueOrder: () => void;
+  orderDetail: () => void;
+}

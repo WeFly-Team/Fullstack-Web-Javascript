@@ -30,7 +30,7 @@ const Accordion = ({ title, content }: AccordionProp) => {
           expanded ? 'max-h-96' : 'max-h-0'
         }`}
       >
-        <p className="pb-4 text-left">{content}</p>
+        <div className="pb-4 text-left">{content}</div>
       </div>
     </div>
   );
