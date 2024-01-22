@@ -9,3 +9,7 @@ export interface OrdererProp extends HTMLAttributes<HTMLDivElement> {
 export interface PassengerCardProp extends HTMLAttributes<HTMLDivElement> {
   orderer?: boolean;
 }
+
+export interface TotalPriceProp extends HTMLAttributes<HTMLDivElement> {
+  payNow: () => void;
+}
