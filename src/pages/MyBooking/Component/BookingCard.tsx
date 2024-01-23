@@ -22,15 +22,24 @@ const BookingCard = ({ className, status }: BookingCardProps) => {
           Sent
         </div>
       );
+    else if (status === 'finish')
+      return (
+        <div className="bg-secondary-success font-semibold text-center px-8 py-1 text-white rounded-full ">
+          Purchase Successfull
+        </div>
+      );
   };
 
   return (
     <div
       className={`border border-neutral-05 rounded-lg gap-4 shadow-card ${className}`}
     >
-      <p className="border-b-2 border-dashed py-2 px-4 font-semibold border-b-neutral-05">
-        Booking ID : 12122023994
-      </p>
+      <div className="border-b-2 border-dashed py-2 px-4 border-b-neutral-05 flex items-center justify-between">
+        <p className="font-semibold text-neutral-06 text-sm">
+          Booking ID : 12122023994
+        </p>
+        <p className="font-bold text-sm">Rp 1.150.000</p>
+      </div>
       <div className="p-4 flex items-center justify-between">
         <img src="https://i.ibb.co/pznRn82/garuda-title.png" alt="logo" />
         <p className="flex items-center font-semibold">

@@ -5,8 +5,15 @@ import { FaBell, FaGear } from 'react-icons/fa6';
 import { GrPowerShutdown } from 'react-icons/gr';
 import { IoMailSharp } from 'react-icons/io5';
 import Footer from '../Homepage/components/Footer/Footer';
+import { googleLogout } from '@react-oauth/google';
+import { useAuth } from '../../customHooks/useAuth/useAuth';
 
 const ProfileLayout = () => {
+  const { logout } = useAuth();
+  const handleLogout = () => {
+    googleLogout();
+    logout();
+  };
   return (
     <div>
       <Navbar />
@@ -80,7 +87,10 @@ const ProfileLayout = () => {
                 <FaGear className="text-inherit text-2xl mr-3" />
                 <p className="text-inherit font-semibold">My Account</p>
               </NavLink>
-              <div className="flex items-center px-5 py-2 text-primary-darkBlue hover:bg-primary-blue hover:text-white cursor-pointer">
+              <div
+                className="flex items-center px-5 py-2 text-primary-darkBlue hover:bg-primary-blue hover:text-white cursor-pointer"
+                onClick={handleLogout}
+              >
                 <GrPowerShutdown className="text-inherit text-2xl mr-3" />
                 <p className="text-inherit font-semibold">Log Out</p>
               </div>

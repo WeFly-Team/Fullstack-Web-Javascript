@@ -8,6 +8,7 @@ import FlightList from '../pages/FlightList/FlightList';
 import OrderDetails from '../pages/OrderDetails/OrderDetails';
 import MyBooking from '../pages/MyBooking/MyBooking';
 import ProfileLayout from '../pages/ProfileLayout/ProfileLayout';
+import HistoryList from '../pages/History/History';
 
 const router = createBrowserRouter([
   {
@@ -55,7 +56,7 @@ const router = createBrowserRouter([
           },
           {
             path: '/user/history',
-            element: <p>History</p>,
+            element: <HistoryList />,
           },
           {
             path: '/user/notification',

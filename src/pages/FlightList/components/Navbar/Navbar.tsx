@@ -117,7 +117,7 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
                 Home
               </li>
               <li className="text-white py-4 text-center hover:cursor-pointer transition hover:bg-white hover:bg-opacity-20">
-                My Booking
+                <Link to="/user/my-booking">My Booking</Link>
               </li>
               <li className="text-white py-4 text-center hover:cursor-pointer transition hover:bg-white hover:bg-opacity-20">
                 About

@@ -61,7 +61,7 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
               |
             </span>
             <Link
-              to="/profile"
+              to="/user/my-account"
               className="hidden lg:flex items-center text-white text-sm"
             >
               <User className="mr-2" />
@@ -74,7 +74,9 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
       <div className="hidden lg:block w-full lg:container mx-auto pt-2">
         <ul className="flex justify-end gap-7">
           <li className="text-white font-semibold">Home</li>
-          <li className="text-white font-semibold">My Booking</li>
+          <li className="text-white font-semibold">
+            <Link to="/user/my-booking">My Booking</Link>
+          </li>
           <li className="text-white font-semibold">About</li>
           <li className="text-white font-semibold">Contact Us</li>
         </ul>
@@ -99,7 +101,7 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
                 Home
               </li>
               <li className="text-white py-4 text-center hover:cursor-pointer transition hover:bg-white hover:bg-opacity-20">
-                My Booking
+                <Link to="/user/my-booking">My Booking</Link>
               </li>
               <li className="text-white py-4 text-center hover:cursor-pointer transition hover:bg-white hover:bg-opacity-20">
                 About

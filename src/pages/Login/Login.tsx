@@ -31,10 +31,11 @@ const Login = () => {
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     try {
       const result = await axiosInstance.post('/user-login/login', data);
-      if (result.data.code == 200) {
+
+      if (result.data.status == 200) {
         const token = result.data.access_token;
         login(token);
-      } else if (result.data.code == 400) {
+      } else if (result.data.status == 400) {
         setErrorMessage(result.data.error);
         setValue('password', '');
       }
