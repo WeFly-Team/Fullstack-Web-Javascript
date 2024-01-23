@@ -7,12 +7,19 @@ import PriceDetail from './Components/PriceDetail';
 import PaymentMethod from './Components/PaymentMethod';
 import TotalPrice from './Components/TotalPrice';
 import PaymentDetail from './Components/PaymentDetail';
+import Orderpopup from './Components/Orderpopup';
 
 const OrderDetails = () => {
   const [orderDetail, setOrderDetail] = useState<boolean>(true);
   const [paymentMethod, setPaymentMethod] = useState<boolean>(false);
   const [paymentDetail, setPaymentDetail] = useState<boolean>(false);
   const [pageTitle, setPageTitle] = useState<string>('Order Details');
+  const [showPopUp, setShowPopUp] = useState(false);
+  const handleShowPopUp = async (e: any) => {
+    if (e.target.id === 'order-popup') {
+      setShowPopUp(false);
+    }
+  };
 
   const continueOrder = () => {
     setOrderDetail(false);
@@ -55,9 +62,16 @@ const OrderDetails = () => {
             {orderDetail && (
               <div>
                 <h1 className="font-semibold text-lg mt-5">Passenger 1</h1>
-                <PassengerCard orderer={true} className="mt-3" />
+                <PassengerCard
+                  orderer={true}
+                  isShow={() => setShowPopUp(true)}
+                  className="mt-3"
+                />
                 <h1 className="font-semibold text-lg mt-5">Passengers 2</h1>
-                <PassengerCard className="mt-3" />
+                <PassengerCard
+                  className="mt-3"
+                  isShow={() => setShowPopUp(true)}
+                />
               </div>
             )}
             {paymentMethod && <PaymentMethod />}
@@ -81,6 +95,19 @@ const OrderDetails = () => {
           </div>
         </div>
       </div>
+      {showPopUp && (
+        <Orderpopup
+          id="order-popup"
+          name="Jamal Ghazali"
+          phoneNumber="081234567890"
+          email="example@gmail.com"
+          gender="Mr"
+          className=""
+          isShow={showPopUp}
+          isClose={() => setShowPopUp(false)}
+          onClick={handleShowPopUp}
+        />
+      )}
     </section>
   );
 };

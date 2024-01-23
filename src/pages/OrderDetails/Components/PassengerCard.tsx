@@ -2,7 +2,11 @@ import { useState } from 'react';
 import { PassengerCardProp } from './types';
 import { GoPencil } from 'react-icons/go';
 
-const PassengerCard = ({ className, orderer = false }: PassengerCardProp) => {
+const PassengerCard = ({
+  className,
+  orderer = false,
+  isShow,
+}: PassengerCardProp) => {
   // state
   const [sameOrderer, setSameOrderer] = useState<boolean>(false);
 
@@ -25,7 +29,10 @@ const PassengerCard = ({ className, orderer = false }: PassengerCardProp) => {
       )}
       <div className="flex items-center justify-between p-3">
         <h1 className="font-semibold">Mr. Jamal Ghazali</h1>
-        <GoPencil className="text-primary-blue text-lg cursor-pointer" />
+        <GoPencil
+          className="text-primary-blue text-lg cursor-pointer"
+          onClick={isShow}
+        />
       </div>
     </div>
   );
