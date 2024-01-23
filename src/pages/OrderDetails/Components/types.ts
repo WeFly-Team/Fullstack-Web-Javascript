@@ -5,10 +5,19 @@ export interface OrdererProp extends HTMLAttributes<HTMLDivElement> {
   phoneNumber: string;
   email: string;
 }
+
 export interface OrderPopProp extends HTMLAttributes<HTMLDivElement> {
   name: string;
   phoneNumber: string;
   email: string;
+  id: string;
+  gender?: string;
+  isShow: boolean;
+  isClose: () => void;
+}
+
+export interface PassengerPopProp extends HTMLAttributes<HTMLDivElement> {
+  name: string;
   id: string;
   gender?: string;
   isShow: boolean;
