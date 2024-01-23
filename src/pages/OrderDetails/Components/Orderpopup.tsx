@@ -19,7 +19,7 @@ const Orderpopup = ({
   const [newusername, setusername] = useState('');
   const [newphonenumber, setphonenumber] = useState('');
   const genders = ['Mr', 'Mrs', 'Miss'];
-
+  console.log(newemail, newusername, newphonenumber);
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
     console.log(setEmail);
