@@ -3,7 +3,7 @@ import BookingCard from '../MyBooking/Component/BookingCard';
 
 const HistoryList = () => {
   return (
-    <div className="px-5">
+    <div className="">
       <h1 className="font-bold text-2xl">Purchase History</h1>
       <NoResultCard
         className="mt-4"

@@ -9,6 +9,7 @@ import OrderDetails from '../pages/OrderDetails/OrderDetails';
 import MyBooking from '../pages/MyBooking/MyBooking';
 import ProfileLayout from '../pages/ProfileLayout/ProfileLayout';
 import HistoryList from '../pages/History/History';
+import MyAccout from '../pages/MyAccount/MyAccount';
 
 const router = createBrowserRouter([
   {
@@ -48,7 +49,7 @@ const router = createBrowserRouter([
           },
           {
             path: '/user/my-account',
-            element: <p>Account</p>,
+            element: <MyAccout />,
           },
           {
             path: '/user/promos',

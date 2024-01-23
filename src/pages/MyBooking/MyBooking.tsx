@@ -3,7 +3,7 @@ import NoResultCard from '../../components/NoResultCard/NoResultCard';
 
 const MyBooking = () => {
   return (
-    <div className="px-5">
+    <div className="">
       <h1 className="font-bold text-2xl">Active E-tickets</h1>
       <NoResultCard
         title="No Active Bookings Found :("

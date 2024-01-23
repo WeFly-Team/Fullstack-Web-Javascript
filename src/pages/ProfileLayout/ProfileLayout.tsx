@@ -97,7 +97,7 @@ const ProfileLayout = () => {
             </div>
           </div>
         </div>
-        <div className="basis-3/4">
+        <div className="basis-3/4 px-5">
           <Outlet />
         </div>
       </div>
