@@ -8,13 +8,15 @@ import PaymentMethod from './Components/PaymentMethod';
 import TotalPrice from './Components/TotalPrice';
 import PaymentDetail from './Components/PaymentDetail';
 import Orderpopup from './Components/Orderpopup';
+import PassengerPopup from './Components/PassengerPopup';
 
 const OrderDetails = () => {
   const [orderDetail, setOrderDetail] = useState<boolean>(true);
   const [paymentMethod, setPaymentMethod] = useState<boolean>(false);
   const [paymentDetail, setPaymentDetail] = useState<boolean>(false);
   const [pageTitle, setPageTitle] = useState<string>('Order Details');
-  const [showPopUp, setShowPopUp] = useState(false);
+  const [showOrderPopUp, setShowOrderPopUp] = useState(false);
+  const [showPassengerPopUp, setShowPassengerPopUp] = useState(false);
 
   const continueOrder = () => {
     setOrderDetail(false);
@@ -44,6 +46,7 @@ const OrderDetails = () => {
                 phoneNumber="081234567890"
                 email="example@gmail.com"
                 className=""
+                isShow={() => setShowOrderPopUp(true)}
               />
             )}
 
@@ -52,13 +55,13 @@ const OrderDetails = () => {
                 <h1 className="font-semibold text-lg mt-5">Passenger 1</h1>
                 <PassengerCard
                   orderer={true}
-                  isShow={() => setShowPopUp(true)}
+                  isShow={() => setShowPassengerPopUp(true)}
                   className="mt-3"
                 />
                 <h1 className="font-semibold text-lg mt-5">Passengers 2</h1>
                 <PassengerCard
                   className="mt-3"
-                  isShow={() => setShowPopUp(true)}
+                  isShow={() => setShowPassengerPopUp(true)}
                 />
               </div>
             )}
@@ -78,7 +81,7 @@ const OrderDetails = () => {
           </div>
         </div>
       </div>
-      {showPopUp && (
+      {showOrderPopUp && (
         <Orderpopup
           id="order-popup"
           name="Jamal Ghazali"
@@ -86,7 +89,15 @@ const OrderDetails = () => {
           email="example@gmail.com"
           gender="Mr"
           className=""
-          isClose={() => setShowPopUp(false)}
+          isClose={() => setShowOrderPopUp(false)}
+        />
+      )}
+      {showPassengerPopUp && (
+        <PassengerPopup
+          name="Jamal Ghazali"
+          gender="Mr"
+          className=""
+          isClose={() => setShowPassengerPopUp(false)}
         />
       )}
     </section>

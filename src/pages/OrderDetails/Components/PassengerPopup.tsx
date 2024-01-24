@@ -7,9 +7,7 @@ import { AiOutlineLeft } from 'react-icons/ai';
 const PassengerPopup = ({
   name,
   className,
-  id,
   gender,
-  isShow,
   isClose,
 }: PassengerPopProp) => {
   const [isgender, setIsGender] = useState<string>(gender || '');
@@ -23,11 +21,17 @@ const PassengerPopup = ({
   const handleGenderChange = (selectedGender: string) => {
     setIsGender(selectedGender);
   };
-  if (!isShow) return null;
+  const handleShowPopUp = async (e: any) => {
+    if (e.target.id === 'passenger-popup') {
+      isClose();
+    }
+    return;
+  };
   return (
     <div
-      id={id}
-      className={`order-popup z-10 fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center ${className}`}
+      id="passenger-popup"
+      className={`passenger-popup z-10 fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center ${className}`}
+      onClick={handleShowPopUp}
     >
       <div className="bg-white px-[74px] rounded-[4px] w-[46%] max-w-[664px] lg:h-[67%] md:h-[90%] min-h-[200px]">
         <div className="top-poup py-4 grid w-full items-center">
@@ -40,6 +44,7 @@ const PassengerPopup = ({
           </h1>
         </div>
         <hr />
+        <p className="font-semibold mt-5 text-md">Passenger Info</p>
         <form className="w-full mt-3">
           <div>
             <FormInput
