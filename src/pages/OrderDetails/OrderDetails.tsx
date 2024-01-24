@@ -15,11 +15,6 @@ const OrderDetails = () => {
   const [paymentDetail, setPaymentDetail] = useState<boolean>(false);
   const [pageTitle, setPageTitle] = useState<string>('Order Details');
   const [showPopUp, setShowPopUp] = useState(false);
-  const handleShowPopUp = async (e: any) => {
-    if (e.target.id === 'order-popup') {
-      setShowPopUp(false);
-    }
-  };
 
   const continueOrder = () => {
     setOrderDetail(false);
@@ -103,9 +98,7 @@ const OrderDetails = () => {
           email="example@gmail.com"
           gender="Mr"
           className=""
-          isShow={showPopUp}
           isClose={() => setShowPopUp(false)}
-          onClick={handleShowPopUp}
         />
       )}
     </section>

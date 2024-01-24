@@ -10,9 +10,9 @@ export interface OrderPopProp extends HTMLAttributes<HTMLDivElement> {
   name: string;
   phoneNumber: string;
   email: string;
-  id: string;
+
   gender?: string;
-  isShow: boolean;
+
   isClose: () => void;
 }
 
