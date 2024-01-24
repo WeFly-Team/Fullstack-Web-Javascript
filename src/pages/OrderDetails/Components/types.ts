@@ -25,5 +25,4 @@ export interface TotalPriceProp extends HTMLAttributes<HTMLDivElement> {
 }
 export interface PaymentDetailProp extends HTMLAttributes<HTMLDivElement> {
   continueOrder: () => void;
-  orderDetail: () => void;
 }
