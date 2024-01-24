@@ -116,7 +116,7 @@ const PaymentDetail = ({ continueOrder }: PaymentDetailProp) => {
         >
           Change Payment Method
         </Button>
-        <Button onClick={() => navigate('/user/my-booing')}>
+        <Button onClick={() => navigate('/user/my-booking')}>
           View Order List
         </Button>
       </div>
