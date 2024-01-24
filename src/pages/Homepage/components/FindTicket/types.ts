@@ -7,3 +7,8 @@ export interface classProp {
   label: string;
   value: string;
 }
+
+export interface selectAirportProp {
+  value: number;
+  label: JSX.Element;
+}
