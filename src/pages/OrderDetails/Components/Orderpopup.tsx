@@ -45,14 +45,14 @@ const Orderpopup = ({
       className={`order-popup z-10 fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center ${className}`}
       onClick={handleShowPopUp}
     >
-      <div className="bg-white px-[74px] rounded-[4px] w-[46%] max-w-[664px] lg:h-[67%] md:h-[90%] min-h-[200px]">
-        <div className="top-poup py-4 grid w-full items-center">
+      <div className="bg-white pb-[53px] px-[74px] rounded-lg w-[47%] max-w-[664px] h-fit min-h-[200px]">
+        <div className="top-poup grid w-full items-center">
           <AiOutlineLeft
             className="absolute  text-2xl cursor-pointer"
             onClick={isClose}
           />
-          <h1 className="font-bold text-3xl  justify-self-center">
-            Order Detail {gender}
+          <h1 className="font-bold text-3xl  justify-self-center py-[27px]">
+            Order Detail
           </h1>
         </div>
         <hr />
@@ -79,7 +79,7 @@ const Orderpopup = ({
           <div className="radio-button flex justify-between pb-4">
             {genders.map((genderOption) => (
               <React.Fragment key={genderOption}>
-                <div className="flex gap-x-2 text-md font-semibold">
+                <div className="flex gap-x-2 text-xl font-semibold">
                   <input
                     type="radio"
                     name="gender"
