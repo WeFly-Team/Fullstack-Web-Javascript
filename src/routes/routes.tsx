@@ -10,6 +10,8 @@ import MyBooking from '../pages/MyBooking/MyBooking';
 import ProfileLayout from '../pages/ProfileLayout/ProfileLayout';
 import HistoryList from '../pages/History/History';
 import MyAccout from '../pages/MyAccount/MyAccount';
+import BookingDetail from '../pages/BookingDetail/BookingDetail';
+import ETicket from '../pages/ETicket/ETicket';
 
 const router = createBrowserRouter([
   {
@@ -48,6 +50,10 @@ const router = createBrowserRouter([
             element: <MyBooking />,
           },
           {
+            path: '/user/my-booking/:id',
+            element: <BookingDetail />,
+          },
+          {
             path: '/user/my-account',
             element: <MyAccout />,
           },
@@ -58,6 +64,10 @@ const router = createBrowserRouter([
           {
             path: '/user/history',
             element: <HistoryList />,
+          },
+          {
+            path: '/user/history/:id',
+            element: <ETicket />,
           },
           {
             path: '/user/notification',
