@@ -9,9 +9,7 @@ const Orderpopup = ({
   phoneNumber,
   email,
   className,
-  id,
   gender,
-  isShow,
   isClose,
 }: OrderPopProp) => {
   const [isgender, setIsGender] = useState<string>(gender || '');
@@ -35,11 +33,17 @@ const Orderpopup = ({
   const handleGenderChange = (selectedGender: string) => {
     setIsGender(selectedGender);
   };
-  if (!isShow) return null;
+  const handleShowPopUp = async (e: any) => {
+    if (e.target.id === 'order-popup') {
+      isClose();
+    }
+    return;
+  };
   return (
     <div
-      id={id}
+      id="order-popup"
       className={`order-popup z-10 fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center ${className}`}
+      onClick={handleShowPopUp}
     >
       <div className="bg-white px-[74px] rounded-[4px] w-[46%] max-w-[664px] lg:h-[67%] md:h-[90%] min-h-[200px]">
         <div className="top-poup py-4 grid w-full items-center">
