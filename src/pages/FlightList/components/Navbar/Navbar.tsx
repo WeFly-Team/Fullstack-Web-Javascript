@@ -76,7 +76,7 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
               |
             </span>
             <Link
-              to="/profile"
+              to="/user/my-account"
               className="hidden lg:flex items-center text-primary-darkBlue text-sm"
             >
               <User className="mr-2" />

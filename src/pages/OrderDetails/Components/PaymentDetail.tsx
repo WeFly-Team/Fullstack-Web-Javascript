@@ -5,7 +5,10 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import Accordion from '../../../utils/Accordion';
 import Button from '../../../components/Button';
 import { PaymentDetailProp } from './types';
-const PaymentDetail = ({ orderDetail, continueOrder }: PaymentDetailProp) => {
+import { useNavigate } from 'react-router-dom';
+const PaymentDetail = ({ continueOrder }: PaymentDetailProp) => {
+  const navigate = useNavigate();
+  // state
   const [virtualAccount, setVirtualAccount] = useState<string>('');
   const [price, setPrice] = useState<string>('');
 
@@ -113,7 +116,9 @@ const PaymentDetail = ({ orderDetail, continueOrder }: PaymentDetailProp) => {
         >
           Change Payment Method
         </Button>
-        <Button onClick={orderDetail}>View Order List</Button>
+        <Button onClick={() => navigate('/user/my-booking')}>
+          View Order List
+        </Button>
       </div>
       <ToastContainer />
     </div>

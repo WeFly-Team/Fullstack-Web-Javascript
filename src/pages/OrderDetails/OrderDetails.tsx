@@ -30,13 +30,6 @@ const OrderDetails = () => {
     setPageTitle('');
   };
 
-  const orderDetailComponent = () => {
-    setOrderDetail(true);
-    setPaymentMethod(false);
-    setPaymentDetail(false);
-    setPageTitle('Order Details');
-  };
-
   return (
     <section>
       <Navbar />
@@ -71,12 +64,7 @@ const OrderDetails = () => {
             )}
             {paymentMethod && <PaymentMethod />}
 
-            {paymentDetail && (
-              <PaymentDetail
-                orderDetail={orderDetailComponent}
-                continueOrder={continueOrder}
-              />
-            )}
+            {paymentDetail && <PaymentDetail continueOrder={continueOrder} />}
           </div>
 
           <div className="w-full md:w-1/2 order-1 md:order-2">

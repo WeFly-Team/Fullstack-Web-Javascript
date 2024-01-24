@@ -60,12 +60,22 @@ const BookingCard = ({ className, status }: BookingCardProps) => {
       </div>
       <div className="flex p-4 justify-between items-center">
         {checkStatus()}
-        <Link
-          to="/user/my-booking/tiket"
-          className="text-primary-darkBlue font-semibold"
-        >
-          View
-        </Link>
+        {status !== 'finish' && (
+          <Link
+            to="/user/my-booking/tiket"
+            className="text-primary-darkBlue font-semibold"
+          >
+            View
+          </Link>
+        )}
+        {status === 'finish' && (
+          <Link
+            to="/user/history/13124"
+            className="text-primary-darkBlue font-semibold"
+          >
+            View
+          </Link>
+        )}
       </div>
     </div>
   );
