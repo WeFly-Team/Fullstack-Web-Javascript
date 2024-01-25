@@ -96,7 +96,7 @@ const FindTicket = () => {
   const [showInputPassenger, setShowInputPassenger] = useState<boolean>(false);
   const [adult, setAdult] = useState<number>(1);
   const [child, setChild] = useState<number>(0);
-  const [infant, setInfant] = useState<number>(0);
+  // const [infant, setInfant] = useState<number>(0);
   const [classPassenger, setClassPassenger] = useState<string>('Economy');
   const [disabled, setDisabled] = useState<boolean>(true);
   const navigate = useNavigate();
@@ -123,15 +123,16 @@ const FindTicket = () => {
       setChild(child - 1);
     }
   };
-  const addInfant = () => {
-    setInfant(infant + 1);
-  };
-  const minInfant = () => {
-    if (infant > 0) {
-      setInfant(infant - 1);
-    }
-  };
+  // const addInfant = () => {
+  //   setInfant(infant + 1);
+  // };
+  // const minInfant = () => {
+  //   if (infant > 0) {
+  //     setInfant(infant - 1);
+  //   }
+  // };
 
+  useEffect(() => {}, [adult, child]);
   // forwardRef
   const CustomInput = forwardRef(
     (
@@ -182,7 +183,8 @@ const FindTicket = () => {
                     className="bg-transparent border-white border text-sm px-5 py-2.5 text-center inline-flex items-center w-full"
                     onClick={() => setShowInputPassenger(!showInputPassenger)}
                   >
-                    {adult} Adult, {child} Child, {infant} Infant &nbsp;{' '}
+                    {/* {adult} Adult, {child} Child, {infant} Infant &nbsp;{' '} */}
+                    {adult} Adult, {child} Child{' '}
                     <FaAngleDown
                       className={`ml-auto transition-transform ${
                         showInputPassenger ? 'rotate-180' : ''
@@ -274,7 +276,7 @@ const FindTicket = () => {
                           </div>
                         </div>
                         {/* infant */}
-                        <div className="pr-2 pb-2 mt-2">
+                        {/* <div className="pr-2 pb-2 mt-2">
                           <div className="flex items-center">
                             <FaBaby
                               size={20}
@@ -304,7 +306,7 @@ const FindTicket = () => {
                               </button>
                             </div>
                           </div>
-                        </div>
+                        </div> */}
                         {/* button done */}
                         <div className="text-center pb-2 mt-2">
                           <Button
