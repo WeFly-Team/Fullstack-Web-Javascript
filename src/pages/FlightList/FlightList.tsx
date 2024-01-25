@@ -8,11 +8,13 @@ import VoucherCard from './components/VoucherCard/VoucherCard';
 import { useEffect, useState } from 'react';
 import { Airport } from '../Homepage/components/FindTicket/data';
 import axiosInstance from '../../axios/axios';
+import { formatDate } from '../../utils/functions';
 
 const FlightList = () => {
   const [departureAirport, setDepartureAirport] = useState<Airport>({
     name: '',
-    airportCode: '',
+    iata: '',
+    icao: '',
     city: '',
     country: '',
     id: 0,
@@ -20,7 +22,8 @@ const FlightList = () => {
   });
   const [destinationAirport, setDestinationAirport] = useState<Airport>({
     name: '',
-    airportCode: '',
+    iata: '',
+    icao: '',
     city: '',
     country: '',
     id: 0,
@@ -32,10 +35,12 @@ const FlightList = () => {
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    setClassPassenger(searchParams.get('class')!);
-    setDepartureDate(new Date(searchParams.get('dep-date')!));
-    console.log(new Date(searchParams.get('dep-date')!));
-    setTotalPassengers(Number(searchParams.get('total-passengers')));
+    const classPenumpang = searchParams.get('class')!;
+    setClassPassenger(classPenumpang);
+    const depDate = new Date(searchParams.get('dep-date')!);
+    setDepartureDate(depDate);
+    const totPassengers = Number(searchParams.get('total-passengers'));
+    setTotalPassengers(totPassengers);
 
     const idDepAirport = searchParams.get('dep-airport');
     const idDesAirport = searchParams.get('des-airport');
@@ -48,7 +53,16 @@ const FlightList = () => {
       const dataDesAirport = desAirport.data.data;
       setDestinationAirport(dataDesAirport);
     };
+
+    const getFlightList = async () => {
+      const formatedDepartureDate = formatDate(depDate);
+      const queryString = `departureAirportId=${idDepAirport}&arrivalAirportId=${idDesAirport}&departDate=${formatedDepartureDate}&seatClass=${classPenumpang.toUpperCase()}&numberOfPassenger=${totPassengers}`;
+
+      const flightList = await axiosInstance.get(`/flight/list?${queryString}`);
+      console.log(flightList);
+    };
     getAirport();
+    getFlightList();
   }, []);
 
   return (
