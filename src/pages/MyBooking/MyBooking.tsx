@@ -1,6 +1,6 @@
 import BookingCard from './Component/BookingCard';
 import NoResultCard from '../../components/NoResultCard/NoResultCard';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import {
   UserTransactionContext,
   userTransactionContextType,
@@ -11,6 +11,9 @@ const MyBooking = () => {
     UserTransactionContext
   ) as userTransactionContextType;
 
+  useEffect(() => {
+    console.log(transactions);
+  }, [transactions]);
   return (
     <div className="">
       <h1 className="font-bold text-2xl">Active E-tickets</h1>
@@ -23,7 +26,18 @@ const MyBooking = () => {
       )}
       {transactions.length != 0 &&
         transactions.map((transaction) => (
-          <BookingCard status={transaction.status} className="mt-4" />
+          <BookingCard
+            key={transaction.id}
+            status={transaction.status}
+            bookingId={transaction.id}
+            departureAirport={
+              transaction.transactionDetails[0].flight.departureAirport
+            }
+            arrivalAirport={
+              transaction.transactionDetails[0].flight.arrivalAirport
+            }
+            className="mt-4"
+          />
         ))}
     </div>
   );

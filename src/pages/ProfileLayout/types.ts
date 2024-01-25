@@ -1,4 +1,5 @@
 import { createContext } from 'react';
+import { Airport } from '../Homepage/components/FindTicket/data';
 
 export interface Passenger {
   id: number;
@@ -11,8 +12,8 @@ export interface Passenger {
 export interface Flight {
   id: number;
   flighNumber?: string;
-  departureAirport?: string;
-  arrivalAirport?: string;
+  departureAirport: Airport;
+  arrivalAirport: Airport;
   airplane?: string;
   departureDate?: Date;
   arrivalDate?: Date;
@@ -52,7 +53,7 @@ export interface Transaction {
   childPassenger?: number;
   infantPassenger?: number;
   totalPrice: number;
-  status: 'pending' | 'process' | 'sent' | 'finish';
+  status: 'PENDING' | 'PROCESS' | 'SENT' | 'FINISH';
   paymentProof?: string;
 }
 
