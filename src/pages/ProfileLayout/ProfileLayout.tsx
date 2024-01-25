@@ -10,9 +10,10 @@ import { useAuth } from '../../customHooks/useAuth/useAuth';
 import { useEffect, useState } from 'react';
 import { Transaction, UserTransactionContext } from './types';
 import axiosInstance from '../../axios/axios';
+import { getInitials } from '../../utils/functions';
 
 const ProfileLayout = () => {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const handleLogout = () => {
     googleLogout();
     logout();
@@ -42,9 +43,9 @@ const ProfileLayout = () => {
             <div className="profile-menu p-4 border-b border-neutral-05">
               <div className="flex items-center gap-5">
                 <div className="rounded-full bg-blue-50 h-12 w-12 shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] flex items-center justify-center">
-                  VM
+                  {user && getInitials(user.full_name)}
                 </div>
-                <div className="font-semibold">Vincent Marko</div>
+                <div className="font-semibold">{user && user.full_name}</div>
               </div>
             </div>
             <div className="pt-3">
