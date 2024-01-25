@@ -13,7 +13,7 @@ import DatePicker from 'react-datepicker';
 import { CustomInputProps, selectAirportProp } from './types';
 import {
   FaAngleDown,
-  FaBaby,
+  // FaBaby,
   FaChild,
   FaMinus,
   FaPerson,
@@ -96,15 +96,15 @@ const FindTicket = () => {
   const [showInputPassenger, setShowInputPassenger] = useState<boolean>(false);
   const [adult, setAdult] = useState<number>(1);
   const [child, setChild] = useState<number>(0);
+  const [totalPassengers, setTotalPassengers] = useState<number>(0);
   // const [infant, setInfant] = useState<number>(0);
   const [classPassenger, setClassPassenger] = useState<string>('Economy');
   const [disabled, setDisabled] = useState<boolean>(true);
   const navigate = useNavigate();
 
   const handleSearch = () => {
-    navigate(
-      `/flight-list?dep-airport=${departureAirport?.value}&des-airport=${destinationAirport?.value}&class=${classPassenger}`
-    );
+    const queryString = `dep-airport=${departureAirport?.value}&des-airport=${destinationAirport?.value}&class=${classPassenger}&adult=${adult}&child=${child}$total-passengers=${totalPassengers}`;
+    navigate(`/flight-list?${queryString}`);
   };
 
   const addAdult = () => {
@@ -144,6 +144,10 @@ const FindTicket = () => {
       </button>
     )
   );
+
+  useEffect(() => {
+    setTotalPassengers(adult + child);
+  }, [adult, child]);
 
   useEffect(() => {
     if (departureAirport && destinationAirport && departureDate) {
