@@ -22,7 +22,32 @@ import {
 import { Airport, classOptions } from './data';
 import axiosInstance from '../../../../axios/axios';
 import { useNavigate } from 'react-router-dom';
+import {
+  Bounce,
+  ToastContainer,
+  ToastOptions,
+  TypeOptions,
+  toast,
+} from 'react-toastify';
+import { AxiosError } from 'axios';
 const FindTicket = () => {
+  // toast
+  const reactOpt: ToastOptions = {
+    position: 'bottom-left',
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: 'light',
+    transition: Bounce,
+  };
+  const triggerToast = (type: TypeOptions, message: string) => {
+    if (type === 'error') {
+      toast.error(message, reactOpt);
+    }
+  };
   // grab airport data
   useEffect(() => {
     const getAirports = async () => {
@@ -48,7 +73,11 @@ const FindTicket = () => {
         );
         setListAirport(airports);
       } catch (err) {
-        console.error(err);
+        if (err instanceof AxiosError) {
+          triggerToast('error', err.message);
+        } else if (err instanceof Error) {
+          triggerToast('error', err.message);
+        }
       }
     };
     getAirports();
@@ -420,6 +449,7 @@ const FindTicket = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </section>
   );
 };
