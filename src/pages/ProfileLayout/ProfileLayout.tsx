@@ -7,6 +7,9 @@ import { IoMailSharp } from 'react-icons/io5';
 import Footer from '../Homepage/components/Footer/Footer';
 import { googleLogout } from '@react-oauth/google';
 import { useAuth } from '../../customHooks/useAuth/useAuth';
+import { useEffect, useState } from 'react';
+import { Transaction, UserTransactionContext } from './types';
+import axiosInstance from '../../axios/axios';
 
 const ProfileLayout = () => {
   const { logout } = useAuth();
@@ -14,6 +17,22 @@ const ProfileLayout = () => {
     googleLogout();
     logout();
   };
+
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const fetchBooking = async () => {
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+      const result = await axiosInstance.get('/transaction/list', {
+        headers,
+      });
+      setTransactions(result.data.data.content);
+    };
+    fetchBooking();
+  }, []);
   return (
     <div>
       <Navbar />
@@ -98,7 +117,9 @@ const ProfileLayout = () => {
           </div>
         </div>
         <div className="basis-3/4 px-5">
-          <Outlet />
+          <UserTransactionContext.Provider value={{ transactions }}>
+            <Outlet />
+          </UserTransactionContext.Provider>
         </div>
       </div>
       <Footer />
