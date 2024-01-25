@@ -1,14 +1,29 @@
 import { FaCalendar } from 'react-icons/fa6';
+import { DetailProps } from './types';
+import { getNameOfDay, getNameOfMonth } from '../../../../utils/functions';
 
-const Detail = () => {
+const Detail = ({
+  departureAirport,
+  destinationAirport,
+  departureDate,
+  totalPassengers,
+  classPassenger,
+}: DetailProps) => {
   return (
     <div className="bg-primary-blue rounded-lg p-8 shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]">
       <div className="rounded-lg bg-white p-8 w-3/5 mb-4">
-        <p>Jakarta (JKTA) - Bali (DPS)</p>
+        <p>
+          {departureAirport.city} ({departureAirport.airportCode}) -{' '}
+          {destinationAirport.city} ({destinationAirport.airportCode})
+        </p>
         <div className="flex mt-5 justify-between">
-          <p>Sun, 14 Jan 2024</p>
-          <p>1 Passenger(s)</p>
-          <p>Economy</p>
+          <p>
+            {getNameOfDay(departureDate.getDay())}, {departureDate.getDate()}{' '}
+            {getNameOfMonth(departureDate.getMonth())}{' '}
+            {departureDate.getFullYear()}
+          </p>
+          <p>{totalPassengers} Passenger(s)</p>
+          <p>{classPassenger}</p>
         </div>
       </div>
       <div className="rounded-lg bg-white p-8 flex gap-3">

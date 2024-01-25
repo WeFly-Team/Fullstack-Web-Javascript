@@ -103,7 +103,7 @@ const FindTicket = () => {
   const navigate = useNavigate();
 
   const handleSearch = () => {
-    const queryString = `dep-airport=${departureAirport?.value}&des-airport=${destinationAirport?.value}&class=${classPassenger}&adult=${adult}&child=${child}$total-passengers=${totalPassengers}`;
+    const queryString = `dep-airport=${departureAirport?.value}&des-airport=${destinationAirport?.value}&dep-date=${departureDate}&class=${classPassenger}&adult=${adult}&child=${child}&total-passengers=${totalPassengers}`;
     navigate(`/flight-list?${queryString}`);
   };
 

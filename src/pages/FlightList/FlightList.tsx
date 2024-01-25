@@ -1,11 +1,56 @@
+import { useSearchParams } from 'react-router-dom';
 import CardTicket from './components/CardTicket/CardTicket';
 import Detail from './components/Detail/Details';
 import Footer from './components/Footer/Footer';
 import Navbar from './components/Navbar/Navbar';
 import PriceFilter from './components/PriceFilter/PriceFilter';
 import VoucherCard from './components/VoucherCard/VoucherCard';
+import { useEffect, useState } from 'react';
+import { Airport } from '../Homepage/components/FindTicket/data';
+import axiosInstance from '../../axios/axios';
 
 const FlightList = () => {
+  const [departureAirport, setDepartureAirport] = useState<Airport>({
+    name: '',
+    airportCode: '',
+    city: '',
+    country: '',
+    id: 0,
+    status: true,
+  });
+  const [destinationAirport, setDestinationAirport] = useState<Airport>({
+    name: '',
+    airportCode: '',
+    city: '',
+    country: '',
+    id: 0,
+    status: true,
+  });
+  const [departureDate, setDepartureDate] = useState<Date>(new Date());
+  const [classPassenger, setClassPassenger] = useState<string>('');
+  const [totalPassengers, setTotalPassengers] = useState<number>(0);
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    setClassPassenger(searchParams.get('class')!);
+    setDepartureDate(new Date(searchParams.get('dep-date')!));
+    console.log(new Date(searchParams.get('dep-date')!));
+    setTotalPassengers(Number(searchParams.get('total-passengers')));
+
+    const idDepAirport = searchParams.get('dep-airport');
+    const idDesAirport = searchParams.get('des-airport');
+
+    const getAirport = async () => {
+      const depAirport = await axiosInstance.get(`/airport/${idDepAirport}`);
+      const dataDepAirport = depAirport.data.data;
+      setDepartureAirport(dataDepAirport);
+      const desAirport = await axiosInstance.get(`/airport/${idDesAirport}`);
+      const dataDesAirport = desAirport.data.data;
+      setDestinationAirport(dataDesAirport);
+    };
+    getAirport();
+  }, []);
+
   return (
     <>
       <Navbar className="fixed top-0 right-0 left-0 z-10 bg-white" />
@@ -21,7 +66,13 @@ const FlightList = () => {
             />
           </div>
           <div className="w-3/4">
-            <Detail />
+            <Detail
+              departureAirport={departureAirport}
+              destinationAirport={destinationAirport}
+              classPassenger={classPassenger}
+              departureDate={departureDate}
+              totalPassengers={totalPassengers}
+            />
           </div>
         </div>
         <div className="flex">
@@ -36,7 +87,7 @@ const FlightList = () => {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 };
