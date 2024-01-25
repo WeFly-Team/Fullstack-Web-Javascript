@@ -12,6 +12,7 @@ export interface Airport {
   city: string;
   country: string;
   id: number;
-  airportCode: string;
+  iata: string;
+  icao: string;
   status?: boolean;
 }

@@ -22,9 +22,17 @@ export interface Flight {
   basePrice?: number;
 }
 
+export interface FlightClass {
+  availableSeat: number;
+  basePriceAdult: number;
+  basePriceChild: number;
+  basePriceInfant: number;
+  flight: Flight;
+}
+
 export interface TransactionDetail {
   id: number;
-  flight: Flight;
+  flightClass: FlightClass;
   totalPriceAdult: number;
   totalPriceChild: number;
   totalPriceInfant?: number;

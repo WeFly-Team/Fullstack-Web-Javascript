@@ -13,8 +13,8 @@ const Detail = ({
     <div className="bg-primary-blue rounded-lg p-8 shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]">
       <div className="rounded-lg bg-white p-8 w-3/5 mb-4">
         <p>
-          {departureAirport.city} ({departureAirport.airportCode}) -{' '}
-          {destinationAirport.city} ({destinationAirport.airportCode})
+          {departureAirport.city} ({departureAirport.iata}) -{' '}
+          {destinationAirport.city} ({destinationAirport.iata})
         </p>
         <div className="flex mt-5 justify-between">
           <p>

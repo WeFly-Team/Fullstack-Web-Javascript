@@ -52,7 +52,7 @@ const FindTicket = () => {
   useEffect(() => {
     const getAirports = async () => {
       try {
-        const result = await axiosInstance.get('/airport/list');
+        const result = await axiosInstance.get('/airport/list?size=50');
         const content = result.data.data.content;
         const airports: selectAirportProp[] = content.map(
           (airport: Airport) => {
@@ -64,7 +64,7 @@ const FindTicket = () => {
                     {airport.city}, {airport.country}
                   </p>
                   <p className="font-semibold text-sm text-neutral-06">
-                    {airport.airportCode} - {airport.name}
+                    {airport.iata} - {airport.name}
                   </p>
                 </div>
               ),
