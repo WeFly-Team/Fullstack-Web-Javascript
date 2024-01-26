@@ -1,7 +1,16 @@
-import { HTMLAttributes } from 'react';
 import Button from '../../../../components/Button';
+import { substractTime } from '../../../../utils/functions';
+import { CardTicketProps } from './types';
 
-const CardTicket = ({ className }: HTMLAttributes<HTMLDivElement>) => {
+const CardTicket = ({
+  className,
+  departureAirport,
+  departureTime,
+  arrivalAirport,
+  arrivalTime,
+  basePrice,
+  airline,
+}: CardTicketProps) => {
   return (
     <div
       className={`shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] rounded-lg p-6 ${className}`}
@@ -11,7 +20,7 @@ const CardTicket = ({ className }: HTMLAttributes<HTMLDivElement>) => {
         <div>
           <div className="mb-3 flex items-center">
             <img src="https://i.ibb.co/bHGk6bM/garuda.png" alt="garuda" />
-            <label className="ml-3">Garuda Indonesia</label>
+            <label className="ml-3">{airline.name}</label>
           </div>
           <div className="border rounded-full px-4 py-2 inline">20</div>
         </div>
@@ -19,12 +28,14 @@ const CardTicket = ({ className }: HTMLAttributes<HTMLDivElement>) => {
         <div className="flex gap-1">
           {/* departure */}
           <div>
-            <p>18.45</p>
-            <p className="text-gray-300 text-center">CGK</p>
+            <p>{departureTime}</p>
+            <p className="text-gray-300 text-center">{departureAirport.iata}</p>
           </div>
           {/* simbol */}
           <div className="">
-            <p className="text-center">2h 0m</p>
+            <p className="text-center">
+              {substractTime(arrivalTime, departureTime)}
+            </p>
             <div className="flex items-center">
               <div className="rounded-full border border-black h-2 w-2 bg-white"></div>
               <div className="border w-[80px] border-black"></div>
@@ -34,13 +45,13 @@ const CardTicket = ({ className }: HTMLAttributes<HTMLDivElement>) => {
           </div>
           {/* arrive */}
           <div>
-            <p>21.45</p>
-            <p className="text-gray-300 text-center">DPS</p>
+            <p>{arrivalTime}</p>
+            <p className="text-gray-300 text-center">{arrivalAirport.iata}</p>
           </div>
         </div>
         <div>
           <p className="text-secondary-warning font-bold">
-            Rp1.150.000
+            Rp {basePrice}
             <span className="text-black text-sm font-normal">/pax</span>
           </p>
         </div>

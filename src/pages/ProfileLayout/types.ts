@@ -45,11 +45,11 @@ export interface Flight {
   flighNumber?: string;
   departureAirport: Airport;
   arrivalAirport: Airport;
-  airplane?: string;
+  airplane: Airplane;
   departureDate?: Date;
   arrivalDate?: Date;
-  departureTime?: string;
-  arrivalTime?: string;
+  departureTime: string;
+  arrivalTime: string;
   basePrice?: number;
 }
 
@@ -94,6 +94,16 @@ export interface Transaction {
   totalPrice: number;
   status: 'PENDING' | 'PROCESS' | 'SENT' | 'FINISH';
   paymentProof?: string;
+}
+
+export interface DataFlight {
+  availableSeat: number;
+  basePriceAdult: number;
+  basePriceChild: number;
+  basePriceInfant: number;
+  id: number;
+  seatClass: string;
+  flight: Flight;
 }
 
 export interface userTransactionContextType {

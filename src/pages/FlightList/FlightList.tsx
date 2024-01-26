@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import { Airport } from '../Homepage/components/FindTicket/data';
 import axiosInstance from '../../axios/axios';
 import { formatDate } from '../../utils/functions';
-import { Flight } from '../ProfileLayout/types';
+import { DataFlight } from '../ProfileLayout/types';
 
 const FlightList = () => {
   const [departureAirport, setDepartureAirport] = useState<Airport>({
@@ -30,7 +30,7 @@ const FlightList = () => {
     id: 0,
     status: true,
   });
-  const [flights, setFlights] = useState<Flight[]>([]);
+  const [flights, setFlights] = useState<DataFlight[]>([]);
   const [departureDate, setDepartureDate] = useState<Date>(new Date());
   const [classPassenger, setClassPassenger] = useState<string>('');
   const [totalPassengers, setTotalPassengers] = useState<number>(0);
@@ -61,7 +61,9 @@ const FlightList = () => {
       const queryString = `departureAirportId=${idDepAirport}&arrivalAirportId=${idDesAirport}&departDate=${formatedDepartureDate}&seatClass=${classPenumpang.toUpperCase()}&numberOfPassenger=${totPassengers}`;
 
       const flightList = await axiosInstance.get(`/flight/list?${queryString}`);
-      console.log(flightList);
+      const dataFlight = flightList.data.data.content;
+      setFlights(dataFlight);
+      console.log(dataFlight);
     };
     getAirport();
     getFlightList();
@@ -97,9 +99,22 @@ const FlightList = () => {
           {/* card ticket */}
           <div className="w-3/4 mt-4">
             <PriceFilter />
+            {flights &&
+              flights.map((data) => (
+                <CardTicket
+                  key={data.id}
+                  airline={data.flight.airplane.airline}
+                  basePrice={data.basePriceAdult}
+                  departureAirport={data.flight.departureAirport}
+                  arrivalAirport={data.flight.arrivalAirport}
+                  departureTime={data.flight.departureTime}
+                  arrivalTime={data.flight.arrivalTime}
+                  className="mt-4"
+                />
+              ))}
+            {/* <CardTicket className="mt-4" />
             <CardTicket className="mt-4" />
-            <CardTicket className="mt-4" />
-            <CardTicket className="mt-4" />
+            <CardTicket className="mt-4" /> */}
           </div>
         </div>
       </div>

@@ -58,3 +58,20 @@ export const formatDate = (date: Date) => {
 
   return `${day}-${month}-${year}`;
 };
+
+export const substractTime = (time1: string, time2: string) => {
+  const [hours1, minutes1] = time1.split(':').map(Number);
+  const [hours2, minutes2] = time2.split(':').map(Number);
+
+  let hoursDiff = hours1 - hours2;
+  let minutesDiff = minutes1 - minutes2;
+
+  if (minutesDiff < 0) {
+    minutesDiff += 60;
+    hoursDiff--;
+  }
+
+  const result = `${hoursDiff}h ${minutesDiff}m`;
+
+  return result;
+};
