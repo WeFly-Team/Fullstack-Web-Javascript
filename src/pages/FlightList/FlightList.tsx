@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { Airport } from '../Homepage/components/FindTicket/data';
 import axiosInstance from '../../axios/axios';
 import { formatDate } from '../../utils/functions';
+import { Flight } from '../ProfileLayout/types';
 
 const FlightList = () => {
   const [departureAirport, setDepartureAirport] = useState<Airport>({
@@ -29,6 +30,7 @@ const FlightList = () => {
     id: 0,
     status: true,
   });
+  const [flights, setFlights] = useState<Flight[]>([]);
   const [departureDate, setDepartureDate] = useState<Date>(new Date());
   const [classPassenger, setClassPassenger] = useState<string>('');
   const [totalPassengers, setTotalPassengers] = useState<number>(0);

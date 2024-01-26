@@ -9,6 +9,37 @@ export interface Passenger {
   dateOfBirth?: string;
 }
 
+export interface Airline {
+  businessMultiplier: number;
+  createdDate?: Date;
+  deletedDate?: Date;
+  updatedDate?: Date;
+  discountChild: number;
+  discoundInfant: number;
+  name: string;
+}
+
+export interface Seat {
+  createdDate?: Date;
+  deletedDate?: Date;
+  updatedDate?: Date;
+  id: number;
+  seatClass: string;
+  seatColumn: number;
+  seatRow: number;
+}
+
+export interface Airplane {
+  airline: Airline;
+  createdDate?: Date;
+  deletedDate?: Date;
+  updatedDate?: Date;
+  id: number;
+  name: string;
+  seats: Seat[];
+  type: string;
+}
+
 export interface Flight {
   id: number;
   flighNumber?: string;
