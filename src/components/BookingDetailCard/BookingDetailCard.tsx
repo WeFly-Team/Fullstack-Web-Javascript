@@ -2,9 +2,15 @@ import { IoAirplaneOutline } from 'react-icons/io5';
 import { BookingCardProps } from '../../pages/MyBooking/Component/types';
 import Button from '../Button';
 
-const BookingDetailCard = ({ status, className }: BookingCardProps) => {
+const BookingDetailCard = ({
+  status,
+  className,
+  bookingId,
+  departureAirport,
+  arrivalAirport,
+}: BookingCardProps) => {
   const checkStatus = () => {
-    if (status === 'pending') {
+    if (status === 'PENDING') {
       return (
         <div className="flex justify-between gap-2 items-center p-4">
           <Button className="w-auto h-auto py-2 px-6">
@@ -20,7 +26,7 @@ const BookingDetailCard = ({ status, className }: BookingCardProps) => {
           </div>
         </div>
       );
-    } else if (status === 'process')
+    } else if (status === 'PROCESS')
       return (
         <div className="flex justify-end gap-2 items-center p-4">
           <p className="text-neutral-06 text-sm font-semibold">Status</p>
@@ -29,7 +35,7 @@ const BookingDetailCard = ({ status, className }: BookingCardProps) => {
           </div>
         </div>
       );
-    else if (status === 'sent')
+    else if (status === 'SENT')
       return (
         <div className="flex justify-end gap-2 items-center p-4">
           <p className="text-neutral-06 text-sm font-semibold">Status</p>
@@ -38,7 +44,7 @@ const BookingDetailCard = ({ status, className }: BookingCardProps) => {
           </div>
         </div>
       );
-    else if (status === 'finish')
+    else if (status === 'FINISH')
       return (
         <div className="flex justify-end gap-2 items-center p-4">
           <p className="text-neutral-06 text-sm font-semibold">Status</p>
@@ -54,7 +60,7 @@ const BookingDetailCard = ({ status, className }: BookingCardProps) => {
     >
       <div className="p-4 border-b border-neutral-05">
         <p className="text-center font-semibold text-lg">
-          Booking Id : 483649673
+          Booking Id : {bookingId}
         </p>
       </div>
       <div className="p-4 flex justify-between border-b border-neutral-05">
@@ -63,7 +69,7 @@ const BookingDetailCard = ({ status, className }: BookingCardProps) => {
         </div>
         <div className="flex items-center justify-center gap-8">
           <div>
-            <p className="text-neutral-06">Jakarta</p>
+            <p className="font-semibold">{departureAirport.city}</p>
             <p className="font-semibold">18.45</p>
           </div>
           <div className="flex flex-col gap-2">
@@ -78,7 +84,7 @@ const BookingDetailCard = ({ status, className }: BookingCardProps) => {
             </div>
           </div>
           <div>
-            <p className="text-neutral-06 text-right">Bali</p>
+            <p className="font-semibold text-right">{arrivalAirport.city}</p>
             <p className="font-semibold text-right">21.45</p>
           </div>
         </div>
