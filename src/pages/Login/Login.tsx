@@ -58,7 +58,7 @@ const Login = () => {
       const result = await axiosInstance.post(
         `/user-login/signin_google/${codeResponse.access_token}`
       );
-      const accToken = result.data.data.access_token;
+      const accToken = result.data.access_token;
       login(accToken);
     },
     onError: (errorResponse) => console.log(errorResponse),
