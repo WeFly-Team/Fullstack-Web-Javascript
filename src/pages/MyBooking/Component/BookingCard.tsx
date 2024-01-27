@@ -54,7 +54,7 @@ const BookingCard = ({
               {departureAirport.city}, {departureAirport.country}
             </p>
             <p className="text-sm text-neutral-06">
-              {departureAirport.airportCode} - {departureAirport.name}{' '}
+              {departureAirport.iata} - {departureAirport.name}{' '}
             </p>
           </div>
           <div className="mx-3">
@@ -65,7 +65,7 @@ const BookingCard = ({
               {arrivalAirport.city}, {arrivalAirport.country}
             </p>
             <p className="text-sm text-neutral-06">
-              {arrivalAirport.airportCode} - {arrivalAirport.name}{' '}
+              {arrivalAirport.iata} - {arrivalAirport.name}
             </p>
           </div>
         </div>

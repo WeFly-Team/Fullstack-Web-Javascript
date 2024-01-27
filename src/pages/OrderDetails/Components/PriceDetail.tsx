@@ -1,21 +1,35 @@
-import { HTMLAttributes } from 'react';
+import { HTMLAttributes, useContext } from 'react';
 import { IoAirplaneOutline } from 'react-icons/io5';
+import { OrderDetailContext, orderDetailContextType } from './types';
+import { formatLongDate, substractTime } from '../../../utils/functions';
 
 const PriceDetail = ({ className }: HTMLAttributes<HTMLDivElement>) => {
+  const { dataFlight } = useContext(
+    OrderDetailContext
+  ) as orderDetailContextType;
+
   return (
     <div className={`border-neutral-05 border rounded-lg ${className}`}>
       <div className="p-3">
         <div className="flex justify-between">
           <img src="https://i.ibb.co/pznRn82/garuda-title.png" alt="logo" />
           <div className="text-right">
-            <h1 className="font-semibold">Garuda Indonesia</h1>
-            <p className="text-neutral-06">Economy</p>
+            <h1 className="font-semibold">
+              {dataFlight && dataFlight.flight.airplane.airline.name}
+            </h1>
+            <p className="text-neutral-06">
+              {dataFlight && dataFlight.seatClass}
+            </p>
           </div>
         </div>
         <div className="flex items-center justify-center gap-8">
           <div>
-            <p className="text-neutral-06">Jakarta</p>
-            <p className="font-semibold">18.45</p>
+            <p className="text-neutral-06">
+              {dataFlight && dataFlight.flight.departureAirport.city}
+            </p>
+            <p className="font-semibold">
+              {dataFlight && dataFlight.flight.departureTime}
+            </p>
           </div>
           <div>
             <div className="border-dashed border border-neutral-06 w-32" />
@@ -23,15 +37,25 @@ const PriceDetail = ({ className }: HTMLAttributes<HTMLDivElement>) => {
               <IoAirplaneOutline className=" mx-auto text-primary-blue text-xl bg-white" />
             </div>
             <div className="text-neutral-06 text-sm text-center mt-3">
-              Duration 3 hours
+              Duration{' '}
+              {dataFlight &&
+                substractTime(
+                  dataFlight.flight.arrivalTime,
+                  dataFlight.flight.departureTime
+                )}
             </div>
             <div className="text-neutral-06 text-sm text-center mt-2">
-              Sun, 14 Jan 2024
+              {dataFlight &&
+                formatLongDate(dataFlight.flight.departureDate!.toString())}
             </div>
           </div>
           <div>
-            <p className="text-neutral-06 text-right">Bali</p>
-            <p className="font-semibold text-right">18.45</p>
+            <p className="text-neutral-06 text-right">
+              {dataFlight && dataFlight.flight.arrivalAirport.city}
+            </p>
+            <p className="font-semibold text-right">
+              {dataFlight && dataFlight.flight.arrivalTime}
+            </p>
           </div>
         </div>
       </div>

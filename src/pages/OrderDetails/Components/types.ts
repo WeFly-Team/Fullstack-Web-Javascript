@@ -1,4 +1,5 @@
-import { HTMLAttributes } from 'react';
+import { HTMLAttributes, createContext } from 'react';
+import { DataFlight, detailPassenger } from '../../ProfileLayout/types';
 
 export interface OrdererProp extends HTMLAttributes<HTMLDivElement> {
   name: string;
@@ -32,3 +33,12 @@ export interface TotalPriceProp extends HTMLAttributes<HTMLDivElement> {
 export interface PaymentDetailProp extends HTMLAttributes<HTMLDivElement> {
   continueOrder: () => void;
 }
+
+export interface orderDetailContextType {
+  dataFlight?: DataFlight;
+  detailPassenger?: detailPassenger;
+}
+
+export const OrderDetailContext = createContext<orderDetailContextType | null>(
+  null
+);

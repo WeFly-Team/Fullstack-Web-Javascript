@@ -1,18 +1,20 @@
 export function getNameOfDay(day: number): string {
+  console.log(day);
+
   switch (day) {
-    case 0:
-      return 'Mon';
     case 1:
-      return 'Tue';
+      return 'Mon';
     case 2:
-      return 'Wed';
+      return 'Tue';
     case 3:
-      return 'Thu';
+      return 'Wed';
     case 4:
-      return 'Fri';
+      return 'Thu';
     case 5:
-      return 'Sat';
+      return 'Fri';
     case 6:
+      return 'Sat';
+    case 7:
       return 'Sun';
     default:
       return '';
@@ -79,3 +81,23 @@ export const substractTime = (time1: string, time2: string) => {
 export const thousandSeparator = (num: number) => {
   return num.toLocaleString('en-US');
 };
+
+export function formatLongDate(inputDateString: string): string {
+  const parts: number[] = inputDateString
+    .split('-')
+    .map((part) => parseInt(part, 10));
+
+  const [day, month, year] = parts;
+
+  const formattedDate: Date = new Date(year, month - 1, day);
+
+  console.log(formattedDate.getDay());
+  const formattedDay: string = getNameOfDay(formattedDate.getDay());
+  const formattedMonth: string = getNameOfMonth(formattedDate.getMonth());
+  const formattedYear: number = formattedDate.getFullYear();
+
+  // Construct the formatted date string
+  const result: string = `${formattedDay}, ${formattedMonth} ${day} ${formattedYear}`;
+
+  return result;
+}

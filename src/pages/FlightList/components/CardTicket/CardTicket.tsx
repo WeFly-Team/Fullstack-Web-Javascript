@@ -6,7 +6,12 @@ import { CardTicketProps } from './types';
 const CardTicket = ({ className, data, detailPassenger }: CardTicketProps) => {
   const navigate = useNavigate();
   const handleChoose = (flightId: number) => {
-    navigate(`/order-details/${flightId}`);
+    navigate(`/order-details/${flightId}`, {
+      state: {
+        data,
+        detailPassenger,
+      },
+    });
   };
 
   return (
