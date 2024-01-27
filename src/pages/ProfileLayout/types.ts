@@ -1,12 +1,16 @@
 import { createContext } from 'react';
 import { Airport } from '../Homepage/components/FindTicket/data';
+import { GenderType } from '../OrderDetails/Components/types';
 
+export type PassengerType = 'adult' | 'child' | 'infant';
 export interface Passenger {
-  id: number;
-  firsName: string;
+  id?: number;
+  firstName: string;
   lastName?: string;
   nationality?: string;
   dateOfBirth?: string;
+  type?: PassengerType;
+  gender?: GenderType;
 }
 
 export interface detailPassenger {

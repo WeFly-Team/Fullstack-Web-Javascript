@@ -10,9 +10,9 @@ import PaymentDetail from './Components/PaymentDetail';
 import Orderpopup from './Components/Orderpopup';
 import PassengerPopup from './Components/PassengerPopup';
 import { useLocation } from 'react-router-dom';
-import { DataFlight, detailPassenger } from '../ProfileLayout/types';
+import { DataFlight, Passenger, detailPassenger } from '../ProfileLayout/types';
 import { OrderDetailContext, OrderDetailOrderer } from './Components/types';
-import { getTotalPrice } from '../../utils/functions';
+import { capitalizeFirstLetter, getTotalPrice } from '../../utils/functions';
 import { useAuth } from '../../customHooks/useAuth/useAuth';
 
 const OrderDetails = () => {
@@ -26,10 +26,16 @@ const OrderDetails = () => {
   const [detailPassenger, setDetailPassenger] = useState<detailPassenger>();
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [orderer, setOrderer] = useState<OrderDetailOrderer>();
+  const [passengers, setPassengers] = useState<Passenger[]>([]);
+  const [selectedPassenger, setSelectedPassenger] = useState<Passenger>();
 
   const { user } = useAuth();
 
   const location = useLocation();
+
+  const selectPassenger = (passenger: Passenger) => {
+    setSelectedPassenger(passenger);
+  };
 
   const continueOrder = () => {
     setOrderDetail(false);
@@ -47,6 +53,18 @@ const OrderDetails = () => {
 
   const saveOrderer = (orderer: OrderDetailOrderer) => {
     setOrderer(orderer);
+  };
+
+  const savePassenger = (updatePassenger: Passenger) => {
+    const newPassengers = passengers.map((passenger) => {
+      if (passenger.id === updatePassenger.id) {
+        return { ...passenger, ...updatePassenger };
+      } else {
+        return passenger;
+      }
+    });
+    setPassengers(newPassengers);
+    console.log(newPassengers);
   };
 
   useEffect(() => {
@@ -68,6 +86,36 @@ const OrderDetails = () => {
   }, [dataFlight, detailPassenger]);
 
   useEffect(() => {
+    // add adult passengers
+    const arrPassenger = passengers;
+    let id = 1;
+    if (detailPassenger) {
+      for (let i = 0; i < detailPassenger.adult; i++) {
+        arrPassenger.push({
+          id,
+          firstName: 'Please insert this passenger information!',
+          lastName: '',
+          nationality: '',
+          type: 'adult',
+        });
+        id++;
+      }
+
+      if (detailPassenger.child > 0) {
+        for (let i = 0; i < detailPassenger.child; i++) {
+          arrPassenger.push({
+            id,
+            firstName: 'Please insert this passenger information!',
+            lastName: '',
+            nationality: '',
+            type: 'child',
+          });
+          id++;
+        }
+      }
+    }
+  }, [detailPassenger]);
+  useEffect(() => {
     if (user) {
       setOrderer({
         email: user.user_name,
@@ -86,9 +134,10 @@ const OrderDetails = () => {
           totalPrice,
           orderer,
           saveOrderer,
+          savePassenger,
         }}
       >
-        <div className="lg:container px-4 pt-8 mx-auto">
+        <div className="lg:container px-4 py-8 mx-auto">
           <h1 className="font-semibold">{pageTitle}</h1>
 
           <div className="md:flex pt-3 gap-4">
@@ -99,17 +148,22 @@ const OrderDetails = () => {
 
               {orderDetail && (
                 <div>
-                  <h1 className="font-semibold text-lg mt-5">Passenger 1</h1>
-                  <PassengerCard
-                    orderer={true}
-                    isShow={() => setShowPassengerPopUp(true)}
-                    className="mt-3"
-                  />
-                  <h1 className="font-semibold text-lg mt-5">Passengers 2</h1>
-                  <PassengerCard
-                    className="mt-3"
-                    isShow={() => setShowPassengerPopUp(true)}
-                  />
+                  {passengers &&
+                    passengers.map((passenger, index) => (
+                      <div key={index}>
+                        <h1 className="font-semibold text-lg mt-5">
+                          Passenger {passenger.id} (
+                          {capitalizeFirstLetter(passenger.type!)})
+                        </h1>
+                        <PassengerCard
+                          selectPassenger={selectPassenger}
+                          passenger={passenger}
+                          asOrderer={passenger.id == 1 ? true : false}
+                          isShow={() => setShowPassengerPopUp(true)}
+                          className="mt-3"
+                        />
+                      </div>
+                    ))}
                 </div>
               )}
               {paymentMethod && <PaymentMethod />}
@@ -133,10 +187,12 @@ const OrderDetails = () => {
         )}
         {showPassengerPopUp && (
           <PassengerPopup
-            name="Jamal Ghazali"
-            gender="Mr"
+            passenger={selectedPassenger ? selectedPassenger : undefined}
             className=""
-            isClose={() => setShowPassengerPopUp(false)}
+            isClose={() => {
+              setSelectedPassenger(undefined);
+              setShowPassengerPopUp(false);
+            }}
           />
         )}
       </OrderDetailContext.Provider>

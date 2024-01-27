@@ -1,18 +1,51 @@
-import { useState } from 'react';
-import { PassengerCardProp } from './types';
+import { useContext, useEffect, useState } from 'react';
+import {
+  OrderDetailContext,
+  PassengerCardProp,
+  orderDetailContextType,
+} from './types';
 import { GoPencil } from 'react-icons/go';
+import { extractNames } from '../../../utils/functions';
 
 const PassengerCard = ({
   className,
-  orderer = false,
+  selectPassenger,
+  passenger,
+  asOrderer,
   isShow,
 }: PassengerCardProp) => {
   // state
   const [sameOrderer, setSameOrderer] = useState<boolean>(false);
 
+  const { savePassenger, orderer } = useContext(
+    OrderDetailContext
+  ) as orderDetailContextType;
+
+  const handleOpenPopUp = () => {
+    if (passenger) {
+      isShow();
+      selectPassenger(passenger);
+    }
+  };
+
+  useEffect(() => {
+    if (sameOrderer) {
+      if (orderer) {
+        const { firstName, lastName } = extractNames(orderer.fullName);
+        savePassenger({
+          id: passenger.id,
+          firstName,
+          lastName,
+          type: 'adult',
+          gender: orderer.type,
+        });
+      }
+    }
+  }, [sameOrderer, orderer]);
+
   return (
     <div className={`border-neutral-05 border rounded-lg ${className}`}>
-      {orderer && (
+      {asOrderer && (
         <div className="flex items-start p-3 justify-between border-b border-b-neutral-05">
           <p className="text-neutral-05">Same as orderer</p>
           <label className="relative inline-flex items-center cursor-pointer">
@@ -28,10 +61,13 @@ const PassengerCard = ({
         </div>
       )}
       <div className="flex items-center justify-between p-3">
-        <h1 className="font-semibold">Mr. Jamal Ghazali</h1>
+        <h1 className="font-semibold">
+          {passenger.gender ? passenger.gender + '.' : ''} {passenger.firstName}{' '}
+          {passenger.lastName}
+        </h1>
         <GoPencil
           className="text-primary-blue text-lg cursor-pointer"
-          onClick={isShow}
+          onClick={handleOpenPopUp}
         />
       </div>
     </div>

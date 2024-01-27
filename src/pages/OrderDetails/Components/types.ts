@@ -1,5 +1,9 @@
 import { HTMLAttributes, createContext } from 'react';
-import { DataFlight, detailPassenger } from '../../ProfileLayout/types';
+import {
+  DataFlight,
+  Passenger,
+  detailPassenger,
+} from '../../ProfileLayout/types';
 
 export interface OrdererProp extends HTMLAttributes<HTMLDivElement> {
   isShow: () => void;
@@ -10,13 +14,14 @@ export interface OrderPopProp extends HTMLAttributes<HTMLDivElement> {
 }
 
 export interface PassengerPopProp extends HTMLAttributes<HTMLDivElement> {
-  name: string;
-  gender?: string;
+  passenger?: Passenger;
   isClose: () => void;
 }
 
 export interface PassengerCardProp extends HTMLAttributes<HTMLDivElement> {
-  orderer?: boolean;
+  selectPassenger: (passenger: Passenger) => void;
+  asOrderer?: boolean;
+  passenger: Passenger;
   isShow: () => void;
 }
 
@@ -40,6 +45,7 @@ export interface orderDetailContextType {
   totalPrice: number;
   orderer?: OrderDetailOrderer;
   saveOrderer: (orderer: OrderDetailOrderer) => void;
+  savePassenger: (updatedPassenger: Passenger) => void;
 }
 
 export const OrderDetailContext = createContext<orderDetailContextType | null>(
