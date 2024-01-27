@@ -1,10 +1,14 @@
 import { HTMLAttributes, useContext } from 'react';
 import { IoAirplaneOutline } from 'react-icons/io5';
 import { OrderDetailContext, orderDetailContextType } from './types';
-import { formatLongDate, substractTime } from '../../../utils/functions';
+import {
+  formatLongDate,
+  substractTime,
+  thousandSeparator,
+} from '../../../utils/functions';
 
 const PriceDetail = ({ className }: HTMLAttributes<HTMLDivElement>) => {
-  const { dataFlight } = useContext(
+  const { dataFlight, totalPrice } = useContext(
     OrderDetailContext
   ) as orderDetailContextType;
 
@@ -61,7 +65,7 @@ const PriceDetail = ({ className }: HTMLAttributes<HTMLDivElement>) => {
       </div>
       <div className="border-t border-neutral-06 p-3">
         <p className="text-primary-blue font-bold text-2xl text-right">
-          Rp 1.150.000
+          Rp {thousandSeparator(totalPrice)}
         </p>
       </div>
     </div>

@@ -1,36 +1,37 @@
-import React, { ChangeEvent, useState } from 'react';
-import { OrderPopProp } from './types';
+import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
+import {
+  GenderType,
+  OrderDetailContext,
+  OrderDetailOrderer,
+  OrderPopProp,
+  orderDetailContextType,
+} from './types';
 import Button from '../../../components/Button';
 import FormInput from '../../../components/FormInput';
 import { AiOutlineLeft } from 'react-icons/ai';
 
-const Orderpopup = ({
-  name,
-  phoneNumber,
-  email,
-  className,
-  gender,
-  isClose,
-}: OrderPopProp) => {
-  const [isgender, setIsGender] = useState<string>(gender || '');
-  const [newemail, setEmail] = useState('');
-  const [newusername, setusername] = useState('');
-  const [newphonenumber, setphonenumber] = useState('');
+const Orderpopup = ({ className, isClose }: OrderPopProp) => {
+  const { orderer, saveOrderer } = useContext(
+    OrderDetailContext
+  ) as orderDetailContextType;
+
+  const [isgender, setIsGender] = useState<GenderType>('Mr');
+  const [newEmail, setNewEmail] = useState('');
+  const [newFullname, setNewFullname] = useState('');
+  const [newPhoneNumber, setNewPhoneNumber] = useState('');
+  const [newOrderer, setNewOrderer] = useState<OrderDetailOrderer>();
   const genders = ['Mr', 'Mrs', 'Miss'];
-  console.log(newemail, newusername, newphonenumber);
+
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-    console.log(setEmail);
+    setNewEmail(e.target.value);
   };
-  const handleUserName = (e: ChangeEvent<HTMLInputElement>) => {
-    setusername(e.target.value);
-    console.log(setEmail);
+  const handleFullname = (e: ChangeEvent<HTMLInputElement>) => {
+    setNewFullname(e.target.value);
   };
   const handlePhoneNumber = (e: ChangeEvent<HTMLInputElement>) => {
-    setphonenumber(e.target.value);
-    console.log(setEmail);
+    setNewPhoneNumber(e.target.value);
   };
-  const handleGenderChange = (selectedGender: string) => {
+  const handleGenderChange = (selectedGender: GenderType) => {
     setIsGender(selectedGender);
   };
   const handleShowPopUp = async (e: any) => {
@@ -39,6 +40,34 @@ const Orderpopup = ({
     }
     return;
   };
+
+  const handleSave = () => {
+    if (newOrderer) {
+      saveOrderer(newOrderer);
+      isClose();
+    }
+  };
+
+  useEffect(() => {
+    if (orderer) {
+      setNewOrderer(orderer);
+      setNewFullname(orderer.fullName);
+      setNewEmail(orderer.email);
+      setNewPhoneNumber(orderer.phoneNumber ? orderer.phoneNumber : '');
+      setIsGender(orderer.type);
+    }
+  }, [orderer]);
+
+  useEffect(() => {
+    if (orderer) {
+      setNewOrderer({
+        email: newEmail,
+        fullName: newFullname,
+        phoneNumber: newPhoneNumber,
+        type: isgender,
+      });
+    }
+  }, [newEmail, newFullname, newPhoneNumber, isgender]);
   return (
     <div
       id="order-popup"
@@ -56,21 +85,23 @@ const Orderpopup = ({
           </h1>
         </div>
         <hr />
-        <form className="w-full mt-3">
+        <div className="w-full mt-3">
           <div>
             <p className="font-normal text-md text-gray-400">
               This data will be used for E-Ticket delivery
             </p>
-            <FormInput
-              type="text"
-              children="Full name"
-              label="Full name"
-              name={name}
-              value={name}
-              onChange={handleUserName}
-              placeholder="Enter your full name"
-              className="w-full "
-            />
+            {orderer && (
+              <FormInput
+                type="text"
+                children="Full name"
+                label="Full name"
+                name="fullname"
+                value={newFullname}
+                onChange={handleFullname}
+                placeholder="Enter your full name"
+                className="w-full "
+              />
+            )}
             <p className="relative font-normal text-md text-gray-400 top-[-16px]">
               *Corresponds to ID card
             </p>
@@ -85,7 +116,9 @@ const Orderpopup = ({
                     name="gender"
                     value={genderOption}
                     checked={isgender === genderOption}
-                    onChange={() => handleGenderChange(genderOption)}
+                    onChange={() =>
+                      handleGenderChange(genderOption as GenderType)
+                    }
                   />
                   {genderOption}
                 </div>
@@ -96,8 +129,8 @@ const Orderpopup = ({
             type="number"
             children="Phone number"
             label="Phone number"
-            name={phoneNumber}
-            value={phoneNumber}
+            name="phoneNumber"
+            value={newPhoneNumber}
             onChange={handlePhoneNumber}
             placeholder="Enter your phone number"
             className="w-full"
@@ -106,8 +139,8 @@ const Orderpopup = ({
             type="email"
             children="Email Address"
             label="Email Address"
-            name={email}
-            value={email}
+            name="email"
+            value={newEmail}
             onChange={handleEmail}
             placeholder="Enter your email address"
             className="w-full"
@@ -119,10 +152,11 @@ const Orderpopup = ({
             variant="primary"
             size="md"
             id="save"
+            onClick={handleSave}
           >
             Save
           </Button>
-        </form>
+        </div>
       </div>
     </div>
   );

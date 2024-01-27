@@ -1,6 +1,4 @@
 export function getNameOfDay(day: number): string {
-  console.log(day);
-
   switch (day) {
     case 1:
       return 'Mon';
@@ -91,13 +89,41 @@ export function formatLongDate(inputDateString: string): string {
 
   const formattedDate: Date = new Date(year, month - 1, day);
 
-  console.log(formattedDate.getDay());
   const formattedDay: string = getNameOfDay(formattedDate.getDay());
   const formattedMonth: string = getNameOfMonth(formattedDate.getMonth());
   const formattedYear: number = formattedDate.getFullYear();
 
-  // Construct the formatted date string
   const result: string = `${formattedDay}, ${formattedMonth} ${day} ${formattedYear}`;
 
   return result;
+}
+
+export const getTotalPrice = (
+  adultCount: number,
+  childCount: number,
+  adultTicketPrice: number,
+  childTicketPrice: number
+): number => {
+  const validAdultCount: number = Math.max(0, Math.floor(adultCount));
+  const validChildCount: number = Math.max(0, Math.floor(childCount));
+
+  const totalAdultPrice: number = validAdultCount * adultTicketPrice;
+  const totalChildPrice: number = validChildCount * childTicketPrice;
+
+  const totalPrice: number = totalAdultPrice + totalChildPrice;
+
+  return totalPrice;
+};
+
+export function extractNames(fullName: string): {
+  firstName: string;
+  lastName: string;
+} {
+  const names: string[] = fullName.split(' ');
+
+  const lastName: string = names.pop() || '';
+
+  const firstName: string = names.join(' ');
+
+  return { firstName, lastName };
 }

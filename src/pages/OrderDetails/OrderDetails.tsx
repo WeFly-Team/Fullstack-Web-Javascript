@@ -11,7 +11,9 @@ import Orderpopup from './Components/Orderpopup';
 import PassengerPopup from './Components/PassengerPopup';
 import { useLocation } from 'react-router-dom';
 import { DataFlight, detailPassenger } from '../ProfileLayout/types';
-import { OrderDetailContext } from './Components/types';
+import { OrderDetailContext, OrderDetailOrderer } from './Components/types';
+import { getTotalPrice } from '../../utils/functions';
+import { useAuth } from '../../customHooks/useAuth/useAuth';
 
 const OrderDetails = () => {
   const [orderDetail, setOrderDetail] = useState<boolean>(true);
@@ -22,6 +24,11 @@ const OrderDetails = () => {
   const [showPassengerPopUp, setShowPassengerPopUp] = useState(false);
   const [dataFlight, setDataFlight] = useState<DataFlight>();
   const [detailPassenger, setDetailPassenger] = useState<detailPassenger>();
+  const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [orderer, setOrderer] = useState<OrderDetailOrderer>();
+
+  const { user } = useAuth();
+
   const location = useLocation();
 
   const continueOrder = () => {
@@ -38,28 +45,56 @@ const OrderDetails = () => {
     setPageTitle('');
   };
 
+  const saveOrderer = (orderer: OrderDetailOrderer) => {
+    setOrderer(orderer);
+  };
+
   useEffect(() => {
     setDataFlight(location.state.data);
     setDetailPassenger(location.state.detailPassenger);
   }, []);
 
+  useEffect(() => {
+    if (detailPassenger && dataFlight) {
+      setTotalPrice(
+        getTotalPrice(
+          detailPassenger.adult,
+          detailPassenger.child,
+          dataFlight.basePriceAdult,
+          dataFlight.basePriceChild
+        )
+      );
+    }
+  }, [dataFlight, detailPassenger]);
+
+  useEffect(() => {
+    if (user) {
+      setOrderer({
+        email: user.user_name,
+        fullName: user.full_name,
+        type: 'Mr',
+      });
+    }
+  }, [user]);
   return (
     <section>
       <Navbar />
-      <OrderDetailContext.Provider value={{ dataFlight, detailPassenger }}>
+      <OrderDetailContext.Provider
+        value={{
+          dataFlight,
+          detailPassenger,
+          totalPrice,
+          orderer,
+          saveOrderer,
+        }}
+      >
         <div className="lg:container px-4 pt-8 mx-auto">
           <h1 className="font-semibold">{pageTitle}</h1>
 
           <div className="md:flex pt-3 gap-4">
             <div className="w-full md:w-1/2 order-2 md:order-1">
-              {orderDetail && (
-                <Orderer
-                  name="Jamal Ghazali"
-                  phoneNumber="081234567890"
-                  email="example@gmail.com"
-                  className=""
-                  isShow={() => setShowOrderPopUp(true)}
-                />
+              {orderDetail && orderer && (
+                <Orderer className="" isShow={() => setShowOrderPopUp(true)} />
               )}
 
               {orderDetail && (
@@ -94,15 +129,7 @@ const OrderDetails = () => {
           </div>
         </div>
         {showOrderPopUp && (
-          <Orderpopup
-            id="order-popup"
-            name="Jamal Ghazali"
-            phoneNumber="081234567890"
-            email="example@gmail.com"
-            gender="Mr"
-            className=""
-            isClose={() => setShowOrderPopUp(false)}
-          />
+          <Orderpopup className="" isClose={() => setShowOrderPopUp(false)} />
         )}
         {showPassengerPopUp && (
           <PassengerPopup
