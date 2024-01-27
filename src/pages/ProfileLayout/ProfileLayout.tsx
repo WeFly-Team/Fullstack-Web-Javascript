@@ -30,6 +30,8 @@ const ProfileLayout = () => {
       const result = await axiosInstance.get('/transaction/list', {
         headers,
       });
+      console.log(result);
+
       setTransactions(result.data.data.content);
     };
     fetchBooking();

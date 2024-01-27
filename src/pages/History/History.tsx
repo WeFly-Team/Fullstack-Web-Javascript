@@ -33,10 +33,12 @@ const HistoryList = () => {
                 status={transaction.status}
                 bookingId={transaction.id}
                 departureAirport={
-                  transaction.transactionDetails[0].flight.departureAirport
+                  transaction.transactionDetails[0].flightClass.flight
+                    .departureAirport
                 }
                 arrivalAirport={
-                  transaction.transactionDetails[0].flight.arrivalAirport
+                  transaction.transactionDetails[0].flightClass.flight
+                    .arrivalAirport
                 }
                 className="mt-4"
               />
