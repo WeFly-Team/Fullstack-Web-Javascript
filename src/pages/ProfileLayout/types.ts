@@ -9,6 +9,12 @@ export interface Passenger {
   dateOfBirth?: string;
 }
 
+export interface detailPassenger {
+  total: number;
+  adult: number;
+  child: number;
+}
+
 export interface Airline {
   businessMultiplier: number;
   createdDate?: Date;

@@ -75,3 +75,7 @@ export const substractTime = (time1: string, time2: string) => {
 
   return result;
 };
+
+export const thousandSeparator = (num: number) => {
+  return num.toLocaleString('en-US');
+};
