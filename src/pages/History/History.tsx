@@ -30,16 +30,7 @@ const HistoryList = () => {
             return (
               <BookingCard
                 key={transaction.id}
-                status={transaction.status}
-                bookingId={transaction.id}
-                departureAirport={
-                  transaction.transactionDetails[0].flightClass.flight
-                    .departureAirport
-                }
-                arrivalAirport={
-                  transaction.transactionDetails[0].flightClass.flight
-                    .arrivalAirport
-                }
+                transaction={transaction}
                 className="mt-4"
               />
             );
