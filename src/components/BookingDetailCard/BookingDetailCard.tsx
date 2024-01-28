@@ -2,15 +2,60 @@ import { IoAirplaneOutline } from 'react-icons/io5';
 import { BookingCardProps } from '../../pages/MyBooking/Component/types';
 import Button from '../Button';
 import { formatLongDate, substractTime } from '../../utils/functions';
+import { ChangeEvent, useRef } from 'react';
+import axiosInstance from '../../axios/axios';
 
 const BookingDetailCard = ({ transaction, className }: BookingCardProps) => {
+  const token = localStorage.getItem('token');
+  const inputRef = useRef<HTMLInputElement>(null);
+  const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    const fileObj = event.target.files && event.target.files[0];
+    if (!fileObj) {
+      return;
+    }
+
+    if (inputRef.current) {
+      inputRef.current.value = '';
+    }
+    let formData = new FormData();
+    formData.append('file', fileObj);
+    formData.append('asu', 'asu');
+
+    console.log(formData.get('file'));
+
+    try {
+      const upload = await axiosInstance.put(
+        `savePaymentProof/${transaction.id}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(upload);
+    } catch (err) {
+      console.error(err);
+    }
+  };
   const checkStatus = () => {
     if (transaction.status === 'PENDING') {
       return (
         <div className="flex justify-between gap-2 items-center p-4">
-          <Button className="w-auto h-auto py-2 px-6">
+          <Button
+            className="w-auto h-auto py-2 px-6"
+            onClick={() => {
+              inputRef.current?.click();
+            }}
+          >
             Upload proof of payment
           </Button>
+          <input
+            style={{ display: 'none' }}
+            ref={inputRef}
+            type="file"
+            onChange={handleFileChange}
+          />
           <div>
             <p className="text-neutral-06 text-sm font-semibold">
               Please make payment in
