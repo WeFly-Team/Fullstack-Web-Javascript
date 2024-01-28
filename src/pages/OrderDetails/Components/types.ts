@@ -1,4 +1,4 @@
-import { HTMLAttributes, createContext } from 'react';
+import { Dispatch, HTMLAttributes, SetStateAction, createContext } from 'react';
 import {
   DataFlight,
   Passenger,
@@ -38,6 +38,18 @@ export interface OrderDetailOrderer {
   phoneNumber?: string;
   email: string;
   type: GenderType;
+}
+
+export interface Bank {
+  img: string;
+  alt: string;
+  label: string;
+}
+
+export interface PaymentMethodProps {
+  banks: Bank[];
+  selectedBank: Bank;
+  setSelectedBank: Dispatch<SetStateAction<Bank>>;
 }
 export interface orderDetailContextType {
   dataFlight?: DataFlight;

@@ -1,12 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { FaRegCopy } from 'react-icons/fa6';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import Accordion from '../../../utils/Accordion';
 import Button from '../../../components/Button';
-import { PaymentDetailProp } from './types';
+import {
+  OrderDetailContext,
+  PaymentDetailProp,
+  orderDetailContextType,
+} from './types';
 import { useNavigate } from 'react-router-dom';
+import { thousandSeparator } from '../../../utils/functions';
 const PaymentDetail = ({ continueOrder }: PaymentDetailProp) => {
+  const { totalPrice } = useContext(
+    OrderDetailContext
+  ) as orderDetailContextType;
   const navigate = useNavigate();
   // state
   const [virtualAccount, setVirtualAccount] = useState<string>('');
@@ -72,7 +80,7 @@ const PaymentDetail = ({ continueOrder }: PaymentDetailProp) => {
   // testing only
   useEffect(() => {
     setVirtualAccount('1130 2130 9876 1321');
-    setPrice('1.150.000');
+    setPrice(thousandSeparator(totalPrice));
   }, []);
 
   return (

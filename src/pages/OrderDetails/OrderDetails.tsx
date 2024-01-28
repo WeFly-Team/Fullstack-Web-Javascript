@@ -11,11 +11,38 @@ import Orderpopup from './Components/Orderpopup';
 import PassengerPopup from './Components/PassengerPopup';
 import { useLocation } from 'react-router-dom';
 import { DataFlight, Passenger, detailPassenger } from '../ProfileLayout/types';
-import { OrderDetailContext, OrderDetailOrderer } from './Components/types';
+import {
+  Bank,
+  OrderDetailContext,
+  OrderDetailOrderer,
+} from './Components/types';
 import { capitalizeFirstLetter, getTotalPrice } from '../../utils/functions';
 import { useAuth } from '../../customHooks/useAuth/useAuth';
 
 const OrderDetails = () => {
+  const banks: Bank[] = [
+    {
+      label: 'Bank Bca',
+      img: 'https://i.ibb.co/FqLmvmB/logo-bca.png',
+      alt: 'logo-bca',
+    },
+    {
+      label: 'Bank Bni',
+      img: 'https://i.ibb.co/8g6ydLs/logo-bni.png',
+      alt: 'logo-bni',
+    },
+    {
+      label: 'Bank Bri',
+      img: 'https://i.ibb.co/m6Pckrb/logo-bri.png',
+      alt: 'logo-bri',
+    },
+    {
+      label: 'Bank Mandiri',
+      img: 'https://i.ibb.co/ZVk3Dwn/logo-mandiri.png"',
+      alt: 'logo-mandiri',
+    },
+  ];
+  const [selectedBank, setSelectedBank] = useState<Bank>(banks[0]);
   const [orderDetail, setOrderDetail] = useState<boolean>(true);
   const [paymentMethod, setPaymentMethod] = useState<boolean>(false);
   const [paymentDetail, setPaymentDetail] = useState<boolean>(false);
@@ -166,7 +193,13 @@ const OrderDetails = () => {
                     ))}
                 </div>
               )}
-              {paymentMethod && <PaymentMethod />}
+              {paymentMethod && (
+                <PaymentMethod
+                  banks={banks}
+                  setSelectedBank={setSelectedBank}
+                  selectedBank={selectedBank}
+                />
+              )}
 
               {paymentDetail && <PaymentDetail continueOrder={continueOrder} />}
             </div>
