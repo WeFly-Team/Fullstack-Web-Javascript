@@ -111,15 +111,15 @@ const BookingCard = ({ transaction, className }: BookingCardProps) => {
       </div>
       <div className="flex p-4 justify-between items-center">
         {checkStatus()}
-        {status !== 'FINISH' && (
+        {transaction.status !== 'FINISH' && (
           <Link
-            to="/user/my-booking/tiket"
+            to={`/user/my-booking/${transaction.id}`}
             className="text-primary-darkBlue font-semibold"
           >
             View
           </Link>
         )}
-        {status === 'FINISH' && (
+        {transaction.status === 'FINISH' && (
           <Link
             to="/user/history/13124"
             className="text-primary-darkBlue font-semibold"

@@ -70,8 +70,6 @@ const OrderDetails = () => {
   const location = useLocation();
 
   const selectPassenger = (passenger: Passenger) => {
-    console.log(passenger);
-
     setSelectedPassenger(passenger);
   };
 
@@ -82,7 +80,7 @@ const OrderDetails = () => {
     setPageTitle('Choose Payment Method');
   };
 
-  const payNow = () => {
+  const payNow = async () => {
     if (detailPassenger) {
       const flightClassId = id;
       const adultPassenger: number = detailPassenger.adult;
@@ -100,9 +98,13 @@ const OrderDetails = () => {
           },
         ],
       };
-      const makeTransaction = axiosInstance.post('/transaction/save', data, {
-        headers,
-      });
+      const makeTransaction = await axiosInstance.post(
+        '/transaction/save',
+        data,
+        {
+          headers,
+        }
+      );
       console.log(makeTransaction);
     }
 
@@ -124,8 +126,6 @@ const OrderDetails = () => {
         return passenger;
       }
     });
-    console.log(newPassengers);
-
     setPassengers(newPassengers);
   };
 

@@ -102,6 +102,7 @@ export interface Transaction {
   childPassenger?: number;
   infantPassenger?: number;
   totalPrice: number;
+  seatClass: string;
   status: 'PENDING' | 'PROCESS' | 'SENT' | 'FINISH';
   paymentProof?: string;
 }

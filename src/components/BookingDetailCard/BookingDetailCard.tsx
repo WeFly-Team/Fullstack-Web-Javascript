@@ -1,16 +1,11 @@
 import { IoAirplaneOutline } from 'react-icons/io5';
 import { BookingCardProps } from '../../pages/MyBooking/Component/types';
 import Button from '../Button';
+import { formatLongDate, substractTime } from '../../utils/functions';
 
-const BookingDetailCard = ({
-  status,
-  className,
-  bookingId,
-  departureAirport,
-  arrivalAirport,
-}: BookingCardProps) => {
+const BookingDetailCard = ({ transaction, className }: BookingCardProps) => {
   const checkStatus = () => {
-    if (status === 'PENDING') {
+    if (transaction.status === 'PENDING') {
       return (
         <div className="flex justify-between gap-2 items-center p-4">
           <Button className="w-auto h-auto py-2 px-6">
@@ -26,7 +21,7 @@ const BookingDetailCard = ({
           </div>
         </div>
       );
-    } else if (status === 'PROCESS')
+    } else if (transaction.status === 'PROCESS')
       return (
         <div className="flex justify-end gap-2 items-center p-4">
           <p className="text-neutral-06 text-sm font-semibold">Status</p>
@@ -35,7 +30,7 @@ const BookingDetailCard = ({
           </div>
         </div>
       );
-    else if (status === 'SENT')
+    else if (transaction.status === 'SENT')
       return (
         <div className="flex justify-end gap-2 items-center p-4">
           <p className="text-neutral-06 text-sm font-semibold">Status</p>
@@ -44,7 +39,7 @@ const BookingDetailCard = ({
           </div>
         </div>
       );
-    else if (status === 'FINISH')
+    else if (transaction.status === 'FINISH')
       return (
         <div className="flex justify-end gap-2 items-center p-4">
           <p className="text-neutral-06 text-sm font-semibold">Status</p>
@@ -60,7 +55,7 @@ const BookingDetailCard = ({
     >
       <div className="p-4 border-b border-neutral-05">
         <p className="text-center font-semibold text-lg">
-          Booking Id : {bookingId}
+          Booking Id : {transaction.id}
         </p>
       </div>
       <div className="p-4 flex justify-between border-b border-neutral-05">
@@ -69,29 +64,59 @@ const BookingDetailCard = ({
         </div>
         <div className="flex items-center justify-center gap-8">
           <div>
-            <p className="font-semibold">{departureAirport.city}</p>
-            <p className="font-semibold">18.45</p>
+            <p className="font-semibold">
+              {
+                transaction.transactionDetails[0].flightClass.flight
+                  .departureAirport.city
+              }
+            </p>
+            <p className="font-semibold">
+              {
+                transaction.transactionDetails[0].flightClass.flight
+                  .departureTime
+              }
+            </p>
           </div>
           <div className="flex flex-col gap-2">
             <div className="text-neutral-06 text-sm text-center mt-2">
-              Sun, 14 Jan 2024
+              {formatLongDate(
+                transaction.transactionDetails[0].flightClass.flight.departureDate!.toString()
+              )}
             </div>
             <div className="">
               <IoAirplaneOutline className=" mx-auto text-primary-blue text-xl bg-white" />
             </div>
             <div className="text-neutral-06 text-sm text-center">
-              Duration 3 hours
+              Duration{' '}
+              {substractTime(
+                transaction.transactionDetails[0].flightClass.flight
+                  .arrivalTime,
+                transaction.transactionDetails[0].flightClass.flight
+                  .departureTime
+              )}
             </div>
           </div>
           <div>
-            <p className="font-semibold text-right">{arrivalAirport.city}</p>
-            <p className="font-semibold text-right">21.45</p>
+            <p className="font-semibold text-right">
+              {
+                transaction.transactionDetails[0].flightClass.flight
+                  .arrivalAirport.city
+              }
+            </p>
+            <p className="font-semibold text-right">
+              {transaction.transactionDetails[0].flightClass.flight.arrivalTime}
+            </p>
           </div>
         </div>
         <div className="p-4">
           <div className="text-right">
-            <p className="font-semibold">Garuda Indonesia</p>
-            <p className="text-sm text-neutral-06">Economy</p>
+            <p className="font-semibold">
+              {
+                transaction.transactionDetails[0].flightClass.flight.airplane
+                  .airline.name
+              }
+            </p>
+            <p className="text-sm text-neutral-06">{transaction.seatClass}</p>
           </div>
         </div>
       </div>

@@ -1,55 +1,39 @@
+import { useParams } from 'react-router-dom';
 import BookingDetailCard from '../../components/BookingDetailCard/BookingDetailCard';
-import { Airport } from '../Homepage/components/FindTicket/data';
+import { useEffect, useState } from 'react';
+import axiosInstance from '../../axios/axios';
+import { Transaction } from '../ProfileLayout/types';
 
 const BookingDetail = () => {
-  const departureAirport: Airport = {
-    city: 'Jakarta (Tangerang)',
-    country: 'Indonesia',
-    iata: 'CGK',
-    icao: 'WIII',
-    id: 5,
-    name: 'Soekarno-Hatta International Airport',
-    status: true,
+  const token = localStorage.getItem('token');
+  const headers = {
+    Authorization: `Bearer ${token}`,
   };
-  const arrivalAirport: Airport = {
-    city: 'Denpasar',
-    country: 'Indonesia',
-    iata: 'DPS',
-    icao: 'WADD',
-    id: 7,
-    name: 'Ngurah Rai International Airport',
-    status: true,
-  };
+
+  const { id } = useParams();
+
+  const [transaction, setTransaction] = useState<Transaction>();
+
+  useEffect(() => {
+    const getBookId = async () => {
+      try {
+        const detailBook = await axiosInstance.get(
+          `/transaction/getById/${id}`,
+          {
+            headers,
+          }
+        );
+        setTransaction(detailBook.data.data);
+      } catch (err) {}
+    };
+
+    getBookId();
+  }, [id]);
   return (
     <div>
-      <BookingDetailCard
-        bookingId={12345}
-        departureAirport={departureAirport}
-        arrivalAirport={arrivalAirport}
-        status="PENDING"
-        className="mb-4"
-      />
-      <BookingDetailCard
-        bookingId={12345}
-        departureAirport={departureAirport}
-        arrivalAirport={arrivalAirport}
-        status="PROCESS"
-        className="mb-4"
-      />
-      <BookingDetailCard
-        bookingId={12345}
-        departureAirport={departureAirport}
-        arrivalAirport={arrivalAirport}
-        status="SENT"
-        className="mb-4"
-      />
-      <BookingDetailCard
-        bookingId={12345}
-        departureAirport={departureAirport}
-        arrivalAirport={arrivalAirport}
-        status="FINISH"
-        className="mb-4"
-      />
+      {transaction && (
+        <BookingDetailCard transaction={transaction} className="mb-4" />
+      )}
     </div>
   );
 };
