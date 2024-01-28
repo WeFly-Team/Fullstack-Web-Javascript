@@ -43,6 +43,7 @@ export interface OrderDetailOrderer {
 }
 
 export interface Bank {
+  id: number;
   img: string;
   alt: string;
   label: string;

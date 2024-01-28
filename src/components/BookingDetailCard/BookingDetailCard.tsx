@@ -1,9 +1,14 @@
 import { IoAirplaneOutline } from 'react-icons/io5';
 import { BookingCardProps } from '../../pages/MyBooking/Component/types';
 import Button from '../Button';
-import { formatLongDate, substractTime } from '../../utils/functions';
+import {
+  formatLongDate,
+  substractTime,
+  triggerToast,
+} from '../../utils/functions';
 import { ChangeEvent, useRef } from 'react';
 import axiosInstance from '../../axios/axios';
+import { AxiosError } from 'axios';
 
 const BookingDetailCard = ({ transaction, className }: BookingCardProps) => {
   const token = localStorage.getItem('token');
@@ -19,9 +24,6 @@ const BookingDetailCard = ({ transaction, className }: BookingCardProps) => {
     }
     let formData = new FormData();
     formData.append('file', fileObj);
-    formData.append('asu', 'asu');
-
-    console.log(formData.get('file'));
 
     try {
       const upload = await axiosInstance.put(
@@ -33,9 +35,15 @@ const BookingDetailCard = ({ transaction, className }: BookingCardProps) => {
           },
         }
       );
-      console.log(upload);
+      if (upload.data.code == 200) {
+        triggerToast('info', 'Payment proof uploaded!');
+      }
     } catch (err) {
-      console.error(err);
+      if (err instanceof AxiosError) {
+        triggerToast('error', err.message);
+      } else if (err instanceof Error) {
+        triggerToast('error', err.message);
+      }
     }
   };
   const checkStatus = () => {

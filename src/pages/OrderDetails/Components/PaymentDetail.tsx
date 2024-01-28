@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { FaRegCopy } from 'react-icons/fa6';
-import { Bounce, ToastContainer, toast } from 'react-toastify';
+import { Bounce, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import Accordion from '../../../utils/Accordion';
 import Button from '../../../components/Button';
@@ -130,7 +130,6 @@ const PaymentDetail = ({ continueOrder }: PaymentDetailProp) => {
           View Order List
         </Button>
       </div>
-      <ToastContainer />
     </div>
   );
 };

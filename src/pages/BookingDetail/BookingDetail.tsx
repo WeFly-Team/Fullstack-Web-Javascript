@@ -3,6 +3,9 @@ import BookingDetailCard from '../../components/BookingDetailCard/BookingDetailC
 import { useEffect, useState } from 'react';
 import axiosInstance from '../../axios/axios';
 import { Transaction } from '../ProfileLayout/types';
+import { triggerToast } from '../../utils/functions';
+import { AxiosError } from 'axios';
+import { ToastContainer } from 'react-toastify';
 
 const BookingDetail = () => {
   const token = localStorage.getItem('token');
@@ -24,7 +27,13 @@ const BookingDetail = () => {
           }
         );
         setTransaction(detailBook.data.data);
-      } catch (err) {}
+      } catch (err) {
+        if (err instanceof AxiosError) {
+          triggerToast('error', err.message);
+        } else if (err instanceof Error) {
+          triggerToast('error', err.message);
+        }
+      }
     };
 
     getBookId();
@@ -34,6 +43,7 @@ const BookingDetail = () => {
       {transaction && (
         <BookingDetailCard transaction={transaction} className="mb-4" />
       )}
+      <ToastContainer />
     </div>
   );
 };

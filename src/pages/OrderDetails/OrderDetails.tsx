@@ -11,6 +11,7 @@ import Orderpopup from './Components/Orderpopup';
 import PassengerPopup from './Components/PassengerPopup';
 import { useLocation, useParams } from 'react-router-dom';
 import { DataFlight, Passenger, detailPassenger } from '../ProfileLayout/types';
+import 'react-toastify/dist/ReactToastify.min.css';
 import {
   Bank,
   OrderDetailContext,
@@ -20,9 +21,12 @@ import {
   capitalizeFirstLetter,
   extractNames,
   getTotalPrice,
+  triggerToast,
 } from '../../utils/functions';
 import { useAuth } from '../../customHooks/useAuth/useAuth';
 import axiosInstance from '../../axios/axios';
+import { AxiosError } from 'axios';
+import { ToastContainer } from 'react-toastify';
 
 const OrderDetails = () => {
   const token = localStorage.getItem('token');
@@ -31,21 +35,25 @@ const OrderDetails = () => {
   };
   const banks: Bank[] = [
     {
+      id: 1,
       label: 'Bank Bca',
       img: 'https://i.ibb.co/FqLmvmB/logo-bca.png',
       alt: 'logo-bca',
     },
     {
+      id: 4,
       label: 'Bank Bni',
       img: 'https://i.ibb.co/8g6ydLs/logo-bni.png',
       alt: 'logo-bni',
     },
     {
+      id: 3,
       label: 'Bank Bri',
       img: 'https://i.ibb.co/m6Pckrb/logo-bri.png',
       alt: 'logo-bri',
     },
     {
+      id: 2,
       label: 'Bank Mandiri',
       img: 'https://i.ibb.co/ZVk3Dwn/logo-mandiri.png"',
       alt: 'logo-mandiri',
@@ -98,14 +106,38 @@ const OrderDetails = () => {
           },
         ],
       };
-      const makeTransaction = await axiosInstance.post(
-        '/transaction/save',
-        data,
-        {
-          headers,
+      try {
+        const makeTransaction = await axiosInstance.post(
+          '/transaction/save',
+          data,
+          {
+            headers,
+          }
+        );
+        if (makeTransaction.data.code == 200) {
+          const transactionId = makeTransaction.data.data.id;
+          const bankId = selectedBank.id;
+          const savePayment = await axiosInstance.post(
+            '/transaction/savePayment',
+            {
+              transactionId,
+              bankId,
+            }
+          );
+          if (savePayment.data.code == 200) {
+            triggerToast(
+              'info',
+              'Transaction successfully created, please upload your payment proof'
+            );
+          }
         }
-      );
-      console.log(makeTransaction);
+      } catch (err) {
+        if (err instanceof AxiosError) {
+          triggerToast('error', err.message);
+        } else if (err instanceof Error) {
+          triggerToast('error', err.message);
+        }
+      }
     }
 
     setOrderDetail(false);
@@ -267,6 +299,7 @@ const OrderDetails = () => {
           />
         )}
       </OrderDetailContext.Provider>
+      <ToastContainer />
     </section>
   );
 };

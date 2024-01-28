@@ -1,6 +1,7 @@
 import Select from 'react-select';
 import Button from '../../../../components/Button';
 import { Calendar, MapPin, X } from 'react-feather';
+import 'react-toastify/dist/ReactToastify.min.css';
 import {
   ForwardedRef,
   createElement,
@@ -22,32 +23,12 @@ import {
 import { Airport, classOptions } from './data';
 import axiosInstance from '../../../../axios/axios';
 import { useNavigate } from 'react-router-dom';
-import {
-  Bounce,
-  ToastContainer,
-  ToastOptions,
-  TypeOptions,
-  toast,
-} from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { AxiosError } from 'axios';
+import { triggerToast } from '../../../../utils/functions';
 const FindTicket = () => {
   // toast
-  const reactOpt: ToastOptions = {
-    position: 'bottom-left',
-    autoClose: 2000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: 'light',
-    transition: Bounce,
-  };
-  const triggerToast = (type: TypeOptions, message: string) => {
-    if (type === 'error') {
-      toast.error(message, reactOpt);
-    }
-  };
+
   // grab airport data
   useEffect(() => {
     const getAirports = async () => {

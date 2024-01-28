@@ -1,3 +1,5 @@
+import { Bounce, ToastOptions, TypeOptions, toast } from 'react-toastify';
+
 export function getNameOfDay(day: number): string {
   switch (day) {
     case 1:
@@ -131,3 +133,21 @@ export function extractNames(fullName: string): {
 export function capitalizeFirstLetter(word: string) {
   return word.charAt(0).toUpperCase() + word.slice(1);
 }
+const reactOpt: ToastOptions = {
+  position: 'bottom-left',
+  autoClose: 2000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: 'light',
+  transition: Bounce,
+};
+export const triggerToast = (type: TypeOptions, message: string) => {
+  if (type === 'error') {
+    toast.error(message, reactOpt);
+  } else if (type === 'info') {
+    toast.info(message, reactOpt);
+  }
+};
