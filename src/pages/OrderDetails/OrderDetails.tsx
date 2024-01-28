@@ -9,17 +9,26 @@ import TotalPrice from './Components/TotalPrice';
 import PaymentDetail from './Components/PaymentDetail';
 import Orderpopup from './Components/Orderpopup';
 import PassengerPopup from './Components/PassengerPopup';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { DataFlight, Passenger, detailPassenger } from '../ProfileLayout/types';
 import {
   Bank,
   OrderDetailContext,
   OrderDetailOrderer,
 } from './Components/types';
-import { capitalizeFirstLetter, getTotalPrice } from '../../utils/functions';
+import {
+  capitalizeFirstLetter,
+  extractNames,
+  getTotalPrice,
+} from '../../utils/functions';
 import { useAuth } from '../../customHooks/useAuth/useAuth';
+import axiosInstance from '../../axios/axios';
 
 const OrderDetails = () => {
+  const token = localStorage.getItem('token');
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
   const banks: Bank[] = [
     {
       label: 'Bank Bca',
@@ -57,10 +66,12 @@ const OrderDetails = () => {
   const [selectedPassenger, setSelectedPassenger] = useState<Passenger>();
 
   const { user } = useAuth();
-
+  const { id } = useParams();
   const location = useLocation();
 
   const selectPassenger = (passenger: Passenger) => {
+    console.log(passenger);
+
     setSelectedPassenger(passenger);
   };
 
@@ -72,6 +83,29 @@ const OrderDetails = () => {
   };
 
   const payNow = () => {
+    if (detailPassenger) {
+      const flightClassId = id;
+      const adultPassenger: number = detailPassenger.adult;
+      const childPassenger: number = detailPassenger.child;
+      const infantPassenger: number = 0;
+      const data = {
+        adultPassenger,
+        childPassenger,
+        infantPassenger,
+        passengers,
+        orderer,
+        transactionDetails: [
+          {
+            flightClassId,
+          },
+        ],
+      };
+      const makeTransaction = axiosInstance.post('/transaction/save', data, {
+        headers,
+      });
+      console.log(makeTransaction);
+    }
+
     setOrderDetail(false);
     setPaymentMethod(false);
     setPaymentDetail(true);
@@ -90,8 +124,9 @@ const OrderDetails = () => {
         return passenger;
       }
     });
-    setPassengers(newPassengers);
     console.log(newPassengers);
+
+    setPassengers(newPassengers);
   };
 
   useEffect(() => {
@@ -144,9 +179,12 @@ const OrderDetails = () => {
   }, [detailPassenger]);
   useEffect(() => {
     if (user) {
+      const { firstName, lastName } = extractNames(user.full_name);
       setOrderer({
         email: user.user_name,
         fullName: user.full_name,
+        firstName,
+        lastName,
         type: 'Mr',
       });
     }

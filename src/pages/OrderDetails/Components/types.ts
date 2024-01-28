@@ -35,6 +35,8 @@ export interface PaymentDetailProp extends HTMLAttributes<HTMLDivElement> {
 export type GenderType = 'Mr' | 'Mrs' | 'Miss';
 export interface OrderDetailOrderer {
   fullName: string;
+  firstName: string;
+  lastName: string;
   phoneNumber?: string;
   email: string;
   type: GenderType;
@@ -50,6 +52,15 @@ export interface PaymentMethodProps {
   banks: Bank[];
   selectedBank: Bank;
   setSelectedBank: Dispatch<SetStateAction<Bank>>;
+}
+
+export interface PassengerInput {
+  firstName: string;
+  lastName: string;
+  nationality: string;
+  day: { label: string; value: string };
+  month: { label: string; value: string };
+  year: { label: number; value: number };
 }
 export interface orderDetailContextType {
   dataFlight?: DataFlight;

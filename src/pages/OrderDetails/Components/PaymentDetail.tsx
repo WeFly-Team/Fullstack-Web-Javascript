@@ -12,6 +12,8 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { thousandSeparator } from '../../../utils/functions';
 const PaymentDetail = ({ continueOrder }: PaymentDetailProp) => {
+  console.log(continueOrder);
+
   const { totalPrice } = useContext(
     OrderDetailContext
   ) as orderDetailContextType;
@@ -117,13 +119,13 @@ const PaymentDetail = ({ continueOrder }: PaymentDetailProp) => {
       />
 
       <div className="w-full flex justify-end gap-4 mb-8  ">
-        <Button
+        {/* <Button
           variant="secondary"
           className="border border-primary-darkBlue text-primary-darkBlue"
           onClick={continueOrder}
         >
           Change Payment Method
-        </Button>
+        </Button> */}
         <Button onClick={() => navigate('/user/my-booking')}>
           View Order List
         </Button>

@@ -9,6 +9,7 @@ import {
 import Button from '../../../components/Button';
 import FormInput from '../../../components/FormInput';
 import { AiOutlineLeft } from 'react-icons/ai';
+import { extractNames } from '../../../utils/functions';
 
 const Orderpopup = ({ className, isClose }: OrderPopProp) => {
   const { orderer, saveOrderer } = useContext(
@@ -60,10 +61,13 @@ const Orderpopup = ({ className, isClose }: OrderPopProp) => {
 
   useEffect(() => {
     if (orderer) {
+      const { firstName, lastName } = extractNames(newFullname);
       setNewOrderer({
         email: newEmail,
         fullName: newFullname,
         phoneNumber: newPhoneNumber,
+        firstName,
+        lastName,
         type: isgender,
       });
     }
