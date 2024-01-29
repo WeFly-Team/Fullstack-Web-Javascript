@@ -18,14 +18,14 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
     <nav {...props}>
       <div className="lg:container mx-auto p-4">
         <div className="flex justify-between items-center">
-          <div className="flex order-1 sm:order-2 items-center ml-3">
+          <Link to="/" className="flex order-1 sm:order-2 items-center ml-3">
             <img
               src="https://i.ibb.co/pxQ7DPC/logo-We-Fly.png"
               alt="logo"
               className="w-12 "
             />
             <h1 className="hidden md:block text-primary-darkBlue">WeFly</h1>
-          </div>
+          </Link>
           <AlignJustify
             className="cursor-pointer order-2 sm:order-1 lg:hidden text-primary-darkBlue"
             onClick={() => setOpen(!open)}
@@ -89,7 +89,9 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
       <hr />
       <div className="hidden lg:block w-full  pt-4 bg-neutral-03 p-4 shadow-md">
         <ul className="flex justify-end gap-7 lg:container mx-auto px-4">
-          <li className="text-primary-darkBlue font-semibold">Home</li>
+          <li className="text-primary-darkBlue font-semibold">
+            <Link to="/">Home</Link>
+          </li>
           <li className="text-primary-darkBlue font-semibold">
             <Link to="/user/my-booking">My Booking</Link>
           </li>
@@ -114,7 +116,7 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
             </div>
             <ul className="mt-4">
               <li className="text-white py-4 text-center hover:cursor-pointer transition hover:bg-white hover:bg-opacity-20">
-                Home
+                <Link to="/">Home</Link>
               </li>
               <li className="text-white py-4 text-center hover:cursor-pointer transition hover:bg-white hover:bg-opacity-20">
                 <Link to="/user/my-booking">My Booking</Link>

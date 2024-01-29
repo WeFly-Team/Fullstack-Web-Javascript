@@ -18,11 +18,13 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
     <nav {...props}>
       <div className="lg:container mx-auto p-4">
         <div className="flex justify-between items-center">
-          <img
-            src="https://i.ibb.co/pxQ7DPC/logo-We-Fly.png"
-            alt="logo"
-            className="w-12 order-1 sm:order-2"
-          />
+          <Link to="/">
+            <img
+              src="https://i.ibb.co/pxQ7DPC/logo-We-Fly.png"
+              alt="logo"
+              className="w-12 order-1 sm:order-2"
+            />
+          </Link>
           <AlignJustify
             className="text-white cursor-pointer order-2 sm:order-1 lg:hidden"
             onClick={() => setOpen(!open)}
@@ -73,7 +75,9 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
       <hr />
       <div className="hidden lg:block w-full lg:container mx-auto pt-2">
         <ul className="flex justify-end gap-7">
-          <li className="text-white font-semibold">Home</li>
+          <li className="text-white font-semibold">
+            <Link to="/">Home</Link>
+          </li>
           <li className="text-white font-semibold">
             <Link to="/user/my-booking">My Booking</Link>
           </li>
@@ -98,7 +102,7 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
             </div>
             <ul className="mt-4">
               <li className="text-white py-4 text-center hover:cursor-pointer transition hover:bg-white hover:bg-opacity-20">
-                Home
+                <Link to="/">Home</Link>
               </li>
               <li className="text-white py-4 text-center hover:cursor-pointer transition hover:bg-white hover:bg-opacity-20">
                 <Link to="/user/my-booking">My Booking</Link>
