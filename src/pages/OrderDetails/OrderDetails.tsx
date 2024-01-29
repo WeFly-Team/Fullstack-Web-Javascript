@@ -68,6 +68,8 @@ const OrderDetails = () => {
   const [showPassengerPopUp, setShowPassengerPopUp] = useState(false);
   const [dataFlight, setDataFlight] = useState<DataFlight>();
   const [detailPassenger, setDetailPassenger] = useState<detailPassenger>();
+  const [disabledContinueOrder, setDisabledContinueOrder] =
+    useState<boolean>(true);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [orderer, setOrderer] = useState<OrderDetailOrderer>();
   const [passengers, setPassengers] = useState<Passenger[]>([]);
@@ -180,6 +182,40 @@ const OrderDetails = () => {
   }, [dataFlight, detailPassenger]);
 
   useEffect(() => {
+    if (orderer && passengers) {
+      if (
+        orderer.email &&
+        orderer.firstName &&
+        orderer.lastName &&
+        orderer.fullName &&
+        orderer.phoneNumber &&
+        orderer.type
+      ) {
+        const areAllPassengersValid = passengers.every((passenger) => {
+          return (
+            passenger.firstName.trim() !== '' &&
+            (passenger.lastName === undefined ||
+              passenger.lastName.trim() !== '') &&
+            (passenger.nationality === undefined ||
+              passenger.nationality.trim() !== '') &&
+            (passenger.dateOfBirth === undefined ||
+              passenger.dateOfBirth.trim() !== '') &&
+            (passenger.type === undefined || passenger.type.trim() !== '') &&
+            (passenger.gender === undefined || passenger.gender.trim() !== '')
+          );
+        });
+        if (areAllPassengersValid) {
+          setDisabledContinueOrder(false);
+        } else {
+          setDisabledContinueOrder(true);
+        }
+      } else {
+        setDisabledContinueOrder(true);
+      }
+    }
+  }, [orderer, passengers]);
+
+  useEffect(() => {
     // add adult passengers
     const arrPassenger = passengers;
     let id = 1;
@@ -277,7 +313,11 @@ const OrderDetails = () => {
             <div className="w-full md:w-1/2 order-1 md:order-2">
               <PriceDetail className="" />
               {orderDetail && (
-                <Button className="w-full mt-5" onClick={continueOrder}>
+                <Button
+                  className="w-full mt-5 disabled:opacity-30"
+                  disabled={disabledContinueOrder}
+                  onClick={continueOrder}
+                >
                   Continue Order
                 </Button>
               )}
