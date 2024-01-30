@@ -12,6 +12,7 @@ import HistoryList from '../pages/History/History';
 import MyAccout from '../pages/MyAccount/MyAccount';
 import BookingDetail from '../pages/BookingDetail/BookingDetail';
 import ETicket from '../pages/ETicket/ETicket';
+import RegisterSuccess from '../pages/RegisterSuccess/RegisterSuccess';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: '/flight-list',
     element: <FlightList />,
+  },
+  {
+    path: '/register-success',
+    element: <RegisterSuccess />,
   },
   {
     element: <PrivateRoutes />,
