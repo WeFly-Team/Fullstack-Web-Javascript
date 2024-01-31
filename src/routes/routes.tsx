@@ -13,6 +13,7 @@ import MyAccout from '../pages/MyAccount/MyAccount';
 import BookingDetail from '../pages/BookingDetail/BookingDetail';
 import ETicket from '../pages/ETicket/ETicket';
 import RegisterSuccess from '../pages/RegisterSuccess/RegisterSuccess';
+import AdminLayout from '../pages/Admin/AdminLayout';
 
 const router = createBrowserRouter([
   {
@@ -77,6 +78,28 @@ const router = createBrowserRouter([
           {
             path: '/user/notification',
             element: <p>Notif</p>,
+          },
+        ],
+      },
+      {
+        path: '/admin',
+        element: <AdminLayout />,
+        children: [
+          {
+            path: '/admin',
+            element: <p>Report</p>,
+          },
+          {
+            path: '/admin/flight',
+            element: <p>flight</p>,
+          },
+          {
+            path: '/admin/airport',
+            element: <p>airport</p>,
+          },
+          {
+            path: '/admin/transaction',
+            element: <p>transaction</p>,
           },
         ],
       },

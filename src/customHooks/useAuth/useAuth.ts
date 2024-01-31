@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 export const useAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [user, setUser] = useState<IUser | null>(null);
+  const [isAdmin, setIsAdmin] = useState<boolean | undefined>();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,6 +27,7 @@ export const useAuth = () => {
     const authUser: IUser = {
       full_name: decode.full_name,
       user_name: decode.user_name,
+      authorities: decode.authorities,
     };
     setUser(authUser);
   };
@@ -43,7 +45,18 @@ export const useAuth = () => {
     }
     localStorage.setItem('token', token);
     generateUser(decode);
-    navigate('/');
+    if (user?.authorities) {
+      user.authorities.forEach((role) => {
+        if (role == 'ROLE_ADMIN') {
+          setIsAdmin(true);
+          navigate('/admin');
+          return;
+        } else if (role == 'ROLE_USER') {
+          setIsAdmin(false);
+          navigate('/');
+        }
+      });
+    }
   };
   const logout = () => {
     localStorage.removeItem('token');
@@ -52,5 +65,5 @@ export const useAuth = () => {
     navigate('/login');
   };
 
-  return { isAuthenticated, user, login, logout, verifyToken };
+  return { isAuthenticated, isAdmin, user, login, logout, verifyToken };
 };
