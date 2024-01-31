@@ -1,7 +1,9 @@
 import { FaAngleDown } from 'react-icons/fa6';
 import Button from '../../../components/Button';
 import { useState } from 'react';
+import { useAuth } from '../../../customHooks/useAuth/useAuth';
 const NavbarAdmin = () => {
+  const { logout } = useAuth();
   const [showAdminDropDown, setShowAdminDropDown] = useState<boolean>(false);
 
   return (
@@ -34,7 +36,10 @@ const NavbarAdmin = () => {
               }`}
             >
               <div className="">
-                <button className="w-full text-left p-3 rounded-lg hover:text-teal-600 hover:bg-teal-100 transition ease-in-out duration-500">
+                <button
+                  className="w-full text-left p-3 rounded-lg hover:text-teal-600 hover:bg-teal-100 transition ease-in-out duration-500"
+                  onClick={logout}
+                >
                   Log Out
                 </button>
               </div>
