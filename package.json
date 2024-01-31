@@ -13,8 +13,10 @@
   "dependencies": {
     "@react-oauth/google": "^0.12.1",
     "axios": "^1.6.5",
+    "chart.js": "^4.4.1",
     "jwt-decode": "^4.0.0",
     "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-datepicker": "^4.25.0",
     "react-dom": "^18.2.0",
     "react-feather": "^2.0.10",
