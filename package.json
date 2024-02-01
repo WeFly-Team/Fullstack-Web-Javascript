@@ -11,7 +11,12 @@
     "test": "vitest --coverage"
   },
   "dependencies": {
+    "@emotion/styled": "^11.11.0",
+    "@faker-js/faker": "^8.4.0",
+    "@mui/icons-material": "^5.15.7",
+    "@mui/material": "^5.15.7",
     "@react-oauth/google": "^0.12.1",
+    "@tanstack/react-table": "^8.11.7",
     "axios": "^1.6.5",
     "chart.js": "^4.4.1",
     "jwt-decode": "^4.0.0",

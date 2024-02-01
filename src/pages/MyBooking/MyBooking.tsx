@@ -13,6 +13,7 @@ import {
   LinearScale,
   PointElement,
 } from 'chart.js';
+import Test_Table from './Component/Table';
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
@@ -45,30 +46,6 @@ const MyBooking = () => {
     ],
   };
 
-  // const options = {
-  //   plugins: {
-  //     legend: false,
-  //   },
-  //   scales: {
-  //     x: {
-  //       grid: {
-  //         display: false,
-  //       },
-  //     },
-  //     y: {
-  //       min: 2,
-  //       max: 10,
-  //       ticks: {
-  //         stepSize: 2,
-  //         callback: (value) => value + 'K',
-  //       },
-  //       grid: {
-  //         borderDash: [10],
-  //       },
-  //     },
-  //   },
-  // };
-
   const { transactions } = useContext(
     UserTransactionContext
   ) as userTransactionContextType;
@@ -97,6 +74,9 @@ const MyBooking = () => {
         ))}
       <div className="mt-10" style={{ width: '750px', height: '500px' }}>
         <Line data={data}></Line>
+      </div>
+      <div className="mt-10">
+        <Test_Table></Test_Table>
       </div>
     </div>
   );
