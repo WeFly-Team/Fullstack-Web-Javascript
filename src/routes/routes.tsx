@@ -14,6 +14,7 @@ import BookingDetail from '../pages/BookingDetail/BookingDetail';
 import ETicket from '../pages/ETicket/ETicket';
 import RegisterSuccess from '../pages/RegisterSuccess/RegisterSuccess';
 import AdminLayout from '../pages/Admin/AdminLayout';
+import Notification from '../pages/Notification/Notification';
 
 const router = createBrowserRouter([
   {
@@ -77,7 +78,7 @@ const router = createBrowserRouter([
           },
           {
             path: '/user/notification',
-            element: <p>Notif</p>,
+            element: <Notification />,
           },
         ],
       },

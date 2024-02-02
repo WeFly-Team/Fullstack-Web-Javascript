@@ -6,4 +6,8 @@ const axiosInstance = axios.create({
   baseURL,
 });
 
+export const axiosNode = axios.create({
+  baseURL: 'https://backend-nodejs.fly.dev/api',
+});
+
 export default axiosInstance;
