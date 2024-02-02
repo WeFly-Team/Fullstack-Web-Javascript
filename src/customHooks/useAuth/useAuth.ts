@@ -22,21 +22,6 @@ export const useAuth = () => {
     }
   }, []);
 
-  useEffect(() => {
-    if (user?.authorities) {
-      user.authorities.forEach((role) => {
-        if (role == 'ROLE_ADMIN') {
-          setIsAdmin(true);
-          navigate('/admin');
-          return;
-        } else if (role == 'ROLE_USER') {
-          setIsAdmin(false);
-          navigate('/');
-        }
-      });
-    }
-  }, [user]);
-
   const generateUser = (decode: IJwtPayload) => {
     setIsAuthenticated(true);
     const authUser: IUser = {
@@ -46,8 +31,8 @@ export const useAuth = () => {
       phone_number: decode.phone_number,
       date_of_birth: decode.date_of_birth,
     };
-
     setUser(authUser);
+    return authUser;
   };
 
   const login = (token: string) => {
@@ -62,7 +47,19 @@ export const useAuth = () => {
       return;
     }
     localStorage.setItem('token', token);
-    generateUser(decode);
+    const authUser = generateUser(decode);
+    if (authUser.authorities) {
+      authUser.authorities.forEach((role) => {
+        if (role == 'ROLE_ADMIN') {
+          setIsAdmin(true);
+          navigate('/admin');
+          return;
+        } else if (role == 'ROLE_USER') {
+          setIsAdmin(false);
+          navigate('/');
+        }
+      });
+    }
   };
   const logout = () => {
     localStorage.removeItem('token');
