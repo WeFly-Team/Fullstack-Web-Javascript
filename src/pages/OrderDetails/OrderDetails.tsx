@@ -20,6 +20,7 @@ import {
 import {
   capitalizeFirstLetter,
   extractNames,
+  formatDdMmYyyy,
   getTotalPrice,
   triggerToast,
 } from '../../utils/functions';
@@ -96,11 +97,23 @@ const OrderDetails = () => {
       const adultPassenger: number = detailPassenger.adult;
       const childPassenger: number = detailPassenger.child;
       const infantPassenger: number = 0;
+      const formatedPassengers = passengers.map((passenger) => {
+        const [year, month, day] = passenger
+          .dateOfBirth!.toString()
+          .split('-')
+          .map(Number);
+        return {
+          ...passenger,
+          dateOfBirth: formatDdMmYyyy(day.toString(), month.toString(), year),
+        };
+      });
+      console.log(formatedPassengers);
+      return;
       const data = {
         adultPassenger,
         childPassenger,
         infantPassenger,
-        passengers,
+        passengers: formatedPassengers,
         orderer,
         transactionDetails: [
           {
@@ -252,6 +265,7 @@ const OrderDetails = () => {
         email: user.user_name,
         fullName: user.full_name,
         phoneNumber: user.phone_number,
+        dateOfBirth: user.date_of_birth,
         firstName,
         lastName,
         type: 'Mr',

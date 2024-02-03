@@ -153,3 +153,36 @@ export const triggerToast = (type: TypeOptions, message: string) => {
     toast.success(message, reactOpt);
   }
 };
+export const formatDdMmYyyy = (
+  day: string,
+  month: string,
+  year: number
+): string => {
+  const date = new Date(`${month} ${day}, ${year}`);
+  const yyyy = date.getFullYear();
+  let mm: string = (date.getMonth() + 1).toString(); // Months start at 0!
+  let dd: string = date.getDate().toString();
+
+  if (Number(dd) < 10) dd = '0' + dd;
+  if (Number(mm) < 10) mm = '0' + mm;
+
+  const formattedDate = dd + '-' + mm + '-' + yyyy;
+  return formattedDate;
+};
+
+export const formatYyyyMmDd = (
+  day: string,
+  month: string,
+  year: number
+): string => {
+  const date = new Date(`${month} ${day}, ${year}`);
+  const yyyy = date.getFullYear();
+  let mm: string = (date.getMonth() + 1).toString(); // Months start at 0!
+  let dd: string = date.getDate().toString();
+
+  if (Number(dd) < 10) dd = '0' + dd;
+  if (Number(mm) < 10) mm = '0' + mm;
+
+  const formattedDate = yyyy + '-' + mm + '-' + dd;
+  return formattedDate;
+};

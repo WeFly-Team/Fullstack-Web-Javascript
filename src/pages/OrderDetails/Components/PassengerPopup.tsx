@@ -14,6 +14,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import Select from 'react-select';
 import { datesOption, yearsOption } from '../../Register/data';
 import { monthsOption } from '../../MyAccount/data';
+import { formatYyyyMmDd } from '../../../utils/functions';
 
 const today = new Date();
 const PassengerPopup = ({
@@ -63,8 +64,8 @@ const PassengerPopup = ({
 
   useEffect(() => {
     setValue('year', {
-      value: today.getFullYear(),
-      label: today.getFullYear(),
+      value: today.getFullYear().toString(),
+      label: today.getFullYear().toString(),
     });
     setValue('month', {
       value: monthsOption[today.getMonth()].value,
@@ -83,33 +84,19 @@ const PassengerPopup = ({
     const subscription = watch((value, { name }) => {
       if (name === 'month' || name === 'year') {
         if (value.year?.value && value.month?.value) {
-          getAllDatesInMonth(value.year?.value, value.month?.value);
-          setValue('day', { label: '1', value: '1' });
+          getAllDatesInMonth(Number(value.year?.value), value.month?.value);
         }
       }
     });
     return () => subscription.unsubscribe();
   }, [watch]);
 
-  const formatDate = (day: string, month: string, year: number): string => {
-    const date = new Date(`${month} ${day}, ${year}`);
-    const yyyy = date.getFullYear();
-    let mm: string = (date.getMonth() + 1).toString(); // Months start at 0!
-    let dd: string = date.getDate().toString();
-
-    if (Number(dd) < 10) dd = '0' + dd;
-    if (Number(mm) < 10) mm = '0' + mm;
-
-    const formattedDate = dd + '-' + mm + '-' + yyyy;
-    return formattedDate;
-  };
-
   const handleSave: SubmitHandler<PassengerInput> = (data) => {
     if (passenger) {
-      const dateOfBirth = formatDate(
+      const dateOfBirth = formatYyyyMmDd(
         data.day.value,
         data.month.value,
-        data.year.value
+        Number(data.year.value)
       );
       const updatedPassenger: Passenger = {
         ...passenger,
@@ -141,6 +128,26 @@ const PassengerPopup = ({
         'nationality',
         passenger.nationality ? passenger.nationality : ''
       );
+
+      if (passenger.dateOfBirth) {
+        let [year, month, day] = passenger.dateOfBirth
+          .toString()
+          .split('-')
+          .map(Number);
+        setValue('year', {
+          value: year.toString(),
+          label: year.toString(),
+        });
+        setValue('month', {
+          value: monthsOption[month - 1].value,
+          label: monthsOption[month - 1].label,
+        });
+        setValue('day', {
+          value: day.toString(),
+          label: day.toString(),
+        });
+      }
+
       setIsGender(passenger.gender);
     }
   }, [passenger]);
@@ -176,10 +183,25 @@ const PassengerPopup = ({
                   value={value}
                   onChange={onChange}
                   placeholder="Enter your First Name"
-                  className="w-full "
+                  className={
+                    errors.firstName
+                      ? 'border-secondary-danger focus:border-secondary-danger w-full'
+                      : 'w-full'
+                  }
                 />
               )}
+              rules={{
+                required: {
+                  value: true,
+                  message: 'First Name is required',
+                },
+              }}
             />
+            {errors.firstName && (
+              <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold w-full">
+                {errors.firstName.message}
+              </p>
+            )}
           </div>
           <div>
             <Controller
@@ -194,10 +216,25 @@ const PassengerPopup = ({
                   value={value}
                   onChange={onChange}
                   placeholder="Enter your Last Name"
-                  className="w-full "
+                  className={
+                    errors.firstName
+                      ? 'border-secondary-danger focus:border-secondary-danger w-full'
+                      : 'w-full'
+                  }
                 />
               )}
+              rules={{
+                required: {
+                  value: true,
+                  message: 'Last Name is required',
+                },
+              }}
             />
+            {errors.lastName && (
+              <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold w-full">
+                {errors.lastName.message}
+              </p>
+            )}
           </div>
           <div>
             <Controller
@@ -212,10 +249,25 @@ const PassengerPopup = ({
                   value={value}
                   onChange={onChange}
                   placeholder="Enter your Nationality"
-                  className="w-full "
+                  className={
+                    errors.nationality
+                      ? 'border-secondary-danger focus:border-secondary-danger w-full'
+                      : 'w-full'
+                  }
                 />
               )}
+              rules={{
+                required: {
+                  value: true,
+                  message: 'Nationality is required',
+                },
+              }}
             />
+            {errors.nationality && (
+              <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold w-full">
+                {errors.nationality.message}
+              </p>
+            )}
           </div>
 
           <div className="mb-4">
@@ -232,6 +284,7 @@ const PassengerPopup = ({
                   control={control}
                   render={({ field: { name, onChange, value } }) => (
                     <Select
+                      menuPlacement="auto"
                       name={name}
                       id="day"
                       styles={{
@@ -261,11 +314,12 @@ const PassengerPopup = ({
                 <Controller
                   name="month"
                   control={control}
-                  render={({ field: { name, onChange } }) => (
+                  render={({ field: { name, onChange, value } }) => (
                     <Select
+                      menuPlacement="auto"
                       name={name}
                       id="month"
-                      defaultValue={monthsOption[today.getMonth()]}
+                      value={value}
                       options={monthsOption}
                       onChange={onChange}
                       styles={{
@@ -285,11 +339,12 @@ const PassengerPopup = ({
                 <Controller
                   name="year"
                   control={control}
-                  render={({ field: { name, onChange } }) => (
+                  render={({ field: { name, onChange, value } }) => (
                     <Select
+                      menuPlacement="auto"
                       name={name}
                       id="year"
-                      defaultValue={yearsOption[0]}
+                      value={value}
                       options={yearsOption}
                       onChange={onChange}
                       styles={{

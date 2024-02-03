@@ -38,6 +38,7 @@ export interface OrderDetailOrderer {
   firstName: string;
   lastName: string;
   phoneNumber?: string;
+  dateOfBirth: string;
   email: string;
   type: GenderType;
 }
@@ -61,7 +62,7 @@ export interface PassengerInput {
   nationality: string;
   day: { label: string; value: string };
   month: { label: string; value: string };
-  year: { label: number; value: number };
+  year: { label: string; value: string };
 }
 export interface orderDetailContextType {
   dataFlight?: DataFlight;

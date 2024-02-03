@@ -31,9 +31,12 @@ const PassengerCard = ({
   useEffect(() => {
     if (sameOrderer) {
       if (orderer) {
+        console.log(orderer);
+
         const { firstName, lastName } = extractNames(orderer.fullName);
         savePassenger({
           id: passenger.id,
+          dateOfBirth: orderer.dateOfBirth,
           firstName,
           lastName,
           type: 'adult',
