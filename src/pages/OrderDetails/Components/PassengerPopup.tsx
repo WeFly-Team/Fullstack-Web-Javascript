@@ -117,6 +117,8 @@ const PassengerPopup = ({
 
   useEffect(() => {
     if (passenger) {
+      console.log(passenger);
+
       setValue(
         'firstName',
         passenger.firstName === 'Please insert this passenger information!'
@@ -148,7 +150,7 @@ const PassengerPopup = ({
         });
       }
 
-      setIsGender(passenger.gender);
+      setIsGender(passenger.gender ? passenger.gender : 'Mr');
     }
   }, [passenger]);
   return (

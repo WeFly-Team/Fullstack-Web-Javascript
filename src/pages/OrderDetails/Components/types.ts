@@ -64,6 +64,12 @@ export interface PassengerInput {
   month: { label: string; value: string };
   year: { label: string; value: string };
 }
+export interface OrdererInput {
+  fullName: string;
+  phoneNumber?: string;
+  email: string;
+}
+
 export interface orderDetailContextType {
   dataFlight?: DataFlight;
   detailPassenger?: detailPassenger;

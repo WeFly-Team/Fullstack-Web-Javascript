@@ -1,37 +1,37 @@
-import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   GenderType,
   OrderDetailContext,
-  OrderDetailOrderer,
   OrderPopProp,
+  OrdererInput,
   orderDetailContextType,
 } from './types';
 import Button from '../../../components/Button';
 import FormInput from '../../../components/FormInput';
 import { AiOutlineLeft } from 'react-icons/ai';
 import { extractNames } from '../../../utils/functions';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
 const Orderpopup = ({ className, isClose }: OrderPopProp) => {
+  const {
+    control,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<OrdererInput>({
+    defaultValues: {
+      fullName: '',
+      phoneNumber: '',
+      email: '',
+    },
+  });
   const { orderer, saveOrderer } = useContext(
     OrderDetailContext
   ) as orderDetailContextType;
 
   const [isgender, setIsGender] = useState<GenderType>('Mr');
-  const [newEmail, setNewEmail] = useState('');
-  const [newFullname, setNewFullname] = useState('');
-  const [newPhoneNumber, setNewPhoneNumber] = useState('');
-  const [newOrderer, setNewOrderer] = useState<OrderDetailOrderer>();
   const genders = ['Mr', 'Mrs', 'Miss'];
 
-  const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
-    setNewEmail(e.target.value);
-  };
-  const handleFullname = (e: ChangeEvent<HTMLInputElement>) => {
-    setNewFullname(e.target.value);
-  };
-  const handlePhoneNumber = (e: ChangeEvent<HTMLInputElement>) => {
-    setNewPhoneNumber(e.target.value);
-  };
   const handleGenderChange = (selectedGender: GenderType) => {
     setIsGender(selectedGender);
   };
@@ -42,36 +42,52 @@ const Orderpopup = ({ className, isClose }: OrderPopProp) => {
     return;
   };
 
-  const handleSave = () => {
-    if (newOrderer) {
-      saveOrderer(newOrderer);
+  const handleSave: SubmitHandler<OrdererInput> = (data) => {
+    console.log(data);
+    // if (newOrderer) {
+    //   saveOrderer(newOrderer);
+    //   isClose();
+    // }
+    if (orderer) {
+      const { firstName, lastName } = extractNames(data.fullName);
+      // setNewOrderer();
+      saveOrderer({
+        email: data.email,
+        fullName: data.fullName,
+        phoneNumber: data.phoneNumber,
+        dateOfBirth: orderer.dateOfBirth,
+        firstName,
+        lastName,
+        type: isgender,
+      });
       isClose();
     }
   };
 
   useEffect(() => {
     if (orderer) {
-      setNewOrderer(orderer);
-      setNewFullname(orderer.fullName);
-      setNewEmail(orderer.email);
-      setNewPhoneNumber(orderer.phoneNumber ? orderer.phoneNumber : '');
+      // setNewOrderer(orderer);
+      setValue('email', orderer.email);
+      setValue('fullName', orderer.fullName);
+      setValue('phoneNumber', orderer.phoneNumber);
       setIsGender(orderer.type);
     }
   }, [orderer]);
 
-  useEffect(() => {
-    if (orderer) {
-      const { firstName, lastName } = extractNames(newFullname);
-      setNewOrderer({
-        email: newEmail,
-        fullName: newFullname,
-        phoneNumber: newPhoneNumber,
-        firstName,
-        lastName,
-        type: isgender,
-      });
-    }
-  }, [newEmail, newFullname, newPhoneNumber, isgender]);
+  // useEffect(() => {
+  //   if (orderer) {
+  //     const { firstName, lastName } = extractNames(newFullname);
+  //     setNewOrderer({
+  //       email: newEmail,
+  //       fullName: newFullname,
+  //       phoneNumber: newPhoneNumber,
+  //       dateOfBirth: orderer.dateOfBirth,
+  //       firstName,
+  //       lastName,
+  //       type: isgender,
+  //     });
+  //   }
+  // }, [newEmail, newFullname, newPhoneNumber, isgender]);
   return (
     <div
       id="order-popup"
@@ -95,16 +111,42 @@ const Orderpopup = ({ className, isClose }: OrderPopProp) => {
               This data will be used for E-Ticket delivery
             </p>
             {orderer && (
-              <FormInput
-                type="text"
-                children="Full name"
-                label="Full name"
-                name="fullname"
-                value={newFullname}
-                onChange={handleFullname}
-                placeholder="Enter your full name"
-                className="w-full "
+              <Controller
+                name="fullName"
+                control={control}
+                render={({ field: { name, onChange, value } }) => (
+                  <FormInput
+                    type="text"
+                    children="Full name"
+                    label="Full name"
+                    name={name}
+                    value={value}
+                    onChange={onChange}
+                    placeholder="Enter your full name"
+                    className={
+                      errors.fullName
+                        ? 'border-secondary-danger focus:border-secondary-danger w-full'
+                        : 'w-full'
+                    }
+                  />
+                )}
+                rules={{
+                  required: {
+                    value: true,
+                    message: 'Full name is required',
+                  },
+                  pattern: {
+                    value:
+                      /^([a-zA-Z]{2,}\s[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\s?([a-zA-Z]{1,})?)/i,
+                    message: 'Please enter your first name and last name',
+                  },
+                }}
               />
+            )}
+            {errors.fullName && (
+              <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold w-full">
+                {errors.fullName.message}
+              </p>
             )}
             <p className="relative font-normal text-md text-gray-400 top-[-16px]">
               *Corresponds to ID card
@@ -129,34 +171,83 @@ const Orderpopup = ({ className, isClose }: OrderPopProp) => {
               </React.Fragment>
             ))}
           </div>
-          <FormInput
-            type="number"
-            children="Phone number"
-            label="Phone number"
+          <Controller
             name="phoneNumber"
-            value={newPhoneNumber}
-            onChange={handlePhoneNumber}
-            placeholder="Enter your phone number"
-            className="w-full"
+            control={control}
+            render={({ field: { name, onChange, value } }) => (
+              <FormInput
+                type="text"
+                children="Phone number"
+                label="Phone number"
+                name={name}
+                value={value}
+                onChange={onChange}
+                placeholder="Enter your phone number"
+                className={
+                  errors.phoneNumber
+                    ? 'border-secondary-danger focus:border-secondary-danger w-full'
+                    : 'w-full'
+                }
+              />
+            )}
+            rules={{
+              required: {
+                value: true,
+                message: 'Phone number is required',
+              },
+              pattern: {
+                value: /^(\+62|62|0)8[1-9][0-9]{6,9}$/i,
+                message: 'Invalid Phone Number',
+              },
+            }}
           />
-          <FormInput
-            type="email"
-            children="Email Address"
-            label="Email Address"
+          {errors.phoneNumber && (
+            <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold w-full">
+              {errors.phoneNumber.message}
+            </p>
+          )}
+          <Controller
             name="email"
-            value={newEmail}
-            onChange={handleEmail}
-            placeholder="Enter your email address"
-            className="w-full"
+            control={control}
+            render={({ field: { name, onChange, value } }) => (
+              <FormInput
+                type="email"
+                children="Email Address"
+                label="Email Address"
+                name={name}
+                value={value}
+                onChange={onChange}
+                placeholder="Enter your email address"
+                className={
+                  errors.email
+                    ? 'border-secondary-danger focus:border-secondary-danger w-full'
+                    : 'w-full'
+                }
+              />
+            )}
+            rules={{
+              required: {
+                value: true,
+                message: 'Email is required',
+              },
+              pattern: {
+                value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i,
+                message: 'Invalid email format',
+              },
+            }}
           />
-
+          {errors.email && (
+            <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold w-full">
+              {errors.email.message}
+            </p>
+          )}
           <Button
             disabled={false}
             className="w-full"
             variant="primary"
             size="md"
             id="save"
-            onClick={handleSave}
+            onClick={handleSubmit(handleSave)}
           >
             Save
           </Button>
