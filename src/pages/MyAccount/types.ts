@@ -4,11 +4,11 @@ export interface optionsProp {
 }
 
 export interface IFormInput {
-    fullname: string;
-    cityofresidence:string;
-    gender:{ label: string; value: string};
-    day: { label: string; value: string };
-    month: { label: string; value: string };
-    year: { label: number; value: number };
-   }
-  
+  fullname: string;
+  city: string;
+  phoneNumber: string;
+  gender: { label: string; value: string };
+  day: { label: string; value: string };
+  month: { label: string; value: string };
+  year: { label: string; value: string };
+}

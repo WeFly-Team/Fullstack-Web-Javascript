@@ -251,6 +251,7 @@ const OrderDetails = () => {
       setOrderer({
         email: user.user_name,
         fullName: user.full_name,
+        phoneNumber: user.phone_number,
         firstName,
         lastName,
         type: 'Mr',
