@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { Transaction, UserTransactionContext } from './types';
 import axiosInstance from '../../axios/axios';
 import { getInitials } from '../../utils/functions';
+import { ToastContainer } from 'react-toastify';
 
 const ProfileLayout = () => {
   const { logout, user } = useAuth();
@@ -123,6 +124,7 @@ const ProfileLayout = () => {
           </UserTransactionContext.Provider>
         </div>
       </div>
+      <ToastContainer />
       <Footer />
     </div>
   );

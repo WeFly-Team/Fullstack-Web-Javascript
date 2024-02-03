@@ -149,5 +149,7 @@ export const triggerToast = (type: TypeOptions, message: string) => {
     toast.error(message, reactOpt);
   } else if (type === 'info') {
     toast.info(message, reactOpt);
+  } else if (type === 'success') {
+    toast.success(message, reactOpt);
   }
 };

@@ -3,17 +3,15 @@ import Button from '../../components/Button';
 import { IFormInput } from './types';
 import { datesOption, genderOption, monthsOption, yearsOption } from './data';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Select from 'react-select';
 import { useAuth } from '../../customHooks/useAuth/useAuth';
 import axiosInstance from '../../axios/axios';
 import { AxiosError } from 'axios';
+import { triggerToast } from '../../utils/functions';
 
 const MyAccout = () => {
   const { user } = useAuth();
-  // useState
-  const [errorMessage, setErrorMessage] = useState<string>('');
-  const [successMessage, setSuccessMessage] = useState<string>('');
   // hook form
   const {
     control,
@@ -42,8 +40,6 @@ const MyAccout = () => {
     return formattedDate;
   };
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    setSuccessMessage('');
-    setErrorMessage('');
     try {
       const dateOfBirth = formatDate(
         data.day.value,
@@ -51,27 +47,35 @@ const MyAccout = () => {
         Number(data.year.value)
       );
       // return;
-      const result = await axiosInstance.put('/user/update', {
-        fullName: data.fullname,
-        dateOfBirth,
-        phoneNumber: data.phoneNumber,
-        city: data.city,
-        // gender: data.gender.value,
-      });
+      const result = await axiosInstance.put(
+        '/user/update',
+        {
+          fullName: data.fullname,
+          dateOfBirth,
+          phoneNumber: data.phoneNumber,
+          city: data.city,
+          // gender: data.gender.value,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      );
       if (result.data.code == 200) {
-        setSuccessMessage(result.data.data);
+        triggerToast('success', 'Your account has been updated');
       } else if (result.data.code == 400) {
-        setErrorMessage(result.data.error);
+        triggerToast('error', result.data.error);
       }
     } catch (err) {
       if (err instanceof AxiosError) {
         if (err.response?.data && err.response?.data.code == 400) {
-          setErrorMessage(err.response.data.error);
+          triggerToast('error', err.response.data.error);
         } else {
-          setErrorMessage(err.message);
+          triggerToast('error', err.message);
         }
       } else if (err instanceof Error) {
-        setErrorMessage(err.message);
+        triggerToast('error', err.message);
       }
     }
   };
@@ -138,50 +142,6 @@ const MyAccout = () => {
           </div>
 
           <div className="border-b border-gray-900/10 pb-12">
-            {errorMessage && (
-              <div
-                className="bg-red-100 border border-red-400 text-red-700 pl-4 pr-8 sm:pr-4 py-3 rounded relative w-full mb-2"
-                role="alert"
-              >
-                <span className="block sm:inline">{errorMessage}</span>
-                <span
-                  className="absolute top-0 bottom-0 right-0 px-4 py-3"
-                  onClick={() => setErrorMessage('')}
-                >
-                  <svg
-                    className="fill-current h-6 w-6 text-red-500"
-                    role="button"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                  >
-                    <title>Close</title>
-                    <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
-                  </svg>
-                </span>
-              </div>
-            )}
-            {successMessage && (
-              <div
-                className="bg-blue-100 border border-blue-400 text-blue-700 pl-4 pr-8 sm:pr-4 py-3 rounded relative w-full mb-2"
-                role="alert"
-              >
-                <span className="block sm:inline">{successMessage}</span>
-                <span
-                  className="absolute top-0 bottom-0 right-0 px-4 py-3"
-                  onClick={() => setSuccessMessage('')}
-                >
-                  <svg
-                    className="fill-current h-6 w-6 text-blue-500"
-                    role="button"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                  >
-                    <title>Close</title>
-                    <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
-                  </svg>
-                </span>
-              </div>
-            )}
             <h2 className="text-2xl font-bold leading-7 text-gray-900">
               Personal Data
             </h2>
