@@ -16,7 +16,7 @@ const MyBooking = () => {
   }, [transactions]);
   return (
     <div className="">
-      <h1 className="font-bold text-2xl">Active E-tickets</h1>
+      <h1 className="font-bold text-2xl">My Transactions</h1>
       {transactions.length == 0 && (
         <NoResultCard
           title="No Active Bookings Found :("

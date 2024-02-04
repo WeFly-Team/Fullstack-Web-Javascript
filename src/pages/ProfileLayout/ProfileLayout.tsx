@@ -28,10 +28,17 @@ const ProfileLayout = () => {
       const headers = {
         Authorization: `Bearer ${token}`,
       };
-      const result = await axiosInstance.get('/transaction/list', {
-        headers,
-      });
-      setTransactions(result.data.data.content);
+      const result = await axiosInstance.get(
+        '/transaction/list?orderType=descending',
+        {
+          headers,
+        }
+      );
+      const unsortedTransaction = result.data.data.content;
+      const sortedTransactions = unsortedTransaction.sort(
+        (a: Transaction, b: Transaction) => b.id - a.id
+      );
+      setTransactions(sortedTransactions);
     };
     fetchBooking();
   }, []);

@@ -85,7 +85,7 @@ const BookingCard = ({ transaction, className }: BookingCardProps) => {
                   .arrivalAirport.country
               }
             </p>
-            <p className="text-sm text-neutral-06">
+            <p className="text-sm text-neutral-06 text-right">
               {
                 transaction.transactionDetails[0].flightClass.flight
                   .arrivalAirport.iata
