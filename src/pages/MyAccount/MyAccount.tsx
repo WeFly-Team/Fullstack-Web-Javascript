@@ -11,7 +11,7 @@ import { AxiosError } from 'axios';
 import { triggerToast } from '../../utils/functions';
 
 const MyAccout = () => {
-  const { user } = useAuth();
+  const { user, generateUser } = useAuth();
   // hook form
   const {
     control,
@@ -63,6 +63,13 @@ const MyAccout = () => {
         }
       );
       if (result.data.code == 200) {
+        generateUser({
+          full_name: data.fullname,
+          user_name: user!.user_name,
+          phone_number: data.phoneNumber,
+          authorities: user!.authorities,
+          date_of_birth: dateOfBirth,
+        });
         triggerToast('success', 'Your account has been updated');
       } else if (result.data.code == 400) {
         triggerToast('error', result.data.error);
@@ -105,24 +112,26 @@ const MyAccout = () => {
 
   useEffect(() => {
     if (user) {
-      let [year, month, day] = user.date_of_birth
-        .toString()
-        .split('-')
-        .map(Number);
-
       setValue('fullname', user.full_name);
-      setValue('year', {
-        value: year.toString(),
-        label: year.toString(),
-      });
-      setValue('month', {
-        value: monthsOption[month - 1].value,
-        label: monthsOption[month - 1].label,
-      });
-      setValue('day', {
-        value: day.toString(),
-        label: day.toString(),
-      });
+      if (user.date_of_birth) {
+        let [year, month, day] = user.date_of_birth
+          .toString()
+          .split('-')
+          .map(Number);
+
+        setValue('year', {
+          value: year.toString(),
+          label: year.toString(),
+        });
+        setValue('month', {
+          value: monthsOption[month - 1].value,
+          label: monthsOption[month - 1].label,
+        });
+        setValue('day', {
+          value: day.toString(),
+          label: day.toString(),
+        });
+      }
       setValue('phoneNumber', user.phone_number);
     }
   }, [user]);
@@ -145,7 +154,7 @@ const MyAccout = () => {
             <h2 className="text-2xl font-bold leading-7 text-gray-900">
               Personal Data
             </h2>
-            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 ">
+            <div className="mt-10 grid grid-cols-1 gap-x-6">
               <Controller
                 name="fullname"
                 control={control}
@@ -174,7 +183,7 @@ const MyAccout = () => {
                 </p>
               )}
 
-              <div className="mb-4 grid sm:grid-cols-3 gap-4">
+              <div className="mb-4 grid sm:grid-cols-3 gap-4 mt-4">
                 <div className="col-span-2 md:col-span-1">
                   <label
                     htmlFor="Date of Birth"
@@ -241,7 +250,11 @@ const MyAccout = () => {
                             classNames={{
                               control: (state) =>
                                 state.isFocused
-                                  ? 'bg-white !shadow !border !rounded-xl py-1 w-full border-primary-blue transition'
+                                  ? errors.gender
+                                    ? 'bg-white !shadow !border !rounded-xl py-1 w-full !border-secondary-danger transition'
+                                    : 'bg-white !shadow !border !rounded-xl py-1 w-full border-primary-blue transition'
+                                  : errors.gender
+                                  ? 'bg-white !shadow !border !rounded-xl py-1 w-full !border-secondary-danger'
                                   : 'bg-white !shadow !border !rounded-xl py-1 w-full',
                             }}
                           />
@@ -249,7 +262,7 @@ const MyAccout = () => {
                         rules={{ required: true }}
                       />
                       {errors.day?.type === 'required' && (
-                        <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold">
+                        <p className=" text-right text-secondary-danger text-sm font-semibold">
                           Date is required
                         </p>
                       )}
@@ -272,12 +285,27 @@ const MyAccout = () => {
                             classNames={{
                               control: (state) =>
                                 state.isFocused
-                                  ? 'bg-white !shadow !border !rounded-xl py-1 w-full border-primary-blue transition'
+                                  ? errors.month
+                                    ? 'bg-white !shadow !border !rounded-xl py-1 w-full !border-secondary-danger transition'
+                                    : 'bg-white !shadow !border !rounded-xl py-1 w-full border-primary-blue transition'
+                                  : errors.month
+                                  ? 'bg-white !shadow !border !rounded-xl py-1 w-full !border-secondary-danger'
                                   : 'bg-white !shadow !border !rounded-xl py-1 w-full',
                             }}
                           />
                         )}
+                        rules={{
+                          required: {
+                            value: true,
+                            message: 'Month is required',
+                          },
+                        }}
                       />
+                      {errors.month && (
+                        <p className=" text-right text-secondary-danger text-sm font-semibold">
+                          {errors.month.message}
+                        </p>
+                      )}
                     </div>
 
                     <div className="col-span-1">
@@ -297,18 +325,33 @@ const MyAccout = () => {
                             classNames={{
                               control: (state) =>
                                 state.isFocused
-                                  ? 'bg-white !shadow !border !rounded-xl py-1 w-full border-primary-blue transition'
+                                  ? errors.year
+                                    ? 'bg-white !shadow !border !rounded-xl py-1 w-full !border-secondary-danger transition'
+                                    : 'bg-white !shadow !border !rounded-xl py-1 w-full border-primary-blue transition'
+                                  : errors.year
+                                  ? 'bg-white !shadow !border !rounded-xl py-1 w-full !border-secondary-danger'
                                   : 'bg-white !shadow !border !rounded-xl py-1 w-full',
                             }}
                           />
                         )}
+                        rules={{
+                          required: {
+                            value: true,
+                            message: 'Year is required',
+                          },
+                        }}
                       />
+                      {errors.year && (
+                        <p className=" text-right text-secondary-danger text-sm font-semibold">
+                          {errors.year.message}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="flex gap-4">
+              <div className="flex gap-4 mt-5">
                 <div className="flex-1">
                   <Controller
                     name="city"

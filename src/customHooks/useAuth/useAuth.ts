@@ -17,13 +17,13 @@ export const useAuth = () => {
       if (decode.exp && decode.exp * 1000 < Date.now()) {
         logout();
       } else {
-        generateUser(decode);
+        setIsAuthenticated(true);
+        decodeToken(decode);
       }
     }
   }, []);
 
-  const generateUser = (decode: IJwtPayload) => {
-    setIsAuthenticated(true);
+  const decodeToken = (decode: IJwtPayload) => {
     const authUser: IUser = {
       full_name: decode.full_name,
       user_name: decode.user_name,
@@ -31,6 +31,11 @@ export const useAuth = () => {
       phone_number: decode.phone_number,
       date_of_birth: decode.date_of_birth,
     };
+
+    generateUser(authUser);
+  };
+
+  const generateUser = (authUser: IUser) => {
     setUser(authUser);
     return authUser;
   };
@@ -68,5 +73,13 @@ export const useAuth = () => {
     navigate('/login');
   };
 
-  return { isAuthenticated, isAdmin, user, login, logout, verifyToken };
+  return {
+    isAuthenticated,
+    isAdmin,
+    user,
+    login,
+    logout,
+    verifyToken,
+    generateUser,
+  };
 };
