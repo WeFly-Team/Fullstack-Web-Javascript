@@ -1,15 +1,24 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '../../components/Button';
 import FormInput from '../../components/FormInput';
 import Heading from '../../components/Heading';
 import Select from 'react-select';
 import { datesOption, monthsOption, yearsOption } from './data';
-import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
-
+import { useGoogleLogin } from '@react-oauth/google';
 import { IFormInput } from './types';
 import { SubmitHandler, Controller, useForm } from 'react-hook-form';
+import axiosInstance from '../../axios/axios';
+import { AxiosError } from 'axios';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../customHooks/useAuth/useAuth';
+
 const today = new Date();
 const Register = () => {
+  // useAuth
+  const { login } = useAuth();
+  // useState
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [successMessage, setSuccessMessage] = useState<string>('');
   // hook form
   const {
     control,
@@ -26,9 +35,68 @@ const Register = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    console.log(data);
+  const resetValue = () => {
+    setValue('email', '');
+    setValue('password', '');
+    setValue('fullname', '');
+    setValue('phoneNumber', '');
+    setValue('password', '');
   };
+
+  const formatDate = (day: string, month: string, year: number): string => {
+    const date = new Date(`${month} ${day}, ${year}`);
+    const yyyy = date.getFullYear();
+    let mm: string = (date.getMonth() + 1).toString(); // Months start at 0!
+    let dd: string = date.getDate().toString();
+
+    if (Number(dd) < 10) dd = '0' + dd;
+    if (Number(mm) < 10) mm = '0' + mm;
+
+    const formattedDate = dd + '-' + mm + '-' + yyyy;
+    return formattedDate;
+  };
+
+  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    try {
+      const dateOfBirth = formatDate(
+        data.day.value,
+        data.month.value,
+        data.year.value
+      );
+      const result = await axiosInstance.post('/user-register/register-user', {
+        ...data,
+        fullName: data.fullname,
+        dateOfBirth,
+      });
+      if (result.data.code == 200) {
+        setSuccessMessage(result.data.data);
+        resetValue();
+      } else if (result.data.code == 400) {
+        setErrorMessage(result.data.error);
+      }
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        if (err.response?.data && err.response?.data.code == 400) {
+          setErrorMessage(err.response.data.error);
+        } else setErrorMessage(err.message);
+      } else if (err instanceof Error) {
+        setErrorMessage(err.message);
+      }
+    }
+  };
+
+  const googleSignUp = useGoogleLogin({
+    // flow: 'auth-code',
+    onSuccess: async (codeResponse) => {
+      const result = await axiosInstance.post(
+        `/user-login/signin_google/${codeResponse.access_token}`
+      );
+      const signupToken = result.data.data.access_token;
+      login(signupToken);
+    },
+    onError: (errorResponse) => console.log(errorResponse),
+  });
+
   // function
   const getAllDatesInMonth = (year: number, month: string): void => {
     const monthConverted =
@@ -55,6 +123,8 @@ const Register = () => {
       today.getFullYear(),
       monthsOption[today.getMonth()].value
     );
+
+    setValue('day', { label: '1', value: '1' });
   }, []);
 
   useEffect(() => {
@@ -62,11 +132,13 @@ const Register = () => {
       if (name === 'month' || name === 'year') {
         if (value.year?.value && value.month?.value) {
           getAllDatesInMonth(value.year?.value, value.month?.value);
+          setValue('day', { label: '1', value: '1' });
         }
       }
     });
     return () => subscription.unsubscribe();
   }, [watch]);
+
   return (
     <div className="h-dvh">
       <div className="grid grid-cols-2 justify-items-center lg:grid-cols-5 xl:grid-cols-6 xxl:grid-cols-7">
@@ -88,6 +160,50 @@ const Register = () => {
           <div className="mx-auto md:mx-0">
             <Heading>REGISTER NOW!</Heading>
           </div>
+          {errorMessage && (
+            <div
+              className="bg-red-100 border border-red-400 text-red-700 pl-4 pr-8 sm:pr-4 py-3 rounded relative w-full mb-2"
+              role="alert"
+            >
+              <span className="block sm:inline">{errorMessage}</span>
+              <span
+                className="absolute top-0 bottom-0 right-0 px-4 py-3"
+                onClick={() => setErrorMessage('')}
+              >
+                <svg
+                  className="fill-current h-6 w-6 text-red-500"
+                  role="button"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <title>Close</title>
+                  <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                </svg>
+              </span>
+            </div>
+          )}
+          {successMessage && (
+            <div
+              className="bg-blue-100 border border-blue-400 text-blue-700 pl-4 pr-8 sm:pr-4 py-3 rounded relative w-full mb-2"
+              role="alert"
+            >
+              <span className="block sm:inline">{successMessage}</span>
+              <span
+                className="absolute top-0 bottom-0 right-0 px-4 py-3"
+                onClick={() => setSuccessMessage('')}
+              >
+                <svg
+                  className="fill-current h-6 w-6 text-blue-500"
+                  role="button"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <title>Close</title>
+                  <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                </svg>
+              </span>
+            </div>
+          )}
           <form onSubmit={handleSubmit(onSubmit)}>
             <Controller
               name="email"
@@ -135,7 +251,11 @@ const Register = () => {
                   label="fullname"
                   name={name}
                   onChange={onChange}
-                  className="w-full"
+                  className={
+                    errors.fullname
+                      ? 'border-secondary-danger focus:border-secondary-danger w-full'
+                      : 'w-full'
+                  }
                 >
                   Full Name
                 </FormInput>
@@ -159,14 +279,14 @@ const Register = () => {
                   <Controller
                     name="day"
                     control={control}
-                    render={({ field: { name, onChange } }) => (
+                    render={({ field: { name, onChange, value } }) => (
                       <Select
                         name={name}
                         id="day"
                         styles={{
                           indicatorSeparator: () => ({ display: 'none' }),
                         }}
-                        value={datesOption[0]}
+                        value={value}
                         options={datesOption}
                         onChange={onChange}
                         classNames={{
@@ -248,7 +368,11 @@ const Register = () => {
                   label="phoneNumber"
                   name={name}
                   onChange={onChange}
-                  className="w-full"
+                  className={
+                    errors.phoneNumber
+                      ? 'border-secondary-danger focus:border-secondary-danger w-full'
+                      : 'w-full'
+                  }
                 >
                   Phone Number
                 </FormInput>
@@ -280,14 +404,18 @@ const Register = () => {
                   label="password"
                   name={name}
                   onChange={onChange}
-                  className="w-full"
+                  className={
+                    errors.password
+                      ? 'border-secondary-danger focus:border-secondary-danger w-full'
+                      : 'w-full'
+                  }
                 >
                   Password
                 </FormInput>
               )}
               rules={{
                 required: true,
-                pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i,
+                pattern: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$/i,
               }}
             />
             {errors.password?.type === 'required' && (
@@ -297,40 +425,43 @@ const Register = () => {
             )}
             {errors.password?.type === 'pattern' && (
               <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold">
-                Password require minimum eight characters, at least one letter
-                and one number
+                Password require minimum eight characters, at least one
+                uppercase and one number
               </p>
             )}
 
-            <div className="flex mb-4">
-              <input type="checkbox" id="check" className="mr-2" />
-              <label
-                htmlFor="check"
-                className="text-left text-black text-sm font-semibold"
-              >
-                Saya Menyetujui Syarat & Ketentuan
-              </label>
-            </div>
-            <Button className="w-full" variant="primary" size="md" id="signup">
+            <Button className="w-full" size="md" id="signup">
               Sign Up
             </Button>
           </form>
-          <div className="mt-4 shadow-03 w-full">
-            <GoogleOAuthProvider clientId="785790667634-1r362pmk4q48l0j2i0vcl3v6nfesn60m.apps.googleusercontent.com">
-              <GoogleLogin
-                onSuccess={(credentialResponse) => {
-                  console.log(credentialResponse);
-                }}
-                onError={() => {
-                  console.log('Login Failed');
-                }}
-                shape="rectangular"
-                size="large"
-                width={400}
-                text="signup_with"
+          <div className="mt-4 w-full">
+            <Button
+              className="border w-full flex justify-center p-2"
+              variant="secondary"
+              onClick={() => {
+                googleSignUp();
+              }}
+            >
+              <img
+                src="https://i.ibb.co/VjNmDct/free-icon-google-300221-1.png"
+                alt="google_logo"
+                className="mr-4 w-6 h-6"
               />
-            </GoogleOAuthProvider>
+              Sign up with Google
+            </Button>
           </div>
+          <label className="mt-4 mx-auto">
+            Already have account? &nbsp;
+            <Link to="/login" className="font-semibold text-primary-darkBlue">
+              Sign In
+            </Link>
+          </label>
+          <label className="mt-5 text-center">
+            By registering, you agree to our {''}
+            <span className="underline">Terms & Conditions</span>
+            {''} and that you have read our {''}
+            <span className="underline">Privacy Notice.</span>
+          </label>
         </div>
       </div>
     </div>

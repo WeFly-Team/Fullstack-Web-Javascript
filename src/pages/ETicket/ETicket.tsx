@@ -1,0 +1,209 @@
+import { useEffect, useState } from 'react';
+import axiosInstance from '../../axios/axios';
+import { useParams } from 'react-router-dom';
+import { Transaction } from '../ProfileLayout/types';
+import { AxiosError } from 'axios';
+import { formatLongDate, triggerToast } from '../../utils/functions';
+
+const ETicket = () => {
+  const { id } = useParams();
+  const [transaction, setTransaction] = useState<Transaction>();
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    const getBookId = async () => {
+      try {
+        const detailBook = await axiosInstance.get(
+          `/transaction/getById/${id}`,
+          {
+            headers,
+          }
+        );
+        console.log(detailBook.data.data);
+
+        setTransaction(detailBook.data.data);
+      } catch (err) {
+        if (err instanceof AxiosError) {
+          triggerToast('error', err.message);
+        } else if (err instanceof Error) {
+          triggerToast('error', err.message);
+        }
+      }
+    };
+
+    getBookId();
+  }, []);
+  return (
+    <div>
+      <h1 className="font-bold text-2xl">E-Ticket</h1>
+
+      <div className="border border-neutral-05 mt-4 rounded-lg shadow-card">
+        <div className="flex justify-between border-b border-b-neutral-06 p-6">
+          <div>
+            <img src="https://i.ibb.co/pznRn82/garuda-title.png" alt="logo" />
+            <p className="font-semibold">
+              {
+                transaction?.transactionDetails[0].flightClass.flight.airplane
+                  .airline.name
+              }
+            </p>
+            <p className="text-sm font-semibold text-neutral-06">
+              {transaction?.seatClass}
+            </p>
+          </div>
+
+          <div>
+            {transaction && (
+              <p className="mb-4 font-semibold">
+                {formatLongDate(
+                  transaction.transactionDetails[0].flightClass.flight.departureDate!.toString()
+                )}
+              </p>
+            )}
+            <div className="flex justify-between gap-5">
+              <div className="flex flex-col justify-between">
+                <p className="font-bold text-neutral-07">
+                  {
+                    transaction?.transactionDetails[0].flightClass.flight
+                      .departureTime
+                  }
+                </p>
+                <p className="font-bold text-neutral-07">
+                  {
+                    transaction?.transactionDetails[0].flightClass.flight
+                      .arrivalTime
+                  }
+                </p>
+              </div>
+
+              <div className="flex flex-col items-center">
+                <div className="rounded-full border border-primary-blue h-4 w-4 bg-primary-blue"></div>
+                <div className="border h-[80px] w-0 border-neutral-06"></div>
+                <div className="rounded-full border-2 h-4 w-4 border-primary-blue bg-white"></div>
+              </div>
+
+              <div className="flex flex-col justify-between">
+                <div>
+                  {transaction && (
+                    <p className="font-semibold text-neutral-07">
+                      {
+                        transaction.transactionDetails[0].flightClass.flight
+                          .departureAirport.city
+                      }{' '}
+                      (
+                      {
+                        transaction.transactionDetails[0].flightClass.flight
+                          .departureAirport.iata
+                      }
+                      )
+                    </p>
+                  )}
+                  {transaction && (
+                    <p className="font-semibold text-neutral-07">
+                      {
+                        transaction.transactionDetails[0].flightClass.flight
+                          .departureAirport.name
+                      }
+                    </p>
+                  )}
+                </div>
+                <div>
+                  {transaction && (
+                    <p className="font-semibold text-neutral-07">
+                      {
+                        transaction.transactionDetails[0].flightClass.flight
+                          .arrivalAirport.city
+                      }{' '}
+                      (
+                      {
+                        transaction.transactionDetails[0].flightClass.flight
+                          .arrivalAirport.iata
+                      }
+                      )
+                    </p>
+                  )}
+                  {transaction && (
+                    <p className="font-semibold text-neutral-07">
+                      {
+                        transaction.transactionDetails[0].flightClass.flight
+                          .arrivalAirport.name
+                      }
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div className="mb-3">
+              <p className="text-sm font-semibold text-neutral-08">
+                Booking Id
+              </p>
+              <p className="font-bold">{transaction && transaction.id}</p>
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-neutral-08">
+                Airline Booking Code
+              </p>
+              <p className="font-bold">M3SD3</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="p-6">
+          <table className="font-semibold text-neutral-08 w-full">
+            <thead>
+              <tr className="text-left">
+                <th className="w-[10%] ">No.</th>
+                <th className="w-1/2 ">Passengers</th>
+                <th className="w-1/5">Route</th>
+                <th className="w-[30%]">Flight Facilities</th>
+              </tr>
+            </thead>
+            <tbody>
+              {transaction?.passengers &&
+                transaction.passengers.map((passenger, idx) => (
+                  <tr key={idx}>
+                    <td>{idx + 1}</td>
+                    <td>
+                      <span className="font-semibold text-sm"></span>{' '}
+                      {passenger.firstName} {passenger.lastName}{' '}
+                      <span className="font-semibold text-sm"></span>
+                    </td>
+                    {transaction && (
+                      <td className="text-xs">
+                        {
+                          transaction.transactionDetails[0].flightClass.flight
+                            .departureAirport.iata
+                        }{' '}
+                        -{' '}
+                        {
+                          transaction.transactionDetails[0].flightClass.flight
+                            .arrivalAirport.iata
+                        }
+                      </td>
+                    )}
+                    <td>Baggage 20 kg</td>
+                  </tr>
+                ))}
+              {/* <tr>
+                <td>1</td>
+                <td>
+                  <span className="font-semibold text-sm">Mr.</span> Ahmad
+                  Ghazali <span className="font-semibold text-sm">(Adult)</span>
+                </td>
+                <td className="text-xs">HLP - SUB</td>
+                <td>Baggage 20 kg</td>
+              </tr> */}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ETicket;

@@ -1,11 +1,21 @@
 import { createBrowserRouter } from 'react-router-dom';
-import Homepage from '../pages/Homepage';
+import Homepage from '../pages/Homepage/Homepage';
 import Login from '../pages/Login/Login';
 import Register from '../pages/Register/Register';
 import ForgotPass from '../pages/ForgotPass/ForgotPass';
-import SetNewPass from '../pages/ForgotPass/SetNewPass';
-import DonePage from '../pages/ForgotPass/DonePage';
-import PageOTP from '../pages/ForgotPass/PageOTP';
+import PrivateRoutes from '../utils/PrivateRoutes';
+import FlightList from '../pages/FlightList/FlightList';
+import OrderDetails from '../pages/OrderDetails/OrderDetails';
+import MyBooking from '../pages/MyBooking/MyBooking';
+import ProfileLayout from '../pages/ProfileLayout/ProfileLayout';
+import HistoryList from '../pages/History/History';
+import MyAccout from '../pages/MyAccount/MyAccount';
+import BookingDetail from '../pages/BookingDetail/BookingDetail';
+import ETicket from '../pages/ETicket/ETicket';
+import RegisterSuccess from '../pages/RegisterSuccess/RegisterSuccess';
+import AdminLayout from '../pages/Admin/AdminLayout';
+import Notification from '../pages/Notification/Notification';
+import Promo from '../pages/Promo/Promo';
 
 const router = createBrowserRouter([
   {
@@ -25,16 +35,77 @@ const router = createBrowserRouter([
     element: <ForgotPass />,
   },
   {
-    path: '/reset-password',
-    element: <SetNewPass />,
+    path: '/flight-list',
+    element: <FlightList />,
   },
   {
-    path: '/done',
-    element: <DonePage />,
+    path: '/register-success',
+    element: <RegisterSuccess />,
   },
   {
-    path: '/otp',
-    element: <PageOTP />,
+    element: <PrivateRoutes />,
+    children: [
+      {
+        path: '/order-details/:id',
+        element: <OrderDetails />,
+      },
+      {
+        path: '/user',
+        element: <ProfileLayout />,
+        children: [
+          {
+            path: '/user/my-booking',
+            element: <MyBooking />,
+          },
+          {
+            path: '/user/my-booking/:id',
+            element: <BookingDetail />,
+          },
+          {
+            path: '/user/my-account',
+            element: <MyAccout />,
+          },
+          {
+            path: '/user/promos',
+            element: <Promo />,
+          },
+          {
+            path: '/user/history',
+            element: <HistoryList />,
+          },
+          {
+            path: '/user/history/:id',
+            element: <ETicket />,
+          },
+          {
+            path: '/user/notification',
+            element: <Notification />,
+          },
+        ],
+      },
+      {
+        path: '/admin',
+        element: <AdminLayout />,
+        children: [
+          {
+            path: '/admin',
+            element: <p>Report</p>,
+          },
+          {
+            path: '/admin/flight',
+            element: <p>flight</p>,
+          },
+          {
+            path: '/admin/airport',
+            element: <p>airport</p>,
+          },
+          {
+            path: '/admin/transaction',
+            element: <p>transaction</p>,
+          },
+        ],
+      },
+    ],
   },
 ]);
 

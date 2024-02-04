@@ -2,17 +2,25 @@
 import Button from '../../components/Button';
 import FormInput from '../../components/FormInput';
 import Heading from '../../components/Heading';
-import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+import { useGoogleLogin } from '@react-oauth/google';
 import { SubmitHandler, Controller, useForm } from 'react-hook-form';
 import { IFormInput } from './types';
+import { useAuth } from '../../customHooks/useAuth/useAuth';
+import axiosInstance from '../../axios/axios';
+import { useState } from 'react';
+import { AxiosError } from 'axios';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
+  // useState
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  // useAuth
+  const { login } = useAuth();
   // hook form
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<IFormInput>({
     defaultValues: {
@@ -20,19 +28,41 @@ const Login = () => {
       password: '',
     },
   });
-  const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    try {
+      const result = await axiosInstance.post('/user-login/login', data);
+
+      if (result.data.status == 200) {
+        const token = result.data.access_token;
+        login(token);
+      } else if (result.data.status == 400) {
+        setErrorMessage(result.data.error);
+        setValue('password', '');
+      }
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        if (err.response?.data) {
+          setErrorMessage(err.response.data.error);
+        } else setErrorMessage(err.message);
+      } else if (err instanceof Error) {
+        setErrorMessage(err.message);
+      }
+      setValue('email', '');
+      setValue('password', '');
+    }
   };
 
-  // const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setEmail(e.target.value);
-  //   console.log(setEmail);
-  // };
-
-  // const handlePassword = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setPassword(e.target.value);
-  //   console.log(setPassword);
-  // };
+  const googleLogin = useGoogleLogin({
+    // flow: 'auth-code',
+    onSuccess: async (codeResponse) => {
+      const result = await axiosInstance.post(
+        `/user-login/signin_google/${codeResponse.access_token}`
+      );
+      const accToken = result.data.access_token;
+      login(accToken);
+    },
+    onError: (errorResponse) => console.log(errorResponse),
+  });
 
   return (
     <>
@@ -46,7 +76,30 @@ const Login = () => {
             />
           </div>
           <Heading children="Welcome Back" />
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <label className="mb-8">Please enter your details.</label>
+          {errorMessage && (
+            <div
+              className="bg-red-100 border border-red-400 text-red-700 pl-4 pr-8 sm:pr-4 py-3 rounded relative w-full mb-2"
+              role="alert"
+            >
+              <span className="block sm:inline">{errorMessage}</span>
+              <span
+                className="absolute top-0 bottom-0 right-0 px-4 py-3"
+                onClick={() => setErrorMessage('')}
+              >
+                <svg
+                  className="fill-current h-6 w-6 text-red-500"
+                  role="button"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <title>Close</title>
+                  <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                </svg>
+              </span>
+            </div>
+          )}
+          <form onSubmit={handleSubmit(onSubmit)} className="w-full">
             <Controller
               name="email"
               control={control}
@@ -56,8 +109,8 @@ const Login = () => {
                   label="Email"
                   className={
                     errors.email
-                      ? 'border-secondary-danger focus:border-secondary-danger'
-                      : ''
+                      ? 'w-full border-secondary-danger focus:border-secondary-danger'
+                      : 'w-full'
                   }
                   name={name}
                   value={value}
@@ -93,14 +146,17 @@ const Login = () => {
                   label="password"
                   name={name}
                   onChange={onChange}
-                  // className="!w-full"
+                  className={
+                    errors.password
+                      ? 'w-full border-secondary-danger focus:border-secondary-danger'
+                      : 'w-full'
+                  }
                 >
                   Password
                 </FormInput>
               )}
               rules={{
                 required: true,
-                pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i,
               }}
             />
             {errors.password?.type === 'required' && (
@@ -109,13 +165,13 @@ const Login = () => {
               </p>
             )}
             {errors.password?.type === 'pattern' && (
-              <p className="-mt-5 text-right text-secondary-danger text-sm font-semibold">
+              <p className="w-md-[300px] -mt-5 text-right text-secondary-danger text-sm font-semibold">
                 Password require minimum eight characters, at least one letter
                 and one number
               </p>
             )}
 
-            <div className="flex mb-4 gap-16">
+            <div className="flex mb-4 gap-16 justify-between">
               <div className="checkbox-input">
                 <input type="checkbox" id="check" className="mr-2" />
                 <label
@@ -125,35 +181,53 @@ const Login = () => {
                   Remember me
                 </label>
               </div>
-              <a href="#" className="text-black text-sm font-semibold">
+              <Link
+                to="/forgot-password"
+                className="text-black text-sm font-semibold"
+              >
                 Forgot password
-              </a>
+              </Link>
             </div>
-            <Button variant="primary" size="md" id="signin">
+            <Button
+              disabled={false}
+              className="w-full"
+              variant="primary"
+              size="md"
+              id="signin"
+            >
               Sign in
             </Button>
           </form>
-          <div className="mt-4 shadow-03">
-            <GoogleOAuthProvider clientId="785790667634-1r362pmk4q48l0j2i0vcl3v6nfesn60m.apps.googleusercontent.com">
-              <GoogleLogin
-                onSuccess={(credentialResponse) => {
-                  console.log(credentialResponse);
-                }}
-                onError={() => {
-                  console.log('Login Failed');
-                }}
-                shape="rectangular"
-                size="large"
-                width={300}
-                text="signin_with"
+          <div className="mt-4 w-full mb-4">
+            <Button
+              className="border w-full flex justify-center p-2"
+              variant="secondary"
+              onClick={() => {
+                googleLogin();
+              }}
+            >
+              <img
+                src="https://i.ibb.co/VjNmDct/free-icon-google-300221-1.png"
+                alt="google_logo"
+                className="mr-4 w-6 h-6"
               />
-            </GoogleOAuthProvider>
+              Log in with Google
+            </Button>
           </div>
+          <label>
+            Don't have an account? &nbsp;
+            <Link
+              to="/register"
+              className="font-semibold text-primary-darkBlue"
+            >
+              Sign Up
+            </Link>
+          </label>
         </div>
-        <div className="md:w-3/5 h-screen relative bg-gradient-to-l from-transparent to-white sm:block hidden">
+        <div className="md:w-3/5 h-screen relative bg-gradient-to-l from-transparent to-white md:block hidden">
           <img
             src="https://i.ibb.co/p04HSxH/image-1.png"
-            className=" object-cover mix-blend-overlay h-screen w-screen"
+            className="object-cover mix-blend-overlay h-screen w-screen"
           />
         </div>
       </div>

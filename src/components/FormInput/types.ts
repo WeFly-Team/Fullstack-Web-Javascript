@@ -1,6 +1,6 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, HTMLAttributes } from 'react';
 
-export interface FormProps {
+export interface FormProps extends HTMLAttributes<HTMLInputElement> {
   children: React.ReactNode;
   type: 'text' | 'number' | 'email' | 'password';
   label: string;
