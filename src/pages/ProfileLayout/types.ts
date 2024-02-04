@@ -90,6 +90,20 @@ export interface Orderer {
   email: string;
 }
 
+export type TransactionStatus =
+  | 'CHOOSING_PAYMENT'
+  | 'AWAITING_PAYMENT'
+  | 'PAID';
+
+export interface Payment {
+  id: number;
+  issuer?: string;
+  token: string;
+  settlement_time?: Date;
+  expiry_time: Date;
+  transaction_status: TransactionStatus;
+}
+
 export interface Transaction {
   createdDate?: Date;
   deletedDate?: Date;

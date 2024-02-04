@@ -173,6 +173,8 @@ const OrderDetails = () => {
 
   useEffect(() => {
     if (detailPassenger && dataFlight) {
+      console.log(dataFlight);
+
       setTotalPrice(
         getTotalPrice(
           detailPassenger.adult,

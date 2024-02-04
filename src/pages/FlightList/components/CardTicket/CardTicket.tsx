@@ -61,7 +61,7 @@ const CardTicket = ({ className, data, detailPassenger }: CardTicketProps) => {
         </div>
         <div>
           <p className="text-secondary-warning font-bold">
-            Rp {thousandSeparator(Number(data.flight.basePrice))}
+            Rp {thousandSeparator(Number(data.basePriceAdult))}
             <span className="text-black text-sm font-normal">/pax</span>
           </p>
         </div>
