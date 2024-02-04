@@ -1,4 +1,4 @@
-import Select from 'react-select';
+import Select, { StylesConfig, createFilter } from 'react-select';
 import Button from '../../../../components/Button';
 import { Calendar, MapPin, X } from 'react-feather';
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -11,7 +11,7 @@ import {
 } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker from 'react-datepicker';
-import { CustomInputProps, selectAirportProp } from './types';
+import { CustomInputProps, OptionType, selectAirportProp } from './types';
 import {
   FaAngleDown,
   // FaBaby,
@@ -112,6 +112,35 @@ const FindTicket = () => {
   //     setInfant(infant - 1);
   //   }
   // };
+
+  const filterConfig = createFilter({
+    matchFrom: 'any',
+    //@ts-expect-error
+    stringify: (option: OptionType<selectAirportProp>) => {
+      // Convert JSX to string for searching
+      const textContent = option.label.props.children
+        .map((child: any) =>
+          typeof child === 'string' ? child : child.props.children
+        )
+        .join('');
+
+      return `${textContent}`;
+    },
+  });
+
+  const styleConfig: StylesConfig = {
+    indicatorSeparator: () => ({ display: 'none' }),
+    indicatorsContainer: () => ({ display: 'none' }),
+    control: () => ({
+      border: 'none',
+    }),
+    input: (base) => ({
+      ...base,
+      color: 'white',
+    }),
+    placeholder: (base) => ({ ...base, color: 'white' }),
+    singleValue: (base) => ({ ...base, color: 'white' }),
+  };
 
   useEffect(() => {}, [adult, child]);
   // forwardRef
@@ -343,21 +372,14 @@ const FindTicket = () => {
                   <div className="flex items-center border-b border-white mr-2 ">
                     <MapPin className="text-white mr-2" />
                     <Select
+                      filterOption={filterConfig}
                       options={listAirport}
                       onChange={(val) =>
                         setDepartureAirport(val as selectAirportProp)
                       }
                       className="w-full"
                       placeholder="Where are you now?"
-                      styles={{
-                        indicatorSeparator: () => ({ display: 'none' }),
-                        indicatorsContainer: () => ({ display: 'none' }),
-                        control: () => ({
-                          border: 'none',
-                        }),
-                        placeholder: (base) => ({ ...base, color: 'white' }),
-                        singleValue: (base) => ({ ...base, color: 'white' }),
-                      }}
+                      styles={styleConfig}
                     />
                   </div>
                 </div>
@@ -368,21 +390,14 @@ const FindTicket = () => {
                   <div className="flex items-center border-b border-white">
                     <MapPin className="text-white mr-2" />
                     <Select
+                      filterOption={filterConfig}
                       options={listAirport}
                       onChange={(val) =>
                         setDestinationAirport(val as selectAirportProp)
                       }
                       className="w-full"
                       placeholder="Where are your destination?"
-                      styles={{
-                        indicatorSeparator: () => ({ display: 'none' }),
-                        indicatorsContainer: () => ({ display: 'none' }),
-                        control: () => ({
-                          border: 'none',
-                        }),
-                        placeholder: (base) => ({ ...base, color: 'white' }),
-                        singleValue: (base) => ({ ...base, color: 'white' }),
-                      }}
+                      styles={styleConfig}
                     />
                   </div>
                 </div>

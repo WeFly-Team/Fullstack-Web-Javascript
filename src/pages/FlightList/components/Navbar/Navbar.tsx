@@ -100,7 +100,7 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
         </ul>
       </div>
       <div
-        className={`fixed bottom-0 top-0 left-0 right-0 transition-all duration-500 lg:hidden ${
+        className={`fixed bottom-0 top-0 left-0 right-0 transition-all duration-500 z-20 lg:hidden ${
           !open
             ? '-translate-x-[100%] opacity-0'
             : 'translate-x-[0%] opacity-100'
@@ -128,7 +128,7 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
                 Contact Us
               </li>
               <li className="text-white py-4 text-center hover:cursor-pointer transition hover:bg-white hover:bg-opacity-20">
-                Profile
+                <Link to="/user/my-account">Profile</Link>
               </li>
               <li className="text-white py-4 text-center hover:cursor-pointer transition hover:bg-white hover:bg-opacity-20">
                 <div className="flex items-center justify-center gap-3">

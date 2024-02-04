@@ -12,3 +12,8 @@ export interface selectAirportProp {
   value: number;
   label: JSX.Element;
 }
+
+export type OptionType<T> = {
+  value: T;
+  label: JSX.Element; // Adjust label type as needed
+};

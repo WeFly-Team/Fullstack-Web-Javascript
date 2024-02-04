@@ -18,11 +18,11 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
     <nav {...props}>
       <div className="lg:container mx-auto p-4">
         <div className="flex justify-between items-center">
-          <Link to="/">
+          <Link to="/" className="order-1 sm:order-2">
             <img
               src="https://i.ibb.co/pxQ7DPC/logo-We-Fly.png"
               alt="logo"
-              className="w-12 order-1 sm:order-2"
+              className="w-12 "
             />
           </Link>
           <AlignJustify
@@ -114,7 +114,7 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
                 Contact Us
               </li>
               <li className="text-white py-4 text-center hover:cursor-pointer transition hover:bg-white hover:bg-opacity-20">
-                Profile
+                <Link to="/user/my-account">Profile</Link>
               </li>
               <li className="text-white py-4 text-center hover:cursor-pointer transition hover:bg-white hover:bg-opacity-20">
                 <div className="flex items-center justify-center gap-3">
