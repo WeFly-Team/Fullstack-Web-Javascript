@@ -18,8 +18,8 @@ const Detail = ({
         </p>
         <div className="flex mt-5 justify-between">
           <p>
-            {getNameOfDay(departureDate.getDay())}, {departureDate.getDate()}{' '}
-            {getNameOfMonth(departureDate.getMonth())}{' '}
+            {getNameOfDay(departureDate.getDay() + 1)},{' '}
+            {departureDate.getDate()} {getNameOfMonth(departureDate.getMonth())}{' '}
             {departureDate.getFullYear()}
           </p>
           <p>{totalPassengers} Passenger(s)</p>

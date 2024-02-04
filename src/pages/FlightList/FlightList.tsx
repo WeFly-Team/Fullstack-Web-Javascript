@@ -45,7 +45,26 @@ const FlightList = () => {
     const classPenumpang = searchParams.get('class')!;
     setClassPassenger(classPenumpang);
     const depDate = new Date(searchParams.get('dep-date')!);
-    setDepartureDate(depDate);
+    const depDateUTC = new Date(
+      depDate.getUTCFullYear(),
+      depDate.getUTCMonth(),
+      depDate.getUTCDate(),
+      depDate.getUTCHours(),
+      depDate.getUTCMinutes(),
+      depDate.getUTCSeconds()
+    );
+
+    const formattedDepDate = depDateUTC.toLocaleString('en-US', {
+      timeZone: 'Asia/Jakarta',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      timeZoneName: 'short',
+    });
+    setDepartureDate(new Date(Date.parse(formattedDepDate)));
     const totPassengers = Number(searchParams.get('total-passengers'));
     const totalAdult = Number(searchParams.get('adult'));
     const totalChild = Number(searchParams.get('child'));
@@ -75,7 +94,6 @@ const FlightList = () => {
       const flightList = await axiosInstance.get(`/flight/list?${queryString}`);
       const dataFlight = flightList.data.data.content;
       setFlights(dataFlight);
-      console.log(dataFlight);
     };
     getAirport();
     getFlightList();
