@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import NoResultCard from '../../components/NoResultCard/NoResultCard';
 import BookingCard from '../MyBooking/Component/BookingCard';
 import {
@@ -11,6 +11,12 @@ const HistoryList = () => {
     UserTransactionContext
   ) as userTransactionContextType;
 
+  useEffect(() => {
+    const finishedCount = transactions.filter(
+      (t) => t.payment?.transaction_status === 'PAID'
+    ).length;
+    setFinishedTransaction(finishedCount);
+  }, [transactions]);
   const [finishedTransaction, setFinishedTransaction] = useState<number>(0);
   return (
     <div className="">
@@ -25,15 +31,16 @@ const HistoryList = () => {
 
       {transactions.length != 0 &&
         transactions.map((transaction) => {
-          if (transaction.status === 'FINISH') {
-            setFinishedTransaction(finishedTransaction + 1);
-            return (
-              <BookingCard
-                key={transaction.id}
-                transaction={transaction}
-                className="mt-4"
-              />
-            );
+          if (transaction.payment) {
+            if (transaction.payment.transaction_status === 'PAID') {
+              return (
+                <BookingCard
+                  key={transaction.id}
+                  transaction={transaction}
+                  className="mt-4"
+                />
+              );
+            }
           }
         })}
     </div>

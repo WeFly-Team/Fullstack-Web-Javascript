@@ -71,12 +71,12 @@ const BookingCard = ({ transaction, className }: BookingCardProps) => {
     //       Sent
     //     </div>
     //   );
-    // else if (transaction.status === 'FINISH')
-    //   return (
-    //     <div className="bg-secondary-success font-semibold text-center px-8 py-1 text-white rounded-full ">
-    //       Purchase Successfull
-    //     </div>
-    //   );
+    else if (transaction.payment.transaction_status === 'PAID')
+      return (
+        <div className="bg-secondary-success font-semibold text-center px-8 py-1 text-white rounded-full ">
+          Purchase Successfull
+        </div>
+      );
   };
 
   return (
@@ -169,7 +169,7 @@ const BookingCard = ({ transaction, className }: BookingCardProps) => {
         )}
         {transaction.payment.transaction_status === 'PAID' && (
           <Link
-            to="/user/history/13124"
+            to={`/user/history/${transaction.id}`}
             className="text-primary-darkBlue font-semibold"
           >
             View
