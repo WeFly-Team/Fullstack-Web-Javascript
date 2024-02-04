@@ -1,6 +1,6 @@
 import BookingCard from './Component/BookingCard';
 import NoResultCard from '../../components/NoResultCard/NoResultCard';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import {
   UserTransactionContext,
   userTransactionContextType,
@@ -11,9 +11,6 @@ const MyBooking = () => {
     UserTransactionContext
   ) as userTransactionContextType;
 
-  useEffect(() => {
-    console.log(transactions);
-  }, [transactions]);
   return (
     <div className="">
       <h1 className="font-bold text-2xl">My Transactions</h1>
@@ -25,13 +22,19 @@ const MyBooking = () => {
         />
       )}
       {transactions.length != 0 &&
-        transactions.map((transaction) => (
-          <BookingCard
-            key={transaction.id}
-            transaction={transaction}
-            className="mt-4"
-          />
-        ))}
+        transactions.map((transaction) => {
+          if (transaction.payment) {
+            if (transaction.payment.transaction_status === 'CHOOSING_PAYMENT') {
+              return (
+                <BookingCard
+                  key={transaction.id}
+                  transaction={transaction}
+                  className="mt-4"
+                />
+              );
+            }
+          }
+        })}
     </div>
   );
 };

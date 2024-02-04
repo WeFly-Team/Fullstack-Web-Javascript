@@ -28,12 +28,9 @@ const ProfileLayout = () => {
       const headers = {
         Authorization: `Bearer ${token}`,
       };
-      const result = await axiosInstance.get(
-        '/transaction/list?orderType=descending',
-        {
-          headers,
-        }
-      );
+      const result = await axiosInstance.get('/transaction/list?size=100', {
+        headers,
+      });
       const unsortedTransaction = result.data.data.content;
       const sortedTransactions = unsortedTransaction.sort(
         (a: Transaction, b: Transaction) => b.id - a.id

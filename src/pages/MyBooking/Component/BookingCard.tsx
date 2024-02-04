@@ -1,34 +1,76 @@
 import { FaArrowRight } from 'react-icons/fa6';
 import { BookingCardProps } from './types';
 import { Link } from 'react-router-dom';
-import { formatLongDate, thousandSeparator } from '../../../utils/functions';
+import {
+  calculateTimeRemaining,
+  formatLongDate,
+  thousandSeparator,
+} from '../../../utils/functions';
+import { useEffect, useState } from 'react';
 
 const BookingCard = ({ transaction, className }: BookingCardProps) => {
+  const [timeRemaining, setTimeRemaining] = useState<string>('');
+
+  useEffect(() => {
+    let intervalId: number;
+
+    const updateTimer = () => {
+      const expiryDate = new Date(transaction.payment.expiry_time);
+      expiryDate.setHours(expiryDate.getHours() + 7);
+
+      const { minutes, seconds } = calculateTimeRemaining(expiryDate);
+
+      setTimeRemaining(`${minutes}:${seconds}`);
+
+      // Schedule the next update after 1 second
+      if (minutes === '00' && seconds === '00') {
+        clearInterval(intervalId);
+      } else {
+        // Schedule the next update after 1 second
+        intervalId = setTimeout(updateTimer, 1000);
+      }
+    };
+
+    if (transaction.payment.transaction_status === 'CHOOSING_PAYMENT') {
+      updateTimer();
+    }
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [transaction.payment.expiry_time, transaction.payment.transaction_status]);
+
   const checkStatus = () => {
-    if (transaction.status === 'PENDING') {
+    if (transaction.payment.transaction_status === 'CHOOSING_PAYMENT') {
       return (
-        <div className="font-semibold bg-primary-darkBlue text-center px-8 py-1 text-white rounded-full bg-opacity-75">
-          59:45
+        <div className="flex items-center">
+          <div className="font-semibold bg-primary-darkBlue text-center px-8 py-1 text-white rounded-full bg-opacity-75">
+            {timeRemaining}
+          </div>
+          <p className="font-semibold text-sm ml-3 text-secondary-danger">
+            Please Choose Your Payment
+          </p>
         </div>
       );
-    } else if (transaction.status === 'PROCESS')
-      return (
-        <div className="bg-secondary-warning font-semibold text-center px-8 py-1 text-white rounded-full">
-          Process
-        </div>
-      );
-    else if (transaction.status === 'SENT')
-      return (
-        <div className="bg-primary-darkBlue font-semibold text-center px-8 py-1 text-white rounded-full ">
-          Sent
-        </div>
-      );
-    else if (transaction.status === 'FINISH')
-      return (
-        <div className="bg-secondary-success font-semibold text-center px-8 py-1 text-white rounded-full ">
-          Purchase Successfull
-        </div>
-      );
+    }
+    //  else if (transaction.status === 'PROCESS')
+    //   return (
+    //     <div className="bg-secondary-warning font-semibold text-center px-8 py-1 text-white rounded-full">
+    //       Process
+    //     </div>
+    //   );
+    // else if (transaction.status === 'SENT')
+    //   return (
+    //     <div className="bg-primary-darkBlue font-semibold text-center px-8 py-1 text-white rounded-full ">
+    //       Sent
+    //     </div>
+    //   );
+    // else if (transaction.status === 'FINISH')
+    //   return (
+    //     <div className="bg-secondary-success font-semibold text-center px-8 py-1 text-white rounded-full ">
+    //       Purchase Successfull
+    //     </div>
+    //   );
   };
 
   return (
@@ -111,7 +153,7 @@ const BookingCard = ({ transaction, className }: BookingCardProps) => {
       </div>
       <div className="flex p-4 justify-between items-center">
         {checkStatus()}
-        {transaction.status !== 'FINISH' && (
+        {transaction.payment.transaction_status !== 'PAID' && (
           <Link
             to={`/user/my-booking/${transaction.id}`}
             className="text-primary-darkBlue font-semibold"
@@ -119,7 +161,7 @@ const BookingCard = ({ transaction, className }: BookingCardProps) => {
             View
           </Link>
         )}
-        {transaction.status === 'FINISH' && (
+        {transaction.payment.transaction_status === 'PAID' && (
           <Link
             to="/user/history/13124"
             className="text-primary-darkBlue font-semibold"

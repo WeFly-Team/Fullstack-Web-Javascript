@@ -186,3 +186,18 @@ export const formatYyyyMmDd = (
   const formattedDate = yyyy + '-' + mm + '-' + dd;
   return formattedDate;
 };
+
+export function calculateTimeRemaining(targetDate: Date) {
+  const now = new Date();
+  const difference = targetDate.getTime() - now.getTime();
+  if (difference <= 0) {
+    // If the target date is in the past, set timeRemaining to zero
+    return { minutes: '00', seconds: '00' };
+  }
+
+  const minutes = String(Math.floor(difference / 1000 / 60)).padStart(2, '0');
+
+  const seconds = String(Math.floor((difference / 1000) % 60)).padStart(2, '0');
+
+  return { minutes, seconds };
+}

@@ -2,113 +2,108 @@ import { IoAirplaneOutline } from 'react-icons/io5';
 import { BookingCardProps } from '../../pages/MyBooking/Component/types';
 import Button from '../Button';
 import {
+  calculateTimeRemaining,
   formatLongDate,
   substractTime,
-  triggerToast,
+  thousandSeparator,
 } from '../../utils/functions';
-import { ChangeEvent, useRef } from 'react';
-import axiosInstance from '../../axios/axios';
-import { AxiosError } from 'axios';
+import { useEffect, useState } from 'react';
 
 const BookingDetailCard = ({ transaction, className }: BookingCardProps) => {
-  const token = localStorage.getItem('token');
-  const inputRef = useRef<HTMLInputElement>(null);
-  const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
-    const fileObj = event.target.files && event.target.files[0];
-    if (!fileObj) {
-      return;
-    }
-
-    if (inputRef.current) {
-      inputRef.current.value = '';
-    }
-    let formData = new FormData();
-    formData.append('file', fileObj);
-
-    try {
-      const upload = await axiosInstance.put(
-        `savePaymentProof/${transaction.id}`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (upload.data.code == 200) {
-        triggerToast('info', 'Payment proof uploaded!');
-      }
-    } catch (err) {
-      if (err instanceof AxiosError) {
-        triggerToast('error', err.message);
-      } else if (err instanceof Error) {
-        triggerToast('error', err.message);
-      }
-    }
+  const openPaymentLink = () => {
+    const token = transaction.payment.token;
+    window.open(
+      `https://app.sandbox.midtrans.com/snap/v3/redirection/${token}`,
+      '_blank',
+      'noreferrer'
+    );
   };
+
+  const [timeRemaining, setTimeRemaining] = useState<string>('');
+
+  useEffect(() => {
+    let intervalId: number;
+
+    const updateTimer = () => {
+      const expiryDate = new Date(transaction.payment.expiry_time);
+      expiryDate.setHours(expiryDate.getHours() + 7);
+
+      const { minutes, seconds } = calculateTimeRemaining(expiryDate);
+
+      setTimeRemaining(`${minutes}:${seconds}`);
+
+      // Schedule the next update after 1 second
+      if (minutes === '00' && seconds === '00') {
+        clearInterval(intervalId);
+      } else {
+        // Schedule the next update after 1 second
+        intervalId = setTimeout(updateTimer, 1000);
+      }
+    };
+
+    if (transaction.payment.transaction_status === 'CHOOSING_PAYMENT') {
+      updateTimer();
+    }
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [transaction.payment.expiry_time, transaction.payment.transaction_status]);
+
   const checkStatus = () => {
-    if (transaction.status === 'PENDING') {
+    if (transaction.payment.transaction_status === 'CHOOSING_PAYMENT') {
       return (
         <div className="flex justify-between gap-2 items-center p-4">
-          <Button
-            className="w-auto h-auto py-2 px-6"
-            onClick={() => {
-              inputRef.current?.click();
-            }}
-          >
-            Upload proof of payment
+          <Button className="w-auto h-auto py-2 px-6" onClick={openPaymentLink}>
+            Open Payment Link
           </Button>
-          <input
-            style={{ display: 'none' }}
-            ref={inputRef}
-            type="file"
-            onChange={handleFileChange}
-          />
           <div>
             <p className="text-neutral-06 text-sm font-semibold">
               Please make payment in
             </p>
             <div className="font-semibold bg-primary-darkBlue text-center px-8 py-1 text-white rounded-full bg-opacity-75">
-              59:45
+              {timeRemaining}
             </div>
           </div>
         </div>
       );
-    } else if (transaction.status === 'PROCESS')
-      return (
-        <div className="flex justify-end gap-2 items-center p-4">
-          <p className="text-neutral-06 text-sm font-semibold">Status</p>
-          <div className="bg-secondary-warning font-semibold text-center px-8 py-1 text-white rounded-full">
-            Process
-          </div>
-        </div>
-      );
-    else if (transaction.status === 'SENT')
-      return (
-        <div className="flex justify-end gap-2 items-center p-4">
-          <p className="text-neutral-06 text-sm font-semibold">Status</p>
-          <div className="bg-primary-darkBlue font-semibold text-center px-8 py-1 text-white rounded-full ">
-            Sent
-          </div>
-        </div>
-      );
-    else if (transaction.status === 'FINISH')
-      return (
-        <div className="flex justify-end gap-2 items-center p-4">
-          <p className="text-neutral-06 text-sm font-semibold">Status</p>
-          <div className="bg-secondary-success font-semibold text-center px-8 py-1 text-white rounded-full ">
-            Purchase Successfull
-          </div>
-        </div>
-      );
+    }
+    // else if (transaction.payment.transaction_status === 'PROCESS')
+    //   return (
+    //     <div className="flex justify-end gap-2 items-center p-4">
+    //       <p className="text-neutral-06 text-sm font-semibold">Status</p>
+    //       <div className="bg-secondary-warning font-semibold text-center px-8 py-1 text-white rounded-full">
+    //         Process
+    //       </div>
+    //     </div>
+    //   );
+    // else if (transaction.payment.transaction_status === 'SENT')
+    //   return (
+    //     <div className="flex justify-end gap-2 items-center p-4">
+    //       <p className="text-neutral-06 text-sm font-semibold">Status</p>
+    //       <div className="bg-primary-darkBlue font-semibold text-center px-8 py-1 text-white rounded-full ">
+    //         Sent
+    //       </div>
+    //     </div>
+    //   );
+    // else if (transaction.payment.transaction_status === 'FINISH')
+    //   return (
+    //     <div className="flex justify-end gap-2 items-center p-4">
+    //       <p className="text-neutral-06 text-sm font-semibold">Status</p>
+    //       <div className="bg-secondary-success font-semibold text-center px-8 py-1 text-white rounded-full ">
+    //         Purchase Successfull
+    //       </div>
+    //     </div>
+    //   );
   };
   return (
     <div
       className={`border border-neutral-05 shadow-card rounded-lg ${className}`}
     >
-      <div className="p-4 border-b border-neutral-05">
-        <p className="text-center font-semibold text-lg">
-          Booking Id : {transaction.id}
+      <div className="p-4 border-b border-neutral-05 flex items-center justify-between">
+        <p className="font-semibold text-lg">Booking Id : {transaction.id}</p>
+        <p className="font-semibold text-lg">
+          Rp{thousandSeparator(transaction.totalPrice)}
         </p>
       </div>
       <div className="p-4 flex justify-between border-b border-neutral-05">

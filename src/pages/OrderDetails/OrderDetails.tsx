@@ -107,7 +107,6 @@ const OrderDetails = () => {
           dateOfBirth: formatDdMmYyyy(day.toString(), month.toString(), year),
         };
       });
-      console.log(formatedPassengers);
       // return;
       const data = {
         adultPassenger,
@@ -173,8 +172,6 @@ const OrderDetails = () => {
 
   useEffect(() => {
     if (detailPassenger && dataFlight) {
-      console.log(dataFlight);
-
       setTotalPrice(
         getTotalPrice(
           detailPassenger.adult,
