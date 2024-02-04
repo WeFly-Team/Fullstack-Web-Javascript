@@ -15,6 +15,7 @@ import ETicket from '../pages/ETicket/ETicket';
 import RegisterSuccess from '../pages/RegisterSuccess/RegisterSuccess';
 import AdminLayout from '../pages/Admin/AdminLayout';
 import Notification from '../pages/Notification/Notification';
+import Promo from '../pages/Promo/Promo';
 
 const router = createBrowserRouter([
   {
@@ -66,7 +67,7 @@ const router = createBrowserRouter([
           },
           {
             path: '/user/promos',
-            element: <p>Promo</p>,
+            element: <Promo />,
           },
           {
             path: '/user/history',
