@@ -64,6 +64,8 @@ const FlightList = () => {
       second: '2-digit',
       timeZoneName: 'short',
     });
+    console.log(new Date(Date.parse(formattedDepDate)).getDay());
+
     setDepartureDate(new Date(Date.parse(formattedDepDate)));
     const totPassengers = Number(searchParams.get('total-passengers'));
     const totalAdult = Number(searchParams.get('adult'));
