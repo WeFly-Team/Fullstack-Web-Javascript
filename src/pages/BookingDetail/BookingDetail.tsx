@@ -26,6 +26,7 @@ const BookingDetail = () => {
             headers,
           }
         );
+
         setTransaction(detailBook.data.data);
       } catch (err) {
         if (err instanceof AxiosError) {

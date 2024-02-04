@@ -26,8 +26,11 @@ const BookingDetailCard = ({ transaction, className }: BookingCardProps) => {
 
     const updateTimer = () => {
       const expiryDate = new Date(transaction.payment.expiry_time);
-      expiryDate.setHours(expiryDate.getHours() + 7);
-
+      if (transaction.payment.issuer) {
+        expiryDate.setHours(expiryDate.getHours());
+      } else {
+        expiryDate.setHours(expiryDate.getHours() + 7);
+      }
       const { minutes, seconds } = calculateTimeRemaining(expiryDate);
 
       setTimeRemaining(`${minutes}:${seconds}`);

@@ -10,23 +10,29 @@ import { useEffect, useState } from 'react';
 
 const BookingCard = ({ transaction, className }: BookingCardProps) => {
   const [timeRemaining, setTimeRemaining] = useState<string>('');
+  const [statusMessage, setStatusMessage] = useState<string>(
+    'Please Choose Your Payment'
+  );
 
   useEffect(() => {
     let intervalId: number;
 
     const updateTimer = () => {
       const expiryDate = new Date(transaction.payment.expiry_time);
-      expiryDate.setHours(expiryDate.getHours() + 7);
+      if (transaction.payment.issuer) {
+        expiryDate.setHours(expiryDate.getHours());
+      } else {
+        expiryDate.setHours(expiryDate.getHours() + 7);
+      }
 
       const { minutes, seconds } = calculateTimeRemaining(expiryDate);
 
       setTimeRemaining(`${minutes}:${seconds}`);
 
-      // Schedule the next update after 1 second
       if (minutes === '00' && seconds === '00') {
         clearInterval(intervalId);
+        setStatusMessage('EXPIRED!');
       } else {
-        // Schedule the next update after 1 second
         intervalId = setTimeout(updateTimer, 1000);
       }
     };
@@ -48,7 +54,7 @@ const BookingCard = ({ transaction, className }: BookingCardProps) => {
             {timeRemaining}
           </div>
           <p className="font-semibold text-sm ml-3 text-secondary-danger">
-            Please Choose Your Payment
+            {statusMessage}
           </p>
         </div>
       );
