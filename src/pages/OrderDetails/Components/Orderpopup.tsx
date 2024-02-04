@@ -43,11 +43,6 @@ const Orderpopup = ({ className, isClose }: OrderPopProp) => {
   };
 
   const handleSave: SubmitHandler<OrdererInput> = (data) => {
-    console.log(data);
-    // if (newOrderer) {
-    //   saveOrderer(newOrderer);
-    //   isClose();
-    // }
     if (orderer) {
       const { firstName, lastName } = extractNames(data.fullName);
       // setNewOrderer();

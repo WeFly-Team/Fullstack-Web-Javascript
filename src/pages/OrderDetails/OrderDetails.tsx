@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import Button from '../../components/Button';
 import Navbar from '../FlightList/components/Navbar/Navbar';
 import Orderer from './Components/Orderer';
 import PassengerCard from './Components/PassengerCard';
@@ -9,7 +8,7 @@ import TotalPrice from './Components/TotalPrice';
 import PaymentDetail from './Components/PaymentDetail';
 import Orderpopup from './Components/Orderpopup';
 import PassengerPopup from './Components/PassengerPopup';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { DataFlight, Passenger, detailPassenger } from '../ProfileLayout/types';
 import 'react-toastify/dist/ReactToastify.min.css';
 import {
@@ -30,6 +29,7 @@ import { AxiosError } from 'axios';
 import { ToastContainer } from 'react-toastify';
 
 const OrderDetails = () => {
+  const navigate = useNavigate();
   const token = localStorage.getItem('token');
   const headers = {
     Authorization: `Bearer ${token}`,
@@ -108,7 +108,7 @@ const OrderDetails = () => {
         };
       });
       console.log(formatedPassengers);
-      return;
+      // return;
       const data = {
         adultPassenger,
         childPassenger,
@@ -130,21 +130,11 @@ const OrderDetails = () => {
           }
         );
         if (makeTransaction.data.code == 200) {
-          const transactionId = makeTransaction.data.data.id;
-          const bankId = selectedBank.id;
-          const savePayment = await axiosInstance.post(
-            '/transaction/savePayment',
-            {
-              transactionId,
-              bankId,
-            }
-          );
-          if (savePayment.data.code == 200) {
-            triggerToast(
-              'info',
-              'Transaction successfully created, please upload your payment proof'
-            );
-          }
+          const transactionId = makeTransaction.data.data.transaction.id;
+          const redirectUrl = makeTransaction.data.data.redirect_url;
+          window.open(redirectUrl, '_blank', 'noreferrer');
+          triggerToast('info', 'Please finish your payment!');
+          navigate('/user/my-booking/' + transactionId);
         }
       } catch (err) {
         if (err instanceof AxiosError) {
@@ -155,10 +145,10 @@ const OrderDetails = () => {
       }
     }
 
-    setOrderDetail(false);
-    setPaymentMethod(false);
-    setPaymentDetail(true);
-    setPageTitle('');
+    // setOrderDetail(false);
+    // setPaymentMethod(false);
+    // setPaymentDetail(true);
+    // setPageTitle('');
   };
 
   const saveOrderer = (orderer: OrderDetailOrderer) => {
@@ -327,7 +317,7 @@ const OrderDetails = () => {
 
             <div className="w-full md:w-1/2 order-1 md:order-2">
               <PriceDetail className="" />
-              {orderDetail && (
+              {/* {orderDetail && (
                 <Button
                   className="w-full mt-5 disabled:opacity-30"
                   disabled={disabledContinueOrder}
@@ -335,8 +325,14 @@ const OrderDetails = () => {
                 >
                   Continue Order
                 </Button>
+              )} */}
+              {orderDetail && (
+                <TotalPrice
+                  disabledContinueOrder={disabledContinueOrder}
+                  payNow={payNow}
+                  className="mt-4"
+                />
               )}
-              {paymentMethod && <TotalPrice payNow={payNow} className="mt-4" />}
             </div>
           </div>
         </div>

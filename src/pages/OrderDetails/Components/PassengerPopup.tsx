@@ -117,8 +117,6 @@ const PassengerPopup = ({
 
   useEffect(() => {
     if (passenger) {
-      console.log(passenger);
-
       setValue(
         'firstName',
         passenger.firstName === 'Please insert this passenger information!'

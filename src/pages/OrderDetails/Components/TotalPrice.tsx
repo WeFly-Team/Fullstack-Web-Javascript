@@ -7,7 +7,11 @@ import {
 } from './types';
 import { thousandSeparator } from '../../../utils/functions';
 
-const TotalPrice = ({ payNow, className }: TotalPriceProp) => {
+const TotalPrice = ({
+  payNow,
+  disabledContinueOrder,
+  className,
+}: TotalPriceProp) => {
   const { totalPrice } = useContext(
     OrderDetailContext
   ) as orderDetailContextType;
@@ -19,7 +23,11 @@ const TotalPrice = ({ payNow, className }: TotalPriceProp) => {
           Rp {thousandSeparator(totalPrice)}
         </p>
       </div>
-      <Button onClick={payNow} className="w-auto px-16">
+      <Button
+        onClick={payNow}
+        disabled={disabledContinueOrder}
+        className="w-auto px-16 disabled:opacity-30"
+      >
         Pay Now
       </Button>
     </div>
