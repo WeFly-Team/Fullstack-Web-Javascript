@@ -12,3 +12,11 @@ export interface IFormInput {
   month: { label: string; value: string };
   year: { label: string; value: string };
 }
+
+export interface User {
+  fullName: string;
+  city: string;
+  phoneNumber: string;
+  gender?: string;
+  dateOfBirth: string;
+}

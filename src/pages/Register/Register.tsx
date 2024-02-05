@@ -57,6 +57,8 @@ const Register = () => {
   };
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    setSuccessMessage('');
+    setErrorMessage('');
     try {
       const dateOfBirth = formatDate(
         data.day.value,

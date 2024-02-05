@@ -1,17 +1,16 @@
 import FormInput from '../../components/FormInput';
 import Button from '../../components/Button';
-import { IFormInput } from './types';
+import { IFormInput, User } from './types';
 import { datesOption, genderOption, monthsOption, yearsOption } from './data';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Select from 'react-select';
-import { useAuth } from '../../customHooks/useAuth/useAuth';
 import axiosInstance from '../../axios/axios';
 import { AxiosError } from 'axios';
 import { triggerToast } from '../../utils/functions';
 
 const MyAccout = () => {
-  const { user, generateUser } = useAuth();
+  const [user, setUser] = useState<User>();
   // hook form
   const {
     control,
@@ -54,7 +53,7 @@ const MyAccout = () => {
           dateOfBirth,
           phoneNumber: data.phoneNumber,
           city: data.city,
-          // gender: data.gender.value,
+          gender: data.gender.value,
         },
         {
           headers: {
@@ -63,13 +62,6 @@ const MyAccout = () => {
         }
       );
       if (result.data.code == 200) {
-        generateUser({
-          full_name: data.fullname,
-          user_name: user!.user_name,
-          phone_number: data.phoneNumber,
-          authorities: user!.authorities,
-          date_of_birth: dateOfBirth,
-        });
         triggerToast('success', 'Your account has been updated');
       } else if (result.data.code == 400) {
         triggerToast('error', result.data.error);
@@ -112,9 +104,11 @@ const MyAccout = () => {
 
   useEffect(() => {
     if (user) {
-      setValue('fullname', user.full_name);
-      if (user.date_of_birth) {
-        let [year, month, day] = user.date_of_birth
+      console.log(user);
+
+      setValue('fullname', user.fullName);
+      if (user.dateOfBirth) {
+        let [day, month, year] = user.dateOfBirth
           .toString()
           .split('-')
           .map(Number);
@@ -132,9 +126,40 @@ const MyAccout = () => {
           label: day.toString(),
         });
       }
-      setValue('phoneNumber', user.phone_number);
+      if (user.gender) {
+        if (user.gender === 'Male') {
+          setValue('gender', {
+            value: genderOption[1].value,
+            label: genderOption[1].label,
+          });
+        } else {
+          setValue('gender', {
+            value: genderOption[0].value,
+            label: genderOption[0].label,
+          });
+        }
+      }
+      if (user.city) {
+        setValue('city', user.city);
+      }
+      setValue('phoneNumber', user.phoneNumber);
     }
   }, [user]);
+
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const result = await axiosInstance.get('/user/profile', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+        console.log(result);
+        setUser(result.data.data);
+      } catch (err) {}
+    };
+    getUser();
+  }, []);
 
   return (
     <div>
