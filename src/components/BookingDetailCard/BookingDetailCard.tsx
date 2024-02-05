@@ -29,7 +29,7 @@ const BookingDetailCard = ({ transaction, className }: BookingCardProps) => {
       if (transaction.payment.issuer) {
         expiryDate.setHours(expiryDate.getHours());
       } else {
-        expiryDate.setHours(expiryDate.getHours() + 7);
+        expiryDate.setHours(expiryDate.getHours());
       }
       const { minutes, seconds } = calculateTimeRemaining(expiryDate);
 
