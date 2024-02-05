@@ -91,7 +91,7 @@ const CardTicket = ({ className, data, detailPassenger }: CardTicketProps) => {
         </div>
         <Button
           className="w-auto px-8 rounded-full"
-          onClick={() => handleChoose(data.flight.id)}
+          onClick={() => handleChoose(data.id)}
         >
           Choose
         </Button>
