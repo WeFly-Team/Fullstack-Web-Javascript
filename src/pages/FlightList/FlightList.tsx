@@ -64,7 +64,6 @@ const FlightList = () => {
       second: '2-digit',
       timeZoneName: 'short',
     });
-    console.log(new Date(Date.parse(formattedDepDate)).getDay());
 
     setDepartureDate(new Date(Date.parse(formattedDepDate)));
     const totPassengers = Number(searchParams.get('total-passengers'));
@@ -91,7 +90,7 @@ const FlightList = () => {
 
     const getFlightList = async () => {
       const formatedDepartureDate = formatDate(depDate);
-      const queryString = `departureAirportId=${idDepAirport}&arrivalAirportId=${idDesAirport}&departDate=${formatedDepartureDate}&seatClass=${classPenumpang.toUpperCase()}&numberOfPassenger=${totPassengers}`;
+      const queryString = `departureAirportId=${idDepAirport}&arrivalAirportId=${idDesAirport}&departureDate=${formatedDepartureDate}&seatClass=${classPenumpang.toUpperCase()}&numberOfPassenger=${totPassengers}`;
 
       const flightList = await axiosInstance.get(`/flight/list?${queryString}`);
       const dataFlight = flightList.data.data.content;
