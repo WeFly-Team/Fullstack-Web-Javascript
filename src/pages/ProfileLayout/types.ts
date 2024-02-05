@@ -92,8 +92,9 @@ export interface Orderer {
 
 export type TransactionStatus =
   | 'CHOOSING_PAYMENT'
-  | 'AWAITING_PAYMENT'
-  | 'PAID';
+  | 'PENDING'
+  | 'PAID'
+  | 'EXPIRE';
 
 export interface Payment {
   id: number;

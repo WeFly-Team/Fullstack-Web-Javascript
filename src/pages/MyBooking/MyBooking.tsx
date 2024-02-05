@@ -24,7 +24,7 @@ const MyBooking = () => {
       {transactions.length != 0 &&
         transactions.map((transaction) => {
           if (transaction.payment) {
-            if (transaction.payment.transaction_status === 'CHOOSING_PAYMENT') {
+            if (transaction.payment.transaction_status !== 'PAID') {
               return (
                 <BookingCard
                   key={transaction.id}

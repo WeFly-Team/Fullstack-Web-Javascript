@@ -70,25 +70,24 @@ const BookingDetailCard = ({ transaction, className }: BookingCardProps) => {
           </div>
         </div>
       );
-    }
-    // else if (transaction.payment.transaction_status === 'PROCESS')
-    //   return (
-    //     <div className="flex justify-end gap-2 items-center p-4">
-    //       <p className="text-neutral-06 text-sm font-semibold">Status</p>
-    //       <div className="bg-secondary-warning font-semibold text-center px-8 py-1 text-white rounded-full">
-    //         Process
-    //       </div>
-    //     </div>
-    //   );
-    // else if (transaction.payment.transaction_status === 'SENT')
-    //   return (
-    //     <div className="flex justify-end gap-2 items-center p-4">
-    //       <p className="text-neutral-06 text-sm font-semibold">Status</p>
-    //       <div className="bg-primary-darkBlue font-semibold text-center px-8 py-1 text-white rounded-full ">
-    //         Sent
-    //       </div>
-    //     </div>
-    //   );
+    } else if (transaction.payment.transaction_status === 'PENDING')
+      return (
+        <div className="flex justify-end gap-2 items-center p-4">
+          <p className="text-neutral-06 text-sm font-semibold">Status</p>
+          <div className="bg-secondary-warning font-semibold text-center px-8 py-1 text-white rounded-full">
+            Choosing Payment
+          </div>
+        </div>
+      );
+    else if (transaction.payment.transaction_status === 'EXPIRE')
+      return (
+        <div className="flex justify-end gap-2 items-center p-4">
+          <p className="text-neutral-06 text-sm font-semibold">Status</p>
+          <div className="bg-secondary-danger font-semibold text-center px-8 py-1 text-white rounded-full ">
+            EXPIRED
+          </div>
+        </div>
+      );
     // else if (transaction.payment.transaction_status === 'FINISH')
     //   return (
     //     <div className="flex justify-end gap-2 items-center p-4">
