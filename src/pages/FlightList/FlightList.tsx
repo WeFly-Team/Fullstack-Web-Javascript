@@ -66,6 +66,7 @@ const FlightList = () => {
     });
 
     setDepartureDate(new Date(Date.parse(formattedDepDate)));
+    const formattedDepartureDate = new Date(Date.parse(formattedDepDate));
     const totPassengers = Number(searchParams.get('total-passengers'));
     const totalAdult = Number(searchParams.get('adult'));
     const totalChild = Number(searchParams.get('child'));
@@ -89,8 +90,8 @@ const FlightList = () => {
     };
 
     const getFlightList = async () => {
-      const formatedDepartureDate = formatDate(depDate);
-      const queryString = `departureAirportId=${idDepAirport}&arrivalAirportId=${idDesAirport}&departureDate=${formatedDepartureDate}&seatClass=${classPenumpang.toUpperCase()}&numberOfPassenger=${totPassengers}`;
+      const formatedDepartureDate = formatDate(formattedDepartureDate);
+      const queryString = `departureAirportId=${idDepAirport}&arrivalAirportId=${idDesAirport}&departDate=${formatedDepartureDate}&seatClass=${classPenumpang.toUpperCase()}&numberOfPassenger=${totPassengers}`;
 
       const flightList = await axiosInstance.get(`/flight/list?${queryString}`);
       const dataFlight = flightList.data.data.content;
