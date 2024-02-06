@@ -105,7 +105,7 @@ const FlightList = () => {
     <>
       <Navbar className="fixed top-0 right-0 left-0 z-10 bg-white" />
       <div className="px-8 lg:px-0 lg:container mx-auto ">
-        <div className="pt-48 flex">
+        <div className="pt-40 flex">
           <div className="w-1/4 relative">
             <VoucherCard
               vouchertitle="ini voucher asik"
