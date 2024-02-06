@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import BookingDetailCard from '../../components/BookingDetailCard/BookingDetailCard';
 import { useEffect, useState } from 'react';
 import axiosInstance from '../../axios/axios';
@@ -14,6 +14,7 @@ const BookingDetail = () => {
   };
 
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [transaction, setTransaction] = useState<Transaction>();
 
@@ -39,6 +40,15 @@ const BookingDetail = () => {
 
     getBookId();
   }, [id]);
+
+  useEffect(() => {
+    if (transaction) {
+      if (transaction.payment.transaction_status === 'PAID') {
+        navigate(`/user/history/${transaction.id}`);
+      }
+    }
+  }, [transaction]);
+
   return (
     <div>
       {transaction && (
