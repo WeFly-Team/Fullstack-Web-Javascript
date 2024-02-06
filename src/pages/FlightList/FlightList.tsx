@@ -10,6 +10,7 @@ import { Airport } from '../Homepage/components/FindTicket/data';
 import axiosInstance from '../../axios/axios';
 import { formatDate } from '../../utils/functions';
 import { DataFlight, detailPassenger } from '../ProfileLayout/types';
+import { Schedule } from './components/Detail/types';
 
 const FlightList = () => {
   const [departureAirport, setDepartureAirport] = useState<Airport>({
@@ -40,6 +41,8 @@ const FlightList = () => {
     adult: 0,
     child: 0,
   });
+
+  const [schedules, setSchedules] = useState<Schedule[]>();
 
   useEffect(() => {
     const classPenumpang = searchParams.get('class')!;
@@ -99,7 +102,31 @@ const FlightList = () => {
     };
     getAirport();
     getFlightList();
-  }, []);
+  }, [searchParams]);
+
+  useEffect(() => {
+    const listOfSchedule = [];
+    for (let i = 0; i < 4; i++) {
+      const updatedDate = new Date(departureDate);
+      updatedDate.setDate(departureDate.getDate() + i);
+      if (i == 0) {
+        listOfSchedule.push({ date: updatedDate, selected: true });
+      } else {
+        listOfSchedule.push({ date: updatedDate, selected: false });
+      }
+    }
+    setSchedules(listOfSchedule);
+  }, [departureDate]);
+
+  const updateSelectedSchedule = (selectedSchedule: Schedule) => {
+    if (schedules) {
+      const updatedSchedules = schedules.map((schedule) => ({
+        ...schedule,
+        selected: schedule === selectedSchedule, // Set to true only for the selected schedule
+      }));
+      setSchedules(updatedSchedules);
+    }
+  };
 
   return (
     <>
@@ -116,13 +143,17 @@ const FlightList = () => {
             />
           </div>
           <div className="w-3/4">
-            <Detail
-              departureAirport={departureAirport}
-              destinationAirport={destinationAirport}
-              classPassenger={classPassenger}
-              departureDate={departureDate}
-              totalPassengers={totalPassengers}
-            />
+            {schedules && (
+              <Detail
+                departureAirport={departureAirport}
+                destinationAirport={destinationAirport}
+                classPassenger={classPassenger}
+                departureDate={departureDate}
+                totalPassengers={totalPassengers}
+                schedules={schedules}
+                updateSelectedSchedule={updateSelectedSchedule}
+              />
+            )}
           </div>
         </div>
         <div className="flex">
