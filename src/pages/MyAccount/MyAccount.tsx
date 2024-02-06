@@ -1,16 +1,22 @@
 import FormInput from '../../components/FormInput';
 import Button from '../../components/Button';
-import { IFormInput, User } from './types';
+import { IFormInput } from './types';
 import { datesOption, genderOption, monthsOption, yearsOption } from './data';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import Select from 'react-select';
 import axiosInstance from '../../axios/axios';
 import { AxiosError } from 'axios';
 import { triggerToast } from '../../utils/functions';
+import {
+  UserProfileContextType,
+  userProfileContextType,
+} from '../ProfileLayout/types';
 
 const MyAccout = () => {
-  const [user, setUser] = useState<User>();
+  const { user, handleUpdateUser } = useContext(
+    UserProfileContextType
+  ) as userProfileContextType;
   // hook form
   const {
     control,
@@ -62,6 +68,13 @@ const MyAccout = () => {
         }
       );
       if (result.data.code == 200) {
+        handleUpdateUser({
+          fullName: data.fullname,
+          dateOfBirth,
+          phoneNumber: data.phoneNumber,
+          city: data.city,
+          gender: data.gender.value,
+        });
         triggerToast('success', 'Your account has been updated');
       } else if (result.data.code == 400) {
         triggerToast('error', result.data.error);
@@ -104,8 +117,6 @@ const MyAccout = () => {
 
   useEffect(() => {
     if (user) {
-      console.log(user);
-
       setValue('fullname', user.fullName);
       if (user.dateOfBirth) {
         let [day, month, year] = user.dateOfBirth
@@ -145,21 +156,6 @@ const MyAccout = () => {
       setValue('phoneNumber', user.phoneNumber);
     }
   }, [user]);
-
-  useEffect(() => {
-    const getUser = async () => {
-      try {
-        const result = await axiosInstance.get('/user/profile', {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
-        console.log(result);
-        setUser(result.data.data);
-      } catch (err) {}
-    };
-    getUser();
-  }, []);
 
   return (
     <div>

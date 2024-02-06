@@ -1,6 +1,7 @@
 import { createContext } from 'react';
 import { Airport } from '../Homepage/components/FindTicket/data';
 import { GenderType } from '../OrderDetails/Components/types';
+import { User } from '../MyAccount/types';
 
 export type PassengerType = 'adult' | 'child' | 'infant';
 export interface Passenger {
@@ -138,3 +139,11 @@ export interface userTransactionContextType {
 
 export const UserTransactionContext =
   createContext<userTransactionContextType | null>(null);
+
+export interface userProfileContextType {
+  user?: User;
+  handleUpdateUser: (user: User) => void;
+}
+
+export const UserProfileContextType =
+  createContext<userProfileContextType | null>(null);

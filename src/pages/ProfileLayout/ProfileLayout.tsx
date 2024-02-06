@@ -7,15 +7,54 @@ import { IoMailSharp } from 'react-icons/io5';
 import Footer from '../Homepage/components/Footer/Footer';
 import { googleLogout } from '@react-oauth/google';
 import { useAuth } from '../../customHooks/useAuth/useAuth';
-import { getInitials } from '../../utils/functions';
+import { getInitials, triggerToast } from '../../utils/functions';
 import { ToastContainer } from 'react-toastify';
+import { UserProfileContextType } from './types';
+import { useEffect, useState } from 'react';
+import { User } from '../MyAccount/types';
+import axiosInstance from '../../axios/axios';
+import { AxiosError } from 'axios';
 
 const ProfileLayout = () => {
-  const { logout, user } = useAuth();
+  const [user, setUser] = useState<User>();
+  const { logout } = useAuth();
   const handleLogout = () => {
     googleLogout();
     logout();
   };
+
+  const handleUpdateUser = (user: User) => {
+    setUser(user);
+  };
+
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const result = await axiosInstance.get('/user/profile', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+        setUser(result.data.data);
+      } catch (err) {
+        if (err instanceof AxiosError) {
+          if (err.response?.data && err.response?.data.code == 400) {
+            triggerToast('error', err.response.data.error);
+          } else {
+            triggerToast('error', err.message);
+          }
+        } else if (err instanceof Error) {
+          triggerToast('error', err.message);
+        }
+      }
+    };
+    getUser();
+  }, []);
+
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
+
   return (
     <div>
       <Navbar />
@@ -25,9 +64,9 @@ const ProfileLayout = () => {
             <div className="profile-menu p-4 border-b border-neutral-05">
               <div className="flex items-center gap-5">
                 <div className="rounded-full bg-blue-50 h-12 w-12 shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] flex items-center justify-center">
-                  {user && getInitials(user.full_name)}
+                  {user && getInitials(user.fullName)}
                 </div>
-                <div className="font-semibold">{user && user.full_name}</div>
+                <div className="font-semibold">{user && user.fullName}</div>
               </div>
             </div>
             <div className="pt-3">
@@ -100,7 +139,9 @@ const ProfileLayout = () => {
           </div>
         </div>
         <div className="basis-3/4 px-5">
-          <Outlet />
+          <UserProfileContextType.Provider value={{ user, handleUpdateUser }}>
+            <Outlet />
+          </UserProfileContextType.Provider>
         </div>
       </div>
       <ToastContainer />
