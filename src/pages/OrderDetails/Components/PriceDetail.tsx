@@ -8,7 +8,7 @@ import {
 } from '../../../utils/functions';
 
 const PriceDetail = ({ className }: HTMLAttributes<HTMLDivElement>) => {
-  const { dataFlight, totalPrice } = useContext(
+  const { dataFlight, detailPassenger, totalPrice } = useContext(
     OrderDetailContext
   ) as orderDetailContextType;
 
@@ -63,7 +63,25 @@ const PriceDetail = ({ className }: HTMLAttributes<HTMLDivElement>) => {
           </div>
         </div>
       </div>
-      <div className="border-t border-neutral-06 p-3">
+      <div className="border-t border-neutral-06 p-3 flex items-center justify-between">
+        <div>
+          <p className="font-bold text-lg">
+            {dataFlight &&
+              detailPassenger &&
+              `${thousandSeparator(dataFlight.basePriceAdult)} x ${
+                detailPassenger.adult
+              } (Adult)`}
+          </p>
+          <p className="font-bold text-lg">
+            {dataFlight &&
+              detailPassenger &&
+              detailPassenger.child > 0 &&
+              `${thousandSeparator(dataFlight.basePriceChild)} x ${
+                detailPassenger.child
+              } (Child)`}
+          </p>
+        </div>
+
         <p className="text-primary-blue font-bold text-2xl text-right">
           Rp {thousandSeparator(totalPrice)}
         </p>

@@ -168,6 +168,9 @@ const OrderDetails = () => {
   useEffect(() => {
     setDataFlight(location.state.data);
     setDetailPassenger(location.state.detailPassenger);
+    console.log(location.state.data);
+
+    console.log(location.state.detailPassenger);
   }, []);
 
   useEffect(() => {

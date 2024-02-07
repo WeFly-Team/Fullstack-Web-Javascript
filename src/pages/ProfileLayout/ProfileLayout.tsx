@@ -51,10 +51,6 @@ const ProfileLayout = () => {
     getUser();
   }, []);
 
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
-
   return (
     <div>
       <Navbar />
