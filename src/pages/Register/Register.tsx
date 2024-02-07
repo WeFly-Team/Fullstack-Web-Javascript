@@ -153,11 +153,13 @@ const Register = () => {
         </div>
         <div className="relative col-span-2 w-full h-screen flex flex-col justify-center px-10 md:col-span-1 lg:col-span-2 xl:col-span-2 xxl:col-span-2">
           <div className="absolute left-2 top-2 md:right-2 md:left-auto">
-            <img
-              src="https://i.ibb.co/pxQ7DPC/logo-We-Fly.png"
-              alt="logo"
-              className="w-16"
-            />
+            <Link to="/">
+              <img
+                src="https://i.ibb.co/pxQ7DPC/logo-We-Fly.png"
+                alt="logo"
+                className="w-16"
+              />
+            </Link>
           </div>
           <div className="mx-auto md:mx-0">
             <Heading>REGISTER NOW!</Heading>

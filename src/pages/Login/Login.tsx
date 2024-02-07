@@ -7,15 +7,17 @@ import { SubmitHandler, Controller, useForm } from 'react-hook-form';
 import { IFormInput } from './types';
 import { useAuth } from '../../customHooks/useAuth/useAuth';
 import axiosInstance from '../../axios/axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AxiosError } from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   // useState
   const [errorMessage, setErrorMessage] = useState<string>('');
   // useAuth
-  const { login } = useAuth();
+  const { login, isAuthenticated } = useAuth();
+  // reactRouter
+  const navigate = useNavigate();
   // hook form
   const {
     control,
@@ -28,6 +30,12 @@ const Login = () => {
       password: '',
     },
   });
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/user/my-account');
+    }
+  }, [isAuthenticated]);
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     try {
       const result = await axiosInstance.post('/user-login/login', data);
@@ -69,11 +77,13 @@ const Login = () => {
       <div className="flex items-center h-screen justify-center">
         <div className="form p-7 rounded-xl md:w-2/5 flex flex-col justify-center items-center sm:w-full">
           <div className="absolute top-2 left-2">
-            <img
-              src="https://i.ibb.co/pxQ7DPC/logo-We-Fly.png"
-              alt="logo"
-              className="w-16"
-            />
+            <Link to="/">
+              <img
+                src="https://i.ibb.co/pxQ7DPC/logo-We-Fly.png"
+                alt="logo"
+                className="w-16"
+              />
+            </Link>
           </div>
           <Heading children="Welcome Back" />
           <label className="mb-8">Please enter your details.</label>

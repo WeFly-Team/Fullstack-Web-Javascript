@@ -322,9 +322,9 @@ const FindTicket = () => {
                           </div>
                         </div> */}
                         {/* button done */}
-                        <div className="text-center pb-2 mt-2">
+                        <div className="text-center p-2 mt-2">
                           <Button
-                            className="mx-auto"
+                            className="w-full"
                             onClick={() =>
                               setShowInputPassenger(!showInputPassenger)
                             }
