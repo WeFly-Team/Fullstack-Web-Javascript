@@ -166,11 +166,12 @@ const OrderDetails = () => {
   };
 
   useEffect(() => {
-    setDataFlight(location.state.data);
-    setDetailPassenger(location.state.detailPassenger);
-    console.log(location.state.data);
-
-    console.log(location.state.detailPassenger);
+    if (location.state) {
+      setDataFlight(location.state.data);
+      setDetailPassenger(location.state.detailPassenger);
+    } else {
+      throw new Response('Not Found', { status: 404 });
+    }
   }, []);
 
   useEffect(() => {

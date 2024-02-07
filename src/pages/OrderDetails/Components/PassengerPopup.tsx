@@ -168,7 +168,6 @@ const PassengerPopup = ({
           </h1>
         </div>
         <hr />
-        <p className="font-semibold mt-5 text-md">Passenger Info</p>
         <div className="w-full mt-3">
           <div>
             <Controller
