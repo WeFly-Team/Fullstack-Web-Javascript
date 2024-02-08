@@ -62,8 +62,12 @@ export const formatDate = (date: Date) => {
 };
 
 export const substractTime = (time1: string, time2: string) => {
-  const [hours1, minutes1] = time1.split(':').map(Number);
-  const [hours2, minutes2] = time2.split(':').map(Number);
+  let [hours1, minutes1] = time1.split(':').map(Number);
+  let [hours2, minutes2] = time2.split(':').map(Number);
+
+  if (hours1 == 0) {
+    hours1 = 24;
+  }
 
   let hoursDiff = hours1 - hours2;
   let minutesDiff = minutes1 - minutes2;
@@ -73,9 +77,18 @@ export const substractTime = (time1: string, time2: string) => {
     hoursDiff--;
   }
 
+  if (hoursDiff < 0) {
+    hoursDiff += 24;
+  }
+
   const result = `${hoursDiff}h ${minutesDiff}m`;
 
   return result;
+};
+
+export const getDuration = (departureTime: string, arrivalTime: string) => {
+  const duration = substractTime(arrivalTime, departureTime);
+  return duration;
 };
 
 export const thousandSeparator = (num: number) => {
@@ -201,3 +214,30 @@ export function calculateTimeRemaining(targetDate: Date) {
 
   return { minutes, seconds };
 }
+
+export const shuffleArray = (array: any[]) => {
+  let currentIndex = array.length,
+    randomIndex;
+
+  // While there remain elements to shuffle.
+  while (currentIndex > 0) {
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
+  }
+
+  return array;
+};
+
+export const calculateTotalPages = (
+  totalItems: number,
+  itemsPerPage: number
+) => {
+  return Math.ceil(totalItems / itemsPerPage);
+};
