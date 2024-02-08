@@ -1,4 +1,5 @@
 import { Bounce, ToastOptions, TypeOptions, toast } from 'react-toastify';
+import { DataFlight } from '../pages/ProfileLayout/types';
 
 export function getNameOfDay(day: number): string {
   switch (day) {
@@ -219,13 +220,10 @@ export const shuffleArray = (array: any[]) => {
   let currentIndex = array.length,
     randomIndex;
 
-  // While there remain elements to shuffle.
   while (currentIndex > 0) {
-    // Pick a remaining element.
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
 
-    // And swap it with the current element.
     [array[currentIndex], array[randomIndex]] = [
       array[randomIndex],
       array[currentIndex],
@@ -240,4 +238,17 @@ export const calculateTotalPages = (
   itemsPerPage: number
 ) => {
   return Math.ceil(totalItems / itemsPerPage);
+};
+
+export const paginateFlights = (
+  flights: DataFlight[],
+  currentPage: number,
+  itemsPerPage: number
+) => {
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  const paginatedFlights = flights.slice(startIndex, endIndex);
+
+  return paginatedFlights;
 };
