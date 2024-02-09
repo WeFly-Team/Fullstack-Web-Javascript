@@ -245,7 +245,7 @@ const FlightList = () => {
         sortedFlights.sort((a, b) => a.basePriceAdult - b.basePriceAdult);
         setFlights(sortedFlights);
       } else if (filter == 'shortest') {
-        setFlights(getShortestFlight(flights));
+        setFlights(getShortestFlight([...flights]));
       }
     }
   }, [filter]);
