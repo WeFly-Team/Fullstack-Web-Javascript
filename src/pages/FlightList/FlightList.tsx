@@ -253,7 +253,7 @@ const FlightList = () => {
     <>
       <Navbar className="fixed top-0 right-0 left-0 z-10 bg-white" />
       <div className="px-8 lg:px-0 lg:container mx-auto ">
-        <div className="pt-40 flex items-end">
+        <div className="pt-40 flex items-end gap-4">
           <div className="w-1/4 relative flex gap-4 overflow-hidden pb-1">
             {showPopUp && (
               <PopUpVoucherList handleShowPopUp={handleShowPopUp} />

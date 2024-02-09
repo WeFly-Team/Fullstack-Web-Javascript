@@ -122,26 +122,16 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
                 <Link to="/user/my-booking">My Booking</Link>
               </li>
               <li className="text-white py-4 text-center hover:cursor-pointer transition hover:bg-white hover:bg-opacity-20">
-                About
+                <Link to="/user/history">History</Link>
               </li>
               <li className="text-white py-4 text-center hover:cursor-pointer transition hover:bg-white hover:bg-opacity-20">
-                Contact Us
+                <Link to="/user/notification">Notification</Link>
+              </li>
+              <li className="text-white py-4 text-center hover:cursor-pointer transition hover:bg-white hover:bg-opacity-20">
+                <Link to="/user/promo">Promo Info</Link>
               </li>
               <li className="text-white py-4 text-center hover:cursor-pointer transition hover:bg-white hover:bg-opacity-20">
                 <Link to="/user/my-account">Profile</Link>
-              </li>
-              <li className="text-white py-4 text-center hover:cursor-pointer transition hover:bg-white hover:bg-opacity-20">
-                <div className="flex items-center justify-center gap-3">
-                  <img src="https://i.ibb.co/cD6nyQg/fb.png" alt="facebook" />
-                  <img
-                    src="https://i.ibb.co/3sY3SBY/linkedin.png"
-                    alt="linkedin"
-                  />
-                  <img
-                    src="https://i.ibb.co/p0yHtCF/twitter.png"
-                    alt="twitter"
-                  />
-                </div>
               </li>
             </ul>
             <div className="absolute bottom-0 pb-8 flex justify-center gap-3 w-full items-center">
