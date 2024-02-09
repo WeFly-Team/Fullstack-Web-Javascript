@@ -20,6 +20,7 @@ import { Schedule } from './components/Detail/types';
 import Pagination from '../../components/Pagination/Pagination';
 import NoResultCard from '../../components/NoResultCard/NoResultCard';
 import { filterType } from './components/PriceFilter/types';
+import PopUpVoucherList from './components/VoucherCard/PopUpVoucherList';
 
 const FlightList = () => {
   // hooks
@@ -66,7 +67,13 @@ const FlightList = () => {
   const [lowestPrice, setLowestPrice] = useState<number>();
   const [shortestDuration, setShortestDuration] = useState<number>();
 
+  const [showPopUp, setShowPopUp] = useState(false);
+
   //function
+  const handleShowPopUp = () => {
+    setShowPopUp(!showPopUp);
+  };
+
   const getAirport = async (idDepAirport: string, idDesAirport: string) => {
     const depAirport = await axiosInstance.get(`/airport/${idDepAirport}`);
     setDepartureAirport(depAirport.data.data);
@@ -246,8 +253,11 @@ const FlightList = () => {
     <>
       <Navbar className="fixed top-0 right-0 left-0 z-10 bg-white" />
       <div className="px-8 lg:px-0 lg:container mx-auto ">
-        <div className="pt-40 flex">
-          <div className="w-1/4 relative">
+        <div className="pt-40 flex items-end">
+          <div className="w-1/4 relative flex gap-4 overflow-hidden pb-1">
+            {showPopUp && (
+              <PopUpVoucherList handleShowPopUp={handleShowPopUp} />
+            )}
             <VoucherCard
               vouchertitle="ini voucher asik"
               voucherdescription="voucher ini dapat di tukarkan ke toko
@@ -255,6 +265,34 @@ const FlightList = () => {
               voucherimageurl="https://i.ibb.co/xgP9hXt/1705387995965-06335942abf22232a4caa74eb239ad59.jpg"
               vouchercode="asik2000"
             />
+            <VoucherCard
+              vouchertitle="ini voucher asik"
+              voucherdescription="voucher ini dapat di tukarkan ke toko
+                terdekat"
+              voucherimageurl="https://i.ibb.co/xgP9hXt/1705387995965-06335942abf22232a4caa74eb239ad59.jpg"
+              vouchercode="asik2000"
+            />
+            <button
+              className="flex w-8 h-8 rounded-full bg-blue-700 absolute right-4 top-[45%] justify-center items-center"
+              onClick={() => setShowPopUp(true)}
+            >
+              <svg
+                data-slot="icon"
+                fill="none"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+                className="h-5 w-5 text-white"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                ></path>
+              </svg>
+            </button>
           </div>
           <div className="w-3/4">
             {schedules && (

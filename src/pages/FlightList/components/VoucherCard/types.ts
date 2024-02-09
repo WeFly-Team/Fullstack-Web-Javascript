@@ -6,3 +6,7 @@ export interface VoucherProps extends HTMLAttributes<HTMLInputElement> {
   vouchercode: string;
   voucherimageurl: string;
 }
+
+export interface VoucherPopUpProp extends HTMLAttributes<HTMLDivElement> {
+  handleShowPopUp: () => void;
+}
