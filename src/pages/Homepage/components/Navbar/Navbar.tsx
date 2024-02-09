@@ -1,4 +1,4 @@
-import { HTMLAttributes, useState } from 'react';
+import { HTMLAttributes, useEffect, useState } from 'react';
 import { AlignJustify, User, X } from 'react-feather';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../../../customHooks/useAuth/useAuth';
@@ -6,6 +6,7 @@ import { googleLogout } from '@react-oauth/google';
 
 const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
   const [open, setOpen] = useState<boolean>(false);
+  const [bgNavbar, setBgNavbar] = useState<string>('');
 
   const { user, logout } = useAuth();
 
@@ -14,61 +15,79 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
     logout();
   };
 
+  const listenScrollEvent = () => {
+    if (window.scrollY > 50) {
+      return setBgNavbar('bg-[#1c2c43]');
+    }
+    return setBgNavbar('');
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', listenScrollEvent);
+
+    return () => window.removeEventListener('scroll', listenScrollEvent);
+  }, []);
+
   return (
     <nav {...props}>
-      <div className="lg:container mx-auto p-4">
-        <div className="flex justify-between items-center">
-          <Link to="/" className="order-1 sm:order-2">
-            <img
-              src="https://i.ibb.co/pxQ7DPC/logo-We-Fly.png"
-              alt="logo"
-              className="w-12 "
-            />
-          </Link>
-          <AlignJustify
-            className="text-white cursor-pointer order-2 sm:order-1 lg:hidden"
-            onClick={() => setOpen(!open)}
-          />
-          <div className="hidden md:flex gap-2 items-center order-3">
-            <div className="hidden lg:flex items-center gap-3">
-              <img src="https://i.ibb.co/cD6nyQg/fb.png" alt="facebook" />
-              <img src="https://i.ibb.co/3sY3SBY/linkedin.png" alt="linkedin" />
-              <img src="https://i.ibb.co/p0yHtCF/twitter.png" alt="twitter" />
-            </div>
-            <span className="text-white text-opacity-50 mx-5 hidden lg:inline">
-              |
-            </span>
-            {!user && (
-              <Link to="/login" className="text-white font-semibold text-sm">
-                Log In
-              </Link>
-            )}
-            {!user && (
-              <Link
-                to="/register"
-                className="text-white text-sm rounded-full border-white border-2 py-1 px-2 outline-2 hover:bg-white hover:bg-opacity-20 transition"
-              >
-                Sign Up
-              </Link>
-            )}
-            {user && (
-              <button
-                onClick={handleLogout}
-                className="text-white rounded-full border-white border-2 py-1 px-2 outline-2 hover:bg-white hover:bg-opacity-20 transition"
-              >
-                Log Out
-              </button>
-            )}
-            <span className="text-white text-opacity-50 mx-5 hidden lg:inline">
-              |
-            </span>
-            <Link
-              to="/user/my-account"
-              className="hidden lg:flex items-center text-white text-sm"
-            >
-              <User className="mr-2" />
-              Profile
+      <div className={`${bgNavbar} transition`}>
+        <div className="lg:container mx-auto p-4 ">
+          <div className="flex justify-between items-center">
+            <Link to="/" className="order-1 sm:order-2">
+              <img
+                src="https://i.ibb.co/pxQ7DPC/logo-We-Fly.png"
+                alt="logo"
+                className="w-12 "
+              />
             </Link>
+            <AlignJustify
+              className="text-white cursor-pointer order-2 sm:order-1 lg:hidden"
+              onClick={() => setOpen(!open)}
+            />
+            <div className="hidden md:flex gap-2 items-center order-3">
+              <div className="hidden lg:flex items-center gap-3">
+                <img src="https://i.ibb.co/cD6nyQg/fb.png" alt="facebook" />
+                <img
+                  src="https://i.ibb.co/3sY3SBY/linkedin.png"
+                  alt="linkedin"
+                />
+                <img src="https://i.ibb.co/p0yHtCF/twitter.png" alt="twitter" />
+              </div>
+              <span className="text-white text-opacity-50 mx-5 hidden lg:inline">
+                |
+              </span>
+              {!user && (
+                <Link to="/login" className="text-white font-semibold text-sm">
+                  Log In
+                </Link>
+              )}
+              {!user && (
+                <Link
+                  to="/register"
+                  className="text-white text-sm rounded-full border-white border-2 py-1 px-2 outline-2 hover:bg-white hover:bg-opacity-20 transition"
+                >
+                  Sign Up
+                </Link>
+              )}
+              {user && (
+                <button
+                  onClick={handleLogout}
+                  className="text-white rounded-full border-white border-2 py-1 px-2 outline-2 hover:bg-white hover:bg-opacity-20 transition"
+                >
+                  Log Out
+                </button>
+              )}
+              <span className="text-white text-opacity-50 mx-5 hidden lg:inline">
+                |
+              </span>
+              <Link
+                to="/user/my-account"
+                className="hidden lg:flex items-center text-white text-sm"
+              >
+                <User className="mr-2" />
+                Profile
+              </Link>
+            </div>
           </div>
         </div>
       </div>

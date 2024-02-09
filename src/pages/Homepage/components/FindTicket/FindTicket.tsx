@@ -170,7 +170,7 @@ const FindTicket = () => {
     <section className="relative z-[1]">
       <div className="bg-[url('https://i.ibb.co/p04HSxH/image-1.png')] bg-cover bg-center">
         <div className="bg-black bg-opacity-50">
-          <div className="pl-20 pr-20 md:pr-0 pt-28 lg:pt-48 pb-20">
+          <div className="pl-20 pr-20 md:pr-0 pt-28 2xl:pt-48 pb-20">
             <h1 className="text-white font-bold text-5xl">
               WeFly - Limitless Travel Solutions
             </h1>
@@ -181,18 +181,20 @@ const FindTicket = () => {
               Book tickets and track flights with the WeFly website.
             </p>
 
-            <div className="mt-20 lg:flex w-full lg:w-3/4">
-              <div className="w-full lg:w-1/2">
-                <Button>One Way / Round Trip</Button>
+            <div className="mt-20 2xl:flex w-full 2xl:w-3/4">
+              <div className="w-full 2xl:w-1/2">
+                <Button className="w-full sm:w-[300px]">
+                  One Way / Round Trip
+                </Button>
                 <Button
                   variant="tertiary"
-                  className="bg-white text-black lg:w-[200px] mt-3 lg:mt-0 md:ml-3"
+                  className="bg-white text-black w-full sm:w-[300px] 2xl:w-[200px] mt-3 2xl:mt-0 md:ml-3"
                 >
                   Multi City
                 </Button>
               </div>
-              <div className="mt-3 lg:mt-0 w-full lg:w-1/2 md:flex gap-3">
-                <div className="w-[300px] lg:w-3/5">
+              <div className="mt-3 2xl:mt-0 w-full 2xl:w-1/2 md:flex gap-3">
+                <div className="w-full sm:w-[300px] 2xl:w-3/5">
                   <Button
                     className="bg-transparent border-white border text-sm px-5 py-2.5 text-center inline-flex items-center w-full"
                     onClick={() => setShowInputPassenger(!showInputPassenger)}
@@ -336,7 +338,7 @@ const FindTicket = () => {
                     </div>
                   </div>
                 </div>
-                <div className="w-[300px] mt-3 md:mt-0 lg:w-2/5">
+                <div className="w-full sm:w-[300px] mt-3 md:mt-0 2xl:w-2/5">
                   <Select
                     className="react-select-container"
                     classNamePrefix="react-select"
