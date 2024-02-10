@@ -40,7 +40,11 @@ const SetEmail = () => {
       }
     } catch (err) {
       if (err instanceof AxiosError) {
-        setErrorMessage(err.message);
+        if (err.response) {
+          setErrorMessage(err.response.data.error);
+        } else {
+          setErrorMessage(err.message);
+        }
       } else if (err instanceof Error) {
         setErrorMessage(err.message);
       }

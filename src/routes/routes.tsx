@@ -16,11 +16,13 @@ import RegisterSuccess from '../pages/RegisterSuccess/RegisterSuccess';
 import AdminLayout from '../pages/Admin/AdminLayout';
 import Notification from '../pages/Notification/Notification';
 import Promo from '../pages/Promo/Promo';
+import NotFound from '../pages/NotFound/NotFound';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Homepage />,
+    errorElement: <NotFound />,
   },
   {
     path: '/login',
@@ -44,6 +46,7 @@ const router = createBrowserRouter([
   },
   {
     element: <PrivateRoutes />,
+    errorElement: <NotFound />,
     children: [
       {
         path: '/order-details/:id',

@@ -6,4 +6,11 @@ export interface DetailProps {
   departureDate: Date;
   totalPassengers: number;
   classPassenger: string;
+  schedules: Schedule[];
+  updateSelectedSchedule: (schedule: Schedule) => void;
+}
+
+export interface Schedule {
+  date: Date;
+  selected: boolean;
 }

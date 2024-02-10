@@ -29,7 +29,7 @@ const BookingDetailCard = ({ transaction, className }: BookingCardProps) => {
       if (transaction.payment.issuer) {
         expiryDate.setHours(expiryDate.getHours());
       } else {
-        expiryDate.setHours(expiryDate.getHours() + 7);
+        expiryDate.setHours(expiryDate.getHours());
       }
       const { minutes, seconds } = calculateTimeRemaining(expiryDate);
 
@@ -70,25 +70,29 @@ const BookingDetailCard = ({ transaction, className }: BookingCardProps) => {
           </div>
         </div>
       );
-    }
-    // else if (transaction.payment.transaction_status === 'PROCESS')
-    //   return (
-    //     <div className="flex justify-end gap-2 items-center p-4">
-    //       <p className="text-neutral-06 text-sm font-semibold">Status</p>
-    //       <div className="bg-secondary-warning font-semibold text-center px-8 py-1 text-white rounded-full">
-    //         Process
-    //       </div>
-    //     </div>
-    //   );
-    // else if (transaction.payment.transaction_status === 'SENT')
-    //   return (
-    //     <div className="flex justify-end gap-2 items-center p-4">
-    //       <p className="text-neutral-06 text-sm font-semibold">Status</p>
-    //       <div className="bg-primary-darkBlue font-semibold text-center px-8 py-1 text-white rounded-full ">
-    //         Sent
-    //       </div>
-    //     </div>
-    //   );
+    } else if (transaction.payment.transaction_status === 'PENDING')
+      return (
+        <div className="flex justify-between gap-2 items-center p-4">
+          <Button className="w-auto h-auto py-2 px-6" onClick={openPaymentLink}>
+            Open Payment Link
+          </Button>
+          <div className="flex items-center gap-2">
+            <p className="text-neutral-06 text-sm font-semibold">Status</p>
+            <div className="bg-secondary-warning font-semibold text-center px-8 py-1 text-white rounded-full">
+              Choosing Payment
+            </div>
+          </div>
+        </div>
+      );
+    else if (transaction.payment.transaction_status === 'EXPIRE')
+      return (
+        <div className="flex justify-end gap-2 items-center p-4">
+          <p className="text-neutral-06 text-sm font-semibold">Status</p>
+          <div className="bg-secondary-danger font-semibold text-center px-8 py-1 text-white rounded-full ">
+            EXPIRED
+          </div>
+        </div>
+      );
     // else if (transaction.payment.transaction_status === 'FINISH')
     //   return (
     //     <div className="flex justify-end gap-2 items-center p-4">

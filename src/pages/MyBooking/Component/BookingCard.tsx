@@ -22,7 +22,7 @@ const BookingCard = ({ transaction, className }: BookingCardProps) => {
       if (transaction.payment.issuer) {
         expiryDate.setHours(expiryDate.getHours());
       } else {
-        expiryDate.setHours(expiryDate.getHours() + 7);
+        expiryDate.setHours(expiryDate.getHours());
       }
 
       const { minutes, seconds } = calculateTimeRemaining(expiryDate);
@@ -58,19 +58,18 @@ const BookingCard = ({ transaction, className }: BookingCardProps) => {
           </p>
         </div>
       );
-    }
-    //  else if (transaction.status === 'PROCESS')
-    //   return (
-    //     <div className="bg-secondary-warning font-semibold text-center px-8 py-1 text-white rounded-full">
-    //       Process
-    //     </div>
-    //   );
-    // else if (transaction.status === 'SENT')
-    //   return (
-    //     <div className="bg-primary-darkBlue font-semibold text-center px-8 py-1 text-white rounded-full ">
-    //       Sent
-    //     </div>
-    //   );
+    } else if (transaction.payment.transaction_status === 'PENDING')
+      return (
+        <div className="bg-secondary-warning font-semibold text-center px-8 py-1 text-white rounded-full">
+          Choosing Payment
+        </div>
+      );
+    else if (transaction.payment.transaction_status === 'EXPIRE')
+      return (
+        <div className="bg-secondary-danger font-semibold text-center px-8 py-1 text-white rounded-full ">
+          EXPIRED
+        </div>
+      );
     else if (transaction.payment.transaction_status === 'PAID')
       return (
         <div className="bg-secondary-success font-semibold text-center px-8 py-1 text-white rounded-full ">
