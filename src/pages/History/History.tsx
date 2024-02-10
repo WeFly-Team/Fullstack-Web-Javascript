@@ -38,13 +38,14 @@ const HistoryList = () => {
   return (
     <div className="">
       <h1 className="font-bold text-2xl">Purchase History</h1>
-      {!transactions && (
-        <NoResultCard
-          className="mt-4"
-          title="No History Found"
-          content="You haven't made any purchases after you made your account"
-        />
-      )}
+      {!transactions ||
+        (transactions.length == 0 && (
+          <NoResultCard
+            className="mt-4"
+            title="No History Found"
+            content="You haven't made any purchases after you made your account"
+          />
+        ))}
 
       {transactions &&
         transactions.map((transaction) => {
