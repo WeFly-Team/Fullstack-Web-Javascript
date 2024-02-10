@@ -21,6 +21,7 @@ import Pagination from '../../components/Pagination/Pagination';
 import NoResultCard from '../../components/NoResultCard/NoResultCard';
 import { filterType } from './components/PriceFilter/types';
 import PopUpVoucherList from './components/VoucherCard/PopUpVoucherList';
+import Filter from '../../components/Filter';
 
 const FlightList = () => {
   // hooks
@@ -222,6 +223,9 @@ const FlightList = () => {
       setCurrentPage(1);
       setPaginatedFlights(paginateFlights(flights, 1, itemsPerPage));
       setTotalPages(calculateTotalPages(flights.length, itemsPerPage));
+    } else {
+      setTotalPages(0);
+      setPaginatedFlights(undefined);
     }
   }, [flights]);
 
@@ -249,12 +253,13 @@ const FlightList = () => {
       }
     }
   }, [filter]);
+
   return (
-    <>
+    <div>
       <Navbar className="fixed top-0 right-0 left-0 z-10 bg-white" />
       <div className="px-8 lg:px-0 lg:container mx-auto ">
-        <div className="pt-40 flex items-end gap-4">
-          <div className="w-1/4 relative flex gap-4 overflow-hidden pb-1">
+        <div className="pt-24 lg:pt-40 flex items-end gap-4">
+          <div className="w-1/4 relative hidden lg:flex gap-4 overflow-hidden pb-1">
             {showPopUp && (
               <PopUpVoucherList handleShowPopUp={handleShowPopUp} />
             )}
@@ -294,7 +299,7 @@ const FlightList = () => {
               </svg>
             </button>
           </div>
-          <div className="w-3/4">
+          <div className="w-full lg:w-3/4">
             {schedules && (
               <Detail
                 departureAirport={departureAirport}
@@ -310,11 +315,13 @@ const FlightList = () => {
             )}
           </div>
         </div>
-        <div className="flex">
+        <div className="flex gap-4">
           {/* filter */}
-          <div className="w-1/4"></div>
+          <div className="hidden lg:block w-1/4 h-[700px] overflow-auto mt-4">
+            <Filter />
+          </div>
           {/* card ticket */}
-          <div className="w-3/4 mt-4">
+          <div className="w-full lg:w-3/4 mt-4">
             {lowestPrice && shortestDuration && (
               <PriceFilter
                 handleSelectedFilter={handleSelectedFilter}
@@ -352,7 +359,7 @@ const FlightList = () => {
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 

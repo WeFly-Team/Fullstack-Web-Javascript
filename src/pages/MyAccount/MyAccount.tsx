@@ -205,9 +205,9 @@ const MyAccout = () => {
               )}
 
               <div className="mb-4 grid sm:grid-cols-3 gap-4 mt-4">
-                <div className="col-span-2 md:col-span-1">
+                <div className="col-span-3 md:col-span-1">
                   <label
-                    htmlFor="Date of Birth"
+                    htmlFor="Gender"
                     className="block text-left text-black text-sm font-semibold pb-3"
                   >
                     Gender

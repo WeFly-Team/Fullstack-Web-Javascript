@@ -13,7 +13,7 @@ const Detail = ({
 }: DetailProps) => {
   return (
     <div className="bg-primary-lightViolet rounded-lg p-4 shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]">
-      <div className="rounded-lg bg-white p-4 w-3/5 mb-4">
+      <div className="rounded-lg bg-white p-4 w-full md:w-3/5 mb-4">
         <p className="font-bold text-lg">
           {departureAirport.city} ({departureAirport.iata}) -{' '}
           {destinationAirport.city} ({destinationAirport.iata})
@@ -29,38 +29,40 @@ const Detail = ({
         </div>
       </div>
       <div className="rounded-lg bg-primary-darkBlue p-4 flex gap-3">
-        {schedules.map((schedule, idx) => {
-          if (schedule.selected) {
+        <div className="w-[90%] flex gap-3 justify-stretch overflow-x-scroll no-scrollbar">
+          {schedules.map((schedule, idx) => {
+            if (schedule.selected) {
+              return (
+                <div
+                  className="bg-primary-lightViolet font-semibold py-3 rounded-lg min-w-[110px] basis-1/4 cursor-pointer"
+                  key={idx}
+                >
+                  <p className="text-center text-white">
+                    {getNameOfDay(schedule.date.getDay())},{' '}
+                    {schedule.date.getDate()}{' '}
+                    {getNameOfMonth(schedule.date.getMonth())}
+                  </p>
+                  <p className="text-center text-white">Rp540,000</p>
+                </div>
+              );
+            }
             return (
               <div
-                className="bg-primary-lightViolet font-semibold py-3 rounded-lg basis-[22.5%] cursor-pointer"
+                className="font-semibold py-3 rounded-lg min-w-[110px] basis-1/4 cursor-pointer hover:bg-primary-lightViolet"
                 key={idx}
+                onClick={() => updateSelectedSchedule(schedule)}
               >
                 <p className="text-center text-white">
                   {getNameOfDay(schedule.date.getDay())},{' '}
                   {schedule.date.getDate()}{' '}
                   {getNameOfMonth(schedule.date.getMonth())}
                 </p>
-                <p className="text-center text-white">Rp774,500</p>
+                <p className="text-center text-white">Rp540,000</p>
               </div>
             );
-          }
-          return (
-            <div
-              className="font-semibold py-3 rounded-lg basis-[22.5%] cursor-pointer hover:bg-primary-lightViolet"
-              key={idx}
-              onClick={() => updateSelectedSchedule(schedule)}
-            >
-              <p className="text-center text-white">
-                {getNameOfDay(schedule.date.getDay())},{' '}
-                {schedule.date.getDate()}{' '}
-                {getNameOfMonth(schedule.date.getMonth())}
-              </p>
-              <p className="text-center text-white">Rp774,500</p>
-            </div>
-          );
-        })}
-        <div className="grow flex items-center justify-end basis-[10%] cursor-pointer">
+          })}
+        </div>
+        <div className="grow flex items-center justify-center basis-[10%] cursor-pointer">
           <FaCalendar className="text-white" size={40} />
         </div>
       </div>

@@ -89,7 +89,7 @@ const Orderpopup = ({ className, isClose }: OrderPopProp) => {
       className={`order-popup z-10 fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center ${className}`}
       onClick={handleShowPopUp}
     >
-      <div className="bg-white pb-[53px] px-[74px] rounded-lg w-[47%] max-w-[664px] h-fit min-h-[200px]">
+      <div className="bg-white px-8 md:px-[74px] rounded-[4px] w-[90%] lg:w-[46%] max-w-[664px] pb-8 min-h-[200px]">
         <div className="top-poup grid w-full items-center">
           <AiOutlineLeft
             className="absolute  text-2xl cursor-pointer"

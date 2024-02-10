@@ -55,7 +55,7 @@ const ProfileLayout = () => {
     <div className="">
       <Navbar />
       <div className="min-h-screen flex flex-col justify-between">
-        <div className="lg:container mx-auto flex mt-6 mb-6">
+        <div className="lg:container sm:mx-auto flex mt-6 mb-6">
           <div className="hidden lg:block basis-1/4">
             <div className="rounded-lg border border-neutral-05 shadow-card">
               <div className="profile-menu p-4 border-b border-neutral-05">
@@ -135,7 +135,7 @@ const ProfileLayout = () => {
               </div>
             </div>
           </div>
-          <div className="lg:basis-3/4 px-5 mx-auto">
+          <div className="basis-full lg:basis-3/4 px-5 mx-auto">
             <UserProfileContextType.Provider value={{ user, handleUpdateUser }}>
               <Outlet />
             </UserProfileContextType.Provider>

@@ -92,7 +92,7 @@ const BookingCard = ({ transaction, className }: BookingCardProps) => {
       </div>
       <div className="p-4 flex items-center justify-between">
         <img src="https://i.ibb.co/pznRn82/garuda-title.png" alt="logo" />
-        <div className="flex items-center mt-14">
+        <div className="hidden sm:flex items-center mt-14">
           <div className="font-semibold ">
             <p>
               {
@@ -153,6 +153,39 @@ const BookingCard = ({ transaction, className }: BookingCardProps) => {
           </p>
           <p className="text-sm text-neutral-08 text-right font-semibold">
             {transaction.transactionDetails[0].flightClass.flight.departureTime}
+          </p>
+        </div>
+      </div>
+      <div className="flex sm:hidden items-center mt-4 px-4">
+        <div className="font-semibold ">
+          <p>
+            {
+              transaction.transactionDetails[0].flightClass.flight
+                .departureAirport.city
+            }
+          </p>
+          <p className="text-sm text-neutral-06">
+            {
+              transaction.transactionDetails[0].flightClass.flight
+                .departureAirport.name
+            }
+          </p>
+        </div>
+        <div className="mx-3">
+          <FaArrowRight />
+        </div>
+        <div className="font-semibold">
+          <p className="text-right">
+            {
+              transaction.transactionDetails[0].flightClass.flight
+                .arrivalAirport.city
+            }
+          </p>
+          <p className="text-sm text-neutral-06 text-right">
+            {
+              transaction.transactionDetails[0].flightClass.flight
+                .arrivalAirport.name
+            }
           </p>
         </div>
       </div>

@@ -26,7 +26,7 @@ const PriceDetail = ({ className }: HTMLAttributes<HTMLDivElement>) => {
             </p>
           </div>
         </div>
-        <div className="flex items-center justify-center gap-8">
+        <div className="flex items-center justify-between gap-4 md:gap-8">
           <div>
             <p className="text-neutral-06">
               {dataFlight && dataFlight.flight.departureAirport.city}

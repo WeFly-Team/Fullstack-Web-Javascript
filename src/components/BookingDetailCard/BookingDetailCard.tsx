@@ -56,8 +56,11 @@ const BookingDetailCard = ({ transaction, className }: BookingCardProps) => {
   const checkStatus = () => {
     if (transaction.payment.transaction_status === 'CHOOSING_PAYMENT') {
       return (
-        <div className="flex justify-between gap-2 items-center p-4">
-          <Button className="w-auto h-auto py-2 px-6" onClick={openPaymentLink}>
+        <div className="flex flex-col sm:flex-row justify-between gap-2 items-center p-4">
+          <Button
+            className="w-full sm:w-auto h-auto py-2 px-6"
+            onClick={openPaymentLink}
+          >
             Open Payment Link
           </Button>
           <div>
@@ -93,15 +96,6 @@ const BookingDetailCard = ({ transaction, className }: BookingCardProps) => {
           </div>
         </div>
       );
-    // else if (transaction.payment.transaction_status === 'FINISH')
-    //   return (
-    //     <div className="flex justify-end gap-2 items-center p-4">
-    //       <p className="text-neutral-06 text-sm font-semibold">Status</p>
-    //       <div className="bg-secondary-success font-semibold text-center px-8 py-1 text-white rounded-full ">
-    //         Purchase Successfull
-    //       </div>
-    //     </div>
-    //   );
   };
   return (
     <div
@@ -113,11 +107,11 @@ const BookingDetailCard = ({ transaction, className }: BookingCardProps) => {
           Rp{thousandSeparator(transaction.totalPrice)}
         </p>
       </div>
-      <div className="p-4 flex justify-between border-b border-neutral-05">
+      <div className="p-4 flex justify-between sm:border-b sm:border-neutral-05">
         <div>
           <img src="https://i.ibb.co/pznRn82/garuda-title.png" alt="logo" />
         </div>
-        <div className="flex items-center justify-center gap-8">
+        <div className="hidden sm:flex items-center justify-center gap-8">
           <div>
             <p className="font-semibold">
               {
@@ -173,6 +167,47 @@ const BookingDetailCard = ({ transaction, className }: BookingCardProps) => {
             </p>
             <p className="text-sm text-neutral-06">{transaction.seatClass}</p>
           </div>
+        </div>
+      </div>
+      <div className="flex sm:hidden items-center justify-center gap-8 px-4 border-b border-neutral-05 pb-4">
+        <div>
+          <p className="font-semibold">
+            {
+              transaction.transactionDetails[0].flightClass.flight
+                .departureAirport.city
+            }
+          </p>
+          <p className="font-semibold">
+            {transaction.transactionDetails[0].flightClass.flight.departureTime}
+          </p>
+        </div>
+        <div className="flex flex-col gap-2">
+          <div className="text-neutral-06 text-sm text-center mt-2">
+            {formatLongDate(
+              transaction.transactionDetails[0].flightClass.flight.departureDate!.toString()
+            )}
+          </div>
+          <div className="">
+            <IoAirplaneOutline className=" mx-auto text-primary-blue text-xl bg-white" />
+          </div>
+          <div className="text-neutral-06 text-sm text-center">
+            Duration{' '}
+            {substractTime(
+              transaction.transactionDetails[0].flightClass.flight.arrivalTime,
+              transaction.transactionDetails[0].flightClass.flight.departureTime
+            )}
+          </div>
+        </div>
+        <div>
+          <p className="font-semibold text-right">
+            {
+              transaction.transactionDetails[0].flightClass.flight
+                .arrivalAirport.city
+            }
+          </p>
+          <p className="font-semibold text-right">
+            {transaction.transactionDetails[0].flightClass.flight.arrivalTime}
+          </p>
         </div>
       </div>
       {checkStatus()}

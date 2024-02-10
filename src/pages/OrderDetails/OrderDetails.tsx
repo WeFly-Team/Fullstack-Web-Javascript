@@ -288,7 +288,7 @@ const OrderDetails = () => {
               )}
 
               {orderDetail && (
-                <div>
+                <div className="mb-4">
                   {passengers &&
                     passengers.map((passenger, index) => (
                       <div key={index}>

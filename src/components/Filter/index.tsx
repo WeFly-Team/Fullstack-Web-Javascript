@@ -1,14 +1,16 @@
 const Filter = () => {
   return (
     <>
-      <div className="w-[430px] h-[1060px] bg-slate-300 mb-8 rounded-xl">
+      <div className="w-[430px] h-[1060px] bg-white mb-8 rounded-xl">
         <div className="flex w-full mb-2">
           <div className="p-5">
             <p className="font-semibold">Filter:</p>
           </div>
           <div className="grow"></div>
           <div>
-            <button type="reset" className="text-blue-500 p-4">Reset</button>
+            <button type="reset" className="text-blue-500 p-4">
+              Reset
+            </button>
           </div>
         </div>
 
@@ -25,7 +27,12 @@ const Filter = () => {
 
           <div className="pt-1">
             <div className="ml-10">
-              <input type="checkbox" name="interest" id="direct" value="direct" />
+              <input
+                type="checkbox"
+                name="interest"
+                id="direct"
+                value="direct"
+              />
               <label htmlFor="direct">Direct</label>
             </div>
             <div className="ml-10">
@@ -60,7 +67,12 @@ const Filter = () => {
               <label htmlFor="citilink">Citilink</label>
             </div>
             <div className="ml-10">
-              <input type="checkbox" name="airline" id="garudaIndonesia" value="" />
+              <input
+                type="checkbox"
+                name="airline"
+                id="garudaIndonesia"
+                value=""
+              />
               <label htmlFor="garudaIndonesia">Garuda Indonesia</label>
             </div>
             <div className="ml-10">
@@ -98,12 +110,36 @@ const Filter = () => {
           </div>
 
           <div className="pt-1 flex items-center justify-center gap-4 mb-1">
-            <button type="button" className="border border-black rounded-xl px-9 py-2 text-xs">Noon to Morning <br />00:00 - 06:00</button>
-            <button type="button" className="border border-black rounded-xl px-9 py-2 text-xs">Morning to Noon <br />06:00 - 12:00</button>
+            <button
+              type="button"
+              className="border border-black rounded-xl px-9 py-2 text-xs"
+            >
+              Noon to Morning <br />
+              00:00 - 06:00
+            </button>
+            <button
+              type="button"
+              className="border border-black rounded-xl px-9 py-2 text-xs"
+            >
+              Morning to Noon <br />
+              06:00 - 12:00
+            </button>
           </div>
           <div className="pt-1 flex items-center justify-center gap-4">
-            <button type="button" className="border border-black rounded-xl px-[38px] py-2 text-xs">Noon to Evening <br />12:00 - 18:00</button>
-            <button type="button" className="border border-black rounded-xl px-[38px] py-2 text-xs">Evening to Night <br />18:00 - 24:00</button>
+            <button
+              type="button"
+              className="border border-black rounded-xl px-[38px] py-2 text-xs"
+            >
+              Noon to Evening <br />
+              12:00 - 18:00
+            </button>
+            <button
+              type="button"
+              className="border border-black rounded-xl px-[38px] py-2 text-xs"
+            >
+              Evening to Night <br />
+              18:00 - 24:00
+            </button>
           </div>
 
           <div className="flex w-full mt-3 mb-3">
@@ -111,12 +147,36 @@ const Filter = () => {
           </div>
 
           <div className="pt-1 flex items-center justify-center gap-4 mb-1">
-            <button type="button" className="border border-black rounded-xl px-9 py-2 text-xs">Noon to Morning <br />00:00 - 06:00</button>
-            <button type="button" className="border border-black rounded-xl px-9 py-2 text-xs">Morning to Noon <br />06:00 - 12:00</button>
+            <button
+              type="button"
+              className="border border-black rounded-xl px-9 py-2 text-xs"
+            >
+              Noon to Morning <br />
+              00:00 - 06:00
+            </button>
+            <button
+              type="button"
+              className="border border-black rounded-xl px-9 py-2 text-xs"
+            >
+              Morning to Noon <br />
+              06:00 - 12:00
+            </button>
           </div>
           <div className="pt-1 flex items-center justify-center gap-4">
-            <button type="button" className="border border-black rounded-xl px-[38px] py-2 text-xs">Noon to Evening <br />12:00 - 18:00</button>
-            <button type="button" className="border border-black rounded-xl px-[38px] py-2 text-xs">Evening to Night <br />18:00 - 24:00</button>
+            <button
+              type="button"
+              className="border border-black rounded-xl px-[38px] py-2 text-xs"
+            >
+              Noon to Evening <br />
+              12:00 - 18:00
+            </button>
+            <button
+              type="button"
+              className="border border-black rounded-xl px-[38px] py-2 text-xs"
+            >
+              Evening to Night <br />
+              18:00 - 24:00
+            </button>
           </div>
 
           <div className="flex w-full mt-3 mb-8">
@@ -141,12 +201,24 @@ const Filter = () => {
               <label htmlFor="baggage">Baggage</label>
             </div>
             <div className="ml-10">
-              <input type="checkbox" name="facilities" id="inFlightMeal" value="" />
+              <input
+                type="checkbox"
+                name="facilities"
+                id="inFlightMeal"
+                value=""
+              />
               <label htmlFor="inFlightMeal">In-Flight Meal</label>
             </div>
             <div className="ml-10">
-              <input type="checkbox" name="facilities" id="inFlightEntertainment" value="" />
-              <label htmlFor="inFlightEntertainment">In-Flight Entertainment</label>
+              <input
+                type="checkbox"
+                name="facilities"
+                id="inFlightEntertainment"
+                value=""
+              />
+              <label htmlFor="inFlightEntertainment">
+                In-Flight Entertainment
+              </label>
             </div>
             <div className="ml-10">
               <input type="checkbox" name="facilities" id="wifi" value="" />
@@ -160,7 +232,7 @@ const Filter = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default Filter;

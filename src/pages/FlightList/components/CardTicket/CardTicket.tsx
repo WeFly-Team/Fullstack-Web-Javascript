@@ -19,16 +19,22 @@ const CardTicket = ({ className, data, detailPassenger }: CardTicketProps) => {
       className={`shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] rounded-lg p-6 ${className}`}
     >
       {/* top */}
-      <div className="flex justify-between items-end">
-        <div>
-          <div className="mb-3 flex items-center">
-            <img src="https://i.ibb.co/bHGk6bM/garuda.png" alt="garuda" />
+      <div className="flex justify-between items-start flex-wrap">
+        <div className="order-1">
+          <div className="mb-3 flex flex-col sm:flex-row sm:items-center">
+            <img
+              src="https://i.ibb.co/bHGk6bM/garuda.png"
+              className="w-14"
+              alt="garuda"
+            />
             <label className="ml-3">{data.flight.airplane.airline.name}</label>
           </div>
-          <div className="border rounded-full px-4 py-2 inline">20</div>
+          <div className="border rounded-full px-4 py-2 hidden md:inline">
+            20
+          </div>
         </div>
 
-        <div className="flex gap-1">
+        <div className="flex gap-1 order-3 md:order-2 mx-auto md:mx-0 ">
           {/* departure */}
           <div>
             <p>{data.flight.departureTime}</p>
@@ -59,7 +65,7 @@ const CardTicket = ({ className, data, detailPassenger }: CardTicketProps) => {
             </p>
           </div>
         </div>
-        <div>
+        <div className="order-2 md:order-3 flex-grow-[1] md:flex-grow-0 text-right">
           <p className="text-secondary-warning font-bold">
             Rp {thousandSeparator(Number(data.basePriceAdult))}
             <span className="text-black text-sm font-normal">/pax</span>
@@ -68,26 +74,26 @@ const CardTicket = ({ className, data, detailPassenger }: CardTicketProps) => {
       </div>
 
       {/* mid */}
-      <div className="flex gap-3 mt-10">
-        <div className="border border-primary-blue rounded-full px-2 py-1 text-primary-blue">
+      <div className="flex gap-3 mt-10 pr-2 overflow-x-scroll no-scrollbar">
+        <div className="border border-primary-blue rounded-full px-2 py-1 text-primary-blue text-nowrap">
           Taxi Coupon
         </div>
-        <div className="border border-primary-blue rounded-full px-2 py-1 text-primary-blue">
+        <div className="border border-primary-blue rounded-full px-2 py-1 text-primary-blue text-nowrap">
           Free Domestic Hotels Coupon
         </div>
-        <div className="border border-primary-blue rounded-full px-2 py-1 text-primary-blue">
+        <div className="border border-primary-blue rounded-full px-2 py-1 text-primary-blue text-nowrap">
           Free Devdan Show Coupon
         </div>
       </div>
 
       {/* bot */}
-      <div className="flex items-center mt-5 justify-between">
-        <div className="flex gap-4">
-          <p>Flight Details</p>
-          <p>Fare & Benefits</p>
-          <p>Refund</p>
-          <p>Reshedule</p>
-          <p>Promos</p>
+      <div className="flex items-center mt-5 justify-between gap-4">
+        <div className="flex gap-4 overflow-x-scroll no-scrollbar">
+          <p className="text-nowrap">Flight Details</p>
+          <p className="text-nowrap">Fare & Benefits</p>
+          <p className="text-nowrap">Refund</p>
+          <p className="text-nowrap">Reshedule</p>
+          <p className="text-nowrap">Promos</p>
         </div>
         <Button
           className="w-auto px-8 rounded-full"

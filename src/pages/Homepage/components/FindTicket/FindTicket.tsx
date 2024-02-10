@@ -170,7 +170,7 @@ const FindTicket = () => {
     <section className="relative z-[1]">
       <div className="bg-[url('https://i.ibb.co/p04HSxH/image-1.png')] bg-cover bg-center">
         <div className="bg-black bg-opacity-50">
-          <div className="pl-20 pr-20 md:pr-0 pt-28 2xl:pt-48 pb-20">
+          <div className="px-10 sm:px-20 md:pr-0 pt-28 2xl:pt-48 pb-20">
             <h1 className="text-white font-bold text-5xl">
               WeFly - Limitless Travel Solutions
             </h1>
