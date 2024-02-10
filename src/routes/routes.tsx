@@ -17,6 +17,7 @@ import AdminLayout from '../pages/Admin/AdminLayout';
 import Notification from '../pages/Notification/Notification';
 import Promo from '../pages/Promo/Promo';
 import NotFound from '../pages/NotFound/NotFound';
+import Checkin from '../pages/Checkin/Checkin';
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
   {
     path: '/register-success',
     element: <RegisterSuccess />,
+  },
+  {
+    path: '/checkin',
+    element: <Checkin />,
   },
   {
     element: <PrivateRoutes />,

@@ -95,7 +95,9 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
           <li className="text-primary-darkBlue font-semibold">
             <Link to="/user/my-booking">My Booking</Link>
           </li>
-          <li className="text-primary-darkBlue font-semibold">About</li>
+          <li className="text-primary-darkBlue font-semibold">
+            <Link to="/checkin">Check In</Link>
+          </li>
           <li className="text-primary-darkBlue font-semibold">Contact Us</li>
         </ul>
       </div>
@@ -128,7 +130,10 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
                 <Link to="/user/notification">Notification</Link>
               </li>
               <li className="text-white py-4 text-center hover:cursor-pointer transition hover:bg-white hover:bg-opacity-20">
-                <Link to="/user/promo">Promo Info</Link>
+                <Link to="/user/promos">Promo Info</Link>
+              </li>
+              <li className="text-white py-4 text-center hover:cursor-pointer transition hover:bg-white hover:bg-opacity-20">
+                <Link to="/checkin">Check In</Link>
               </li>
               <li className="text-white py-4 text-center hover:cursor-pointer transition hover:bg-white hover:bg-opacity-20">
                 <Link to="/user/my-account">Profile</Link>
