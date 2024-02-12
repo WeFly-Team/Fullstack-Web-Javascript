@@ -18,6 +18,7 @@ import Notification from '../pages/Notification/Notification';
 import Promo from '../pages/Promo/Promo';
 import NotFound from '../pages/NotFound/NotFound';
 import Checkin from '../pages/Checkin/Checkin';
+import Report from '../pages/Admin/Report/Report';
 
 const router = createBrowserRouter([
   {
@@ -51,7 +52,7 @@ const router = createBrowserRouter([
   },
   {
     element: <PrivateRoutes />,
-    errorElement: <NotFound />,
+    // errorElement: <NotFound />,
     children: [
       {
         path: '/order-details/:id',
@@ -97,7 +98,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: '/admin',
-            element: <p>Report</p>,
+            element: <Report />,
           },
           {
             path: '/admin/flight',

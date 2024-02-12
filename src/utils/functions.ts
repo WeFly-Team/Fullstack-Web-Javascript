@@ -252,3 +252,9 @@ export const paginateFlights = (
 
   return paginatedFlights;
 };
+
+export const rangeDate = (first: Date, end: Date) => {
+  return `${getNameOfMonth(
+    first.getMonth()
+  )} ${first.getDate()} - ${getNameOfMonth(end.getMonth())} ${end.getDate()}`;
+};

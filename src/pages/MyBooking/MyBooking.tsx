@@ -34,13 +34,14 @@ const MyBooking = () => {
   return (
     <div className="">
       <h1 className="font-bold text-2xl">My Transactions</h1>
-      {!transactions && (
-        <NoResultCard
-          title="No Active Bookings Found :("
-          content="Anything you booked shows up here, but it seems like you haven't made any. Let's create one via homepage!"
-          className="mt-4"
-        />
-      )}
+      {!transactions ||
+        (transactions.length == 0 && (
+          <NoResultCard
+            title="No Active Bookings Found :("
+            content="Anything you booked shows up here, but it seems like you haven't made any. Let's create one via homepage!"
+            className="mt-4"
+          />
+        ))}
       {transactions &&
         transactions.map((transaction) => {
           if (transaction.payment) {
