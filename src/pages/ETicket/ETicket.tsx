@@ -3,7 +3,11 @@ import axiosInstance from '../../axios/axios';
 import { useParams } from 'react-router-dom';
 import { Transaction } from '../ProfileLayout/types';
 import { AxiosError } from 'axios';
-import { formatLongDate, triggerToast } from '../../utils/functions';
+import {
+  capitalizeFirstLetter,
+  formatLongDate,
+  triggerToast,
+} from '../../utils/functions';
 
 const token = localStorage.getItem('token');
 const headers = {
@@ -314,8 +318,11 @@ const ETicket = () => {
                     <td>{idx + 1}</td>
                     <td>
                       <span className="font-semibold text-sm"></span>{' '}
-                      {passenger.firstName} {passenger.lastName}{' '}
-                      <span className="font-semibold text-sm"></span>
+                      {passenger.firstName} {passenger.lastName} (
+                      {capitalizeFirstLetter(
+                        passenger.passengerType!.toLowerCase()
+                      )}
+                      )<span className="font-semibold text-sm"></span>
                     </td>
                     {transaction && (
                       <td className="text-xs">
