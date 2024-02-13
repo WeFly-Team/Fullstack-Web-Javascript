@@ -37,7 +37,7 @@ const PassengerCard = ({
           dateOfBirth: orderer.dateOfBirth,
           firstName,
           lastName,
-          type: 'adult',
+          passengerType: 'adult',
           gender: orderer.type,
         });
       }
