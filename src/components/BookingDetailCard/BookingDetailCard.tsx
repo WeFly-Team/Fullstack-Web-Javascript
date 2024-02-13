@@ -115,21 +115,21 @@ const BookingDetailCard = ({ transaction, className }: BookingCardProps) => {
           <div>
             <p className="font-semibold">
               {
-                transaction.transactionDetails[0].flightClass.flight
-                  .departureAirport.city
+                transaction.transactionDetails[0].flightClass.flightSchedule
+                  .flight.departureAirport.city
               }
             </p>
             <p className="font-semibold">
               {
-                transaction.transactionDetails[0].flightClass.flight
-                  .departureTime
+                transaction.transactionDetails[0].flightClass.flightSchedule
+                  .flight.departureTime
               }
             </p>
           </div>
           <div className="flex flex-col gap-2">
             <div className="text-neutral-06 text-sm text-center mt-2">
               {formatLongDate(
-                transaction.transactionDetails[0].flightClass.flight.departureDate!.toString()
+                transaction.transactionDetails[0].flightClass.flightSchedule.departureDate!.toString()
               )}
             </div>
             <div className="">
@@ -138,22 +138,25 @@ const BookingDetailCard = ({ transaction, className }: BookingCardProps) => {
             <div className="text-neutral-06 text-sm text-center">
               Duration{' '}
               {substractTime(
-                transaction.transactionDetails[0].flightClass.flight
-                  .arrivalTime,
-                transaction.transactionDetails[0].flightClass.flight
-                  .departureTime
+                transaction.transactionDetails[0].flightClass.flightSchedule
+                  .flight.arrivalTime,
+                transaction.transactionDetails[0].flightClass.flightSchedule
+                  .flight.departureTime
               )}
             </div>
           </div>
           <div>
             <p className="font-semibold text-right">
               {
-                transaction.transactionDetails[0].flightClass.flight
-                  .arrivalAirport.city
+                transaction.transactionDetails[0].flightClass.flightSchedule
+                  .flight.arrivalAirport.city
               }
             </p>
             <p className="font-semibold text-right">
-              {transaction.transactionDetails[0].flightClass.flight.arrivalTime}
+              {
+                transaction.transactionDetails[0].flightClass.flightSchedule
+                  .flight.arrivalTime
+              }
             </p>
           </div>
         </div>
@@ -161,8 +164,8 @@ const BookingDetailCard = ({ transaction, className }: BookingCardProps) => {
           <div className="text-right">
             <p className="font-semibold">
               {
-                transaction.transactionDetails[0].flightClass.flight.airplane
-                  .airline.name
+                transaction.transactionDetails[0].flightClass.flightSchedule
+                  .flight.airplane.airline.name
               }
             </p>
             <p className="text-sm text-neutral-06">{transaction.seatClass}</p>
@@ -173,18 +176,21 @@ const BookingDetailCard = ({ transaction, className }: BookingCardProps) => {
         <div>
           <p className="font-semibold">
             {
-              transaction.transactionDetails[0].flightClass.flight
-                .departureAirport.city
+              transaction.transactionDetails[0].flightClass.flightSchedule
+                .flight.departureAirport.city
             }
           </p>
           <p className="font-semibold">
-            {transaction.transactionDetails[0].flightClass.flight.departureTime}
+            {
+              transaction.transactionDetails[0].flightClass.flightSchedule
+                .flight.departureTime
+            }
           </p>
         </div>
         <div className="flex flex-col gap-2">
           <div className="text-neutral-06 text-sm text-center mt-2">
             {formatLongDate(
-              transaction.transactionDetails[0].flightClass.flight.departureDate!.toString()
+              transaction.transactionDetails[0].flightClass.flightSchedule.departureDate!.toString()
             )}
           </div>
           <div className="">
@@ -193,20 +199,25 @@ const BookingDetailCard = ({ transaction, className }: BookingCardProps) => {
           <div className="text-neutral-06 text-sm text-center">
             Duration{' '}
             {substractTime(
-              transaction.transactionDetails[0].flightClass.flight.arrivalTime,
-              transaction.transactionDetails[0].flightClass.flight.departureTime
+              transaction.transactionDetails[0].flightClass.flightSchedule
+                .flight.arrivalTime,
+              transaction.transactionDetails[0].flightClass.flightSchedule
+                .flight.departureTime
             )}
           </div>
         </div>
         <div>
           <p className="font-semibold text-right">
             {
-              transaction.transactionDetails[0].flightClass.flight
-                .arrivalAirport.city
+              transaction.transactionDetails[0].flightClass.flightSchedule
+                .flight.arrivalAirport.city
             }
           </p>
           <p className="font-semibold text-right">
-            {transaction.transactionDetails[0].flightClass.flight.arrivalTime}
+            {
+              transaction.transactionDetails[0].flightClass.flightSchedule
+                .flight.arrivalTime
+            }
           </p>
         </div>
       </div>

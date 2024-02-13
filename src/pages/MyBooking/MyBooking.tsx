@@ -5,9 +5,6 @@ import { Transaction } from '../ProfileLayout/types';
 import axiosInstance from '../../axios/axios';
 
 const MyBooking = () => {
-  // const { transactions } = useContext(
-  //   UserTransactionContext
-  // ) as userTransactionContextType;
   const [transactions, setTransactions] = useState<Transaction[]>();
 
   useEffect(() => {
@@ -26,6 +23,7 @@ const MyBooking = () => {
       const sortedTransactions = unsortedTransaction.sort(
         (a: Transaction, b: Transaction) => b.id - a.id
       );
+
       setTransactions(sortedTransactions);
     };
     fetchBooking();

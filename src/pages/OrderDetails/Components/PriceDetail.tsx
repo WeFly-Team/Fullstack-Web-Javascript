@@ -19,7 +19,8 @@ const PriceDetail = ({ className }: HTMLAttributes<HTMLDivElement>) => {
           <img src="https://i.ibb.co/pznRn82/garuda-title.png" alt="logo" />
           <div className="text-right">
             <h1 className="font-semibold">
-              {dataFlight && dataFlight.flight.airplane.airline.name}
+              {dataFlight &&
+                dataFlight.flightSchedule.flight.airplane.airline.name}
             </h1>
             <p className="text-neutral-06">
               {dataFlight && dataFlight.seatClass}
@@ -29,10 +30,11 @@ const PriceDetail = ({ className }: HTMLAttributes<HTMLDivElement>) => {
         <div className="flex items-center justify-between gap-4 md:gap-8">
           <div>
             <p className="text-neutral-06">
-              {dataFlight && dataFlight.flight.departureAirport.city}
+              {dataFlight &&
+                dataFlight.flightSchedule.flight.departureAirport.city}
             </p>
             <p className="font-semibold">
-              {dataFlight && dataFlight.flight.departureTime}
+              {dataFlight && dataFlight.flightSchedule.flight.departureTime}
             </p>
           </div>
           <div>
@@ -44,21 +46,24 @@ const PriceDetail = ({ className }: HTMLAttributes<HTMLDivElement>) => {
               Duration{' '}
               {dataFlight &&
                 substractTime(
-                  dataFlight.flight.arrivalTime,
-                  dataFlight.flight.departureTime
+                  dataFlight.flightSchedule.flight.arrivalTime,
+                  dataFlight.flightSchedule.flight.departureTime
                 )}
             </div>
             <div className="text-neutral-06 text-sm text-center mt-2">
               {dataFlight &&
-                formatLongDate(dataFlight.flight.departureDate!.toString())}
+                formatLongDate(
+                  dataFlight.flightSchedule.departureDate!.toString()
+                )}
             </div>
           </div>
           <div>
             <p className="text-neutral-06 text-right">
-              {dataFlight && dataFlight.flight.arrivalAirport.city}
+              {dataFlight &&
+                dataFlight.flightSchedule.flight.arrivalAirport.city}
             </p>
             <p className="font-semibold text-right">
-              {dataFlight && dataFlight.flight.arrivalTime}
+              {dataFlight && dataFlight.flightSchedule.flight.arrivalTime}
             </p>
           </div>
         </div>

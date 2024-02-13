@@ -121,12 +121,12 @@ const FlightList = () => {
   const getShortestFlight = (flights: DataFlight[]) => {
     const sortedFlights = flights.sort((a, b) => {
       const durationA = getDuration(
-        a.flight.departureTime,
-        a.flight.arrivalTime
+        a.flightSchedule.flight.departureTime,
+        a.flightSchedule.flight.arrivalTime
       );
       const durationB = getDuration(
-        b.flight.departureTime,
-        b.flight.arrivalTime
+        b.flightSchedule.flight.departureTime,
+        b.flightSchedule.flight.arrivalTime
       );
 
       if (durationA !== durationB) {

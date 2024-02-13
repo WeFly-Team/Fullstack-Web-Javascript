@@ -34,6 +34,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^6.1.5",
     "@testing-library/react": "^14.1.2",
+    "@types/base64topdf": "^1.1.2",
     "@types/react": "^18.2.46",
     "@types/react-datepicker": "^4.19.5",
     "@types/react-dom": "^18.2.17",

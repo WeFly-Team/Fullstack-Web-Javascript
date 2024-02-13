@@ -5,14 +5,58 @@ import { Transaction } from '../ProfileLayout/types';
 import { AxiosError } from 'axios';
 import { formatLongDate, triggerToast } from '../../utils/functions';
 
+const token = localStorage.getItem('token');
+const headers = {
+  Authorization: `Bearer ${token}`,
+};
 const ETicket = () => {
   const { id } = useParams();
   const [transaction, setTransaction] = useState<Transaction>();
+
+  const downloadInvoice = async () => {
+    try {
+      const result = await axiosInstance.get(`/transaction/getInvoice/${id}`, {
+        headers,
+        responseType: 'arraybuffer',
+      });
+      const blob = new Blob([result.data], { type: 'application/pdf' });
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'invoice.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        triggerToast('error', err.message);
+      } else if (err instanceof Error) {
+        triggerToast('error', err.message);
+      }
+    }
+  };
+  const downloadEticket = async () => {
+    try {
+      const result = await axiosInstance.get(`/transaction/getETicket/${id}`, {
+        headers,
+        responseType: 'arraybuffer',
+      });
+      const blob = new Blob([result.data], { type: 'application/pdf' });
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'invoice.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        triggerToast('error', err.message);
+      } else if (err instanceof Error) {
+        triggerToast('error', err.message);
+      }
+    }
+  };
+
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
     const getBookId = async () => {
       try {
         const detailBook = await axiosInstance.get(
@@ -21,7 +65,6 @@ const ETicket = () => {
             headers,
           }
         );
-        console.log(detailBook.data.data);
 
         setTransaction(detailBook.data.data);
       } catch (err) {
@@ -34,10 +77,26 @@ const ETicket = () => {
     };
 
     getBookId();
-  }, []);
+  }, [id]);
   return (
     <div className="sm:w-min-[720px]">
-      <h1 className="font-bold text-2xl">E-Ticket</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="font-bold text-2xl">E-Ticket</h1>
+        <div className="sm:flex items-center gap-4">
+          <p
+            onClick={downloadInvoice}
+            className="cursor-pointer text-primary-blue font-semibold"
+          >
+            Download Invoice
+          </p>
+          <p
+            onClick={downloadEticket}
+            className="cursor-pointer text-primary-blue font-semibold"
+          >
+            Download eTicket
+          </p>
+        </div>
+      </div>
 
       <div className="border border-neutral-05 mt-4 rounded-lg shadow-card">
         <div className="flex justify-between sm:border-b sm:border-b-neutral-06 p-6 gap-4">
@@ -45,8 +104,8 @@ const ETicket = () => {
             <img src="https://i.ibb.co/pznRn82/garuda-title.png" alt="logo" />
             <p className="font-semibold">
               {
-                transaction?.transactionDetails[0].flightClass.flight.airplane
-                  .airline.name
+                transaction?.transactionDetails[0].flightClass.flightSchedule
+                  .flight.airplane.airline.name
               }
             </p>
             <p className="text-sm font-semibold text-neutral-06">
@@ -58,7 +117,7 @@ const ETicket = () => {
             {transaction && (
               <p className="mb-4 font-semibold">
                 {formatLongDate(
-                  transaction.transactionDetails[0].flightClass.flight.departureDate!.toString()
+                  transaction.transactionDetails[0].flightClass.flightSchedule.departureDate!.toString()
                 )}
               </p>
             )}
@@ -66,14 +125,14 @@ const ETicket = () => {
               <div className="flex flex-col justify-between">
                 <p className="font-bold text-neutral-07">
                   {
-                    transaction?.transactionDetails[0].flightClass.flight
-                      .departureTime
+                    transaction?.transactionDetails[0].flightClass
+                      .flightSchedule.flight.departureTime
                   }
                 </p>
                 <p className="font-bold text-neutral-07">
                   {
-                    transaction?.transactionDetails[0].flightClass.flight
-                      .arrivalTime
+                    transaction?.transactionDetails[0].flightClass
+                      .flightSchedule.flight.arrivalTime
                   }
                 </p>
               </div>
@@ -89,13 +148,13 @@ const ETicket = () => {
                   {transaction && (
                     <p className="font-semibold text-neutral-07">
                       {
-                        transaction.transactionDetails[0].flightClass.flight
-                          .departureAirport.city
+                        transaction.transactionDetails[0].flightClass
+                          .flightSchedule.flight.departureAirport.city
                       }{' '}
                       (
                       {
-                        transaction.transactionDetails[0].flightClass.flight
-                          .departureAirport.iata
+                        transaction.transactionDetails[0].flightClass
+                          .flightSchedule.flight.departureAirport.iata
                       }
                       )
                     </p>
@@ -103,8 +162,8 @@ const ETicket = () => {
                   {transaction && (
                     <p className="font-semibold text-neutral-07">
                       {
-                        transaction.transactionDetails[0].flightClass.flight
-                          .departureAirport.name
+                        transaction.transactionDetails[0].flightClass
+                          .flightSchedule.flight.departureAirport.name
                       }
                     </p>
                   )}
@@ -113,13 +172,13 @@ const ETicket = () => {
                   {transaction && (
                     <p className="font-semibold text-neutral-07">
                       {
-                        transaction.transactionDetails[0].flightClass.flight
-                          .arrivalAirport.city
+                        transaction.transactionDetails[0].flightClass
+                          .flightSchedule.flight.arrivalAirport.city
                       }{' '}
                       (
                       {
-                        transaction.transactionDetails[0].flightClass.flight
-                          .arrivalAirport.iata
+                        transaction.transactionDetails[0].flightClass
+                          .flightSchedule.flight.arrivalAirport.iata
                       }
                       )
                     </p>
@@ -127,8 +186,8 @@ const ETicket = () => {
                   {transaction && (
                     <p className="font-semibold text-neutral-07">
                       {
-                        transaction.transactionDetails[0].flightClass.flight
-                          .arrivalAirport.name
+                        transaction.transactionDetails[0].flightClass
+                          .flightSchedule.flight.arrivalAirport.name
                       }
                     </p>
                   )}
@@ -157,7 +216,7 @@ const ETicket = () => {
           {transaction && (
             <p className="mb-4 font-semibold">
               {formatLongDate(
-                transaction.transactionDetails[0].flightClass.flight.departureDate!.toString()
+                transaction.transactionDetails[0].flightClass.flightSchedule.departureDate!.toString()
               )}
             </p>
           )}
@@ -165,14 +224,14 @@ const ETicket = () => {
             <div className="flex flex-col justify-between">
               <p className="font-bold text-neutral-07">
                 {
-                  transaction?.transactionDetails[0].flightClass.flight
-                    .departureTime
+                  transaction?.transactionDetails[0].flightClass.flightSchedule
+                    .flight.departureTime
                 }
               </p>
               <p className="font-bold text-neutral-07">
                 {
-                  transaction?.transactionDetails[0].flightClass.flight
-                    .arrivalTime
+                  transaction?.transactionDetails[0].flightClass.flightSchedule
+                    .flight.arrivalTime
                 }
               </p>
             </div>
@@ -188,13 +247,13 @@ const ETicket = () => {
                 {transaction && (
                   <p className="font-bold text-black">
                     {
-                      transaction.transactionDetails[0].flightClass.flight
-                        .departureAirport.city
+                      transaction.transactionDetails[0].flightClass
+                        .flightSchedule.flight.departureAirport.city
                     }{' '}
                     (
                     {
-                      transaction.transactionDetails[0].flightClass.flight
-                        .departureAirport.iata
+                      transaction.transactionDetails[0].flightClass
+                        .flightSchedule.flight.departureAirport.iata
                     }
                     )
                   </p>
@@ -202,8 +261,8 @@ const ETicket = () => {
                 {transaction && (
                   <p className="font-semibold text-neutral-07">
                     {
-                      transaction.transactionDetails[0].flightClass.flight
-                        .departureAirport.name
+                      transaction.transactionDetails[0].flightClass
+                        .flightSchedule.flight.departureAirport.name
                     }
                   </p>
                 )}
@@ -212,13 +271,13 @@ const ETicket = () => {
                 {transaction && (
                   <p className="font-bold text-black mt-4">
                     {
-                      transaction.transactionDetails[0].flightClass.flight
-                        .arrivalAirport.city
+                      transaction.transactionDetails[0].flightClass
+                        .flightSchedule.flight.arrivalAirport.city
                     }{' '}
                     (
                     {
-                      transaction.transactionDetails[0].flightClass.flight
-                        .arrivalAirport.iata
+                      transaction.transactionDetails[0].flightClass
+                        .flightSchedule.flight.arrivalAirport.iata
                     }
                     )
                   </p>
@@ -226,8 +285,8 @@ const ETicket = () => {
                 {transaction && (
                   <p className="font-semibold text-neutral-07">
                     {
-                      transaction.transactionDetails[0].flightClass.flight
-                        .arrivalAirport.name
+                      transaction.transactionDetails[0].flightClass
+                        .flightSchedule.flight.arrivalAirport.name
                     }
                   </p>
                 )}
@@ -259,13 +318,13 @@ const ETicket = () => {
                     {transaction && (
                       <td className="text-xs">
                         {
-                          transaction.transactionDetails[0].flightClass.flight
-                            .departureAirport.iata
+                          transaction.transactionDetails[0].flightClass
+                            .flightSchedule.flight.departureAirport.iata
                         }{' '}
                         -{' '}
                         {
-                          transaction.transactionDetails[0].flightClass.flight
-                            .arrivalAirport.iata
+                          transaction.transactionDetails[0].flightClass
+                            .flightSchedule.flight.arrivalAirport.iata
                         }
                       </td>
                     )}

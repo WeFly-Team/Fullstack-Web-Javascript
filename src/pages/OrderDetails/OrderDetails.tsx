@@ -104,6 +104,7 @@ const OrderDetails = () => {
           .map(Number);
         return {
           ...passenger,
+          passengerType: passenger.passengerType?.toUpperCase(),
           dateOfBirth: formatDdMmYyyy(day.toString(), month.toString(), year),
         };
       });
@@ -206,7 +207,8 @@ const OrderDetails = () => {
               passenger.nationality.trim() !== '') &&
             (passenger.dateOfBirth === undefined ||
               passenger.dateOfBirth.trim() !== '') &&
-            (passenger.type === undefined || passenger.type.trim() !== '') &&
+            (passenger.passengerType === undefined ||
+              passenger.passengerType.trim() !== '') &&
             (passenger.gender === undefined || passenger.gender.trim() !== '')
           );
         });
@@ -232,7 +234,7 @@ const OrderDetails = () => {
           firstName: 'Please insert this passenger information!',
           lastName: '',
           nationality: '',
-          type: 'adult',
+          passengerType: 'adult',
         });
         id++;
       }
@@ -244,7 +246,7 @@ const OrderDetails = () => {
             firstName: 'Please insert this passenger information!',
             lastName: '',
             nationality: '',
-            type: 'child',
+            passengerType: 'child',
           });
           id++;
         }
@@ -294,7 +296,7 @@ const OrderDetails = () => {
                       <div key={index}>
                         <h1 className="font-semibold text-lg mt-5">
                           Passenger {passenger.id} (
-                          {capitalizeFirstLetter(passenger.type!)})
+                          {capitalizeFirstLetter(passenger.passengerType!)})
                         </h1>
                         <PassengerCard
                           selectPassenger={selectPassenger}

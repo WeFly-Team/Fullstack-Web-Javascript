@@ -27,7 +27,9 @@ const CardTicket = ({ className, data, detailPassenger }: CardTicketProps) => {
               className="w-14"
               alt="garuda"
             />
-            <label className="ml-3">{data.flight.airplane.airline.name}</label>
+            <label className="ml-3">
+              {data.flightSchedule.flight.airplane.airline.name}
+            </label>
           </div>
           <div className="border rounded-full px-4 py-2 hidden md:inline">
             20
@@ -37,17 +39,17 @@ const CardTicket = ({ className, data, detailPassenger }: CardTicketProps) => {
         <div className="flex gap-1 order-3 md:order-2 mx-auto md:mx-0 ">
           {/* departure */}
           <div>
-            <p>{data.flight.departureTime}</p>
+            <p>{data.flightSchedule.flight.departureTime}</p>
             <p className="text-gray-300 text-center">
-              {data.flight.departureAirport.iata}
+              {data.flightSchedule.flight.departureAirport.iata}
             </p>
           </div>
           {/* simbol */}
           <div className="">
             <p className="text-center">
               {substractTime(
-                data.flight.arrivalTime,
-                data.flight.departureTime
+                data.flightSchedule.flight.arrivalTime,
+                data.flightSchedule.flight.departureTime
               )}
             </p>
             <div className="flex items-center">
@@ -59,9 +61,9 @@ const CardTicket = ({ className, data, detailPassenger }: CardTicketProps) => {
           </div>
           {/* arrive */}
           <div>
-            <p>{data.flight.arrivalTime}</p>
+            <p>{data.flightSchedule.flight.arrivalTime}</p>
             <p className="text-gray-300 text-center">
-              {data.flight.arrivalAirport.iata}
+              {data.flightSchedule.flight.arrivalAirport.iata}
             </p>
           </div>
         </div>

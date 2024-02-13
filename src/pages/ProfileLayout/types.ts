@@ -10,7 +10,7 @@ export interface Passenger {
   lastName?: string;
   nationality?: string;
   dateOfBirth?: string;
-  type?: PassengerType;
+  passengerType?: PassengerType;
   gender?: GenderType;
 }
 
@@ -28,6 +28,7 @@ export interface Airline {
   discountChild: number;
   discoundInfant: number;
   name: string;
+  code: string;
 }
 
 export interface Seat {
@@ -46,6 +47,7 @@ export interface Airplane {
   deletedDate?: Date;
   updatedDate?: Date;
   id: number;
+  code: string;
   name: string;
   seats: Seat[];
   type: string;
@@ -57,11 +59,17 @@ export interface Flight {
   departureAirport: Airport;
   arrivalAirport: Airport;
   airplane: Airplane;
-  departureDate?: Date;
-  arrivalDate?: Date;
+  airline: Airline;
   departureTime: string;
   arrivalTime: string;
   basePrice?: number;
+  scheduleMonday: boolean;
+  scheduleTuesday: boolean;
+  scheduleWednesday: boolean;
+  scheduleThursday: boolean;
+  scheduleFriday: boolean;
+  scheduleSaturday: boolean;
+  scheduleSunday: boolean;
 }
 
 export interface FlightClass {
@@ -69,7 +77,7 @@ export interface FlightClass {
   basePriceAdult: number;
   basePriceChild: number;
   basePriceInfant: number;
-  flight: Flight;
+  flightSchedule: flightSchedule;
 }
 
 export interface TransactionDetail {
@@ -123,6 +131,12 @@ export interface Transaction {
   paymentProof?: string;
 }
 
+export interface flightSchedule {
+  departureDate?: Date;
+  arrivalDate?: Date;
+  flight: Flight;
+}
+
 export interface DataFlight {
   availableSeat: number;
   basePriceAdult: number;
@@ -130,7 +144,7 @@ export interface DataFlight {
   basePriceInfant: number;
   id: number;
   seatClass: string;
-  flight: Flight;
+  flightSchedule: flightSchedule;
 }
 
 export interface userTransactionContextType {

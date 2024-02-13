@@ -96,24 +96,24 @@ const BookingCard = ({ transaction, className }: BookingCardProps) => {
           <div className="font-semibold ">
             <p>
               {
-                transaction.transactionDetails[0].flightClass.flight
-                  .departureAirport.city
+                transaction.transactionDetails[0].flightClass.flightSchedule
+                  .flight.departureAirport.city
               }
               ,{' '}
               {
-                transaction.transactionDetails[0].flightClass.flight
-                  .departureAirport.country
+                transaction.transactionDetails[0].flightClass.flightSchedule
+                  .flight.departureAirport.country
               }
             </p>
             <p className="text-sm text-neutral-06">
               {
-                transaction.transactionDetails[0].flightClass.flight
-                  .departureAirport.iata
+                transaction.transactionDetails[0].flightClass.flightSchedule
+                  .flight.departureAirport.iata
               }{' '}
               -{' '}
               {
-                transaction.transactionDetails[0].flightClass.flight
-                  .departureAirport.name
+                transaction.transactionDetails[0].flightClass.flightSchedule
+                  .flight.departureAirport.name
               }{' '}
             </p>
           </div>
@@ -123,24 +123,24 @@ const BookingCard = ({ transaction, className }: BookingCardProps) => {
           <div className="font-semibold">
             <p className="text-right">
               {
-                transaction.transactionDetails[0].flightClass.flight
-                  .arrivalAirport.city
+                transaction.transactionDetails[0].flightClass.flightSchedule
+                  .flight.arrivalAirport.city
               }
               ,{' '}
               {
-                transaction.transactionDetails[0].flightClass.flight
-                  .arrivalAirport.country
+                transaction.transactionDetails[0].flightClass.flightSchedule
+                  .flight.arrivalAirport.country
               }
             </p>
             <p className="text-sm text-neutral-06 text-right">
               {
-                transaction.transactionDetails[0].flightClass.flight
-                  .arrivalAirport.iata
+                transaction.transactionDetails[0].flightClass.flightSchedule
+                  .flight.arrivalAirport.iata
               }{' '}
               -{' '}
               {
-                transaction.transactionDetails[0].flightClass.flight
-                  .arrivalAirport.name
+                transaction.transactionDetails[0].flightClass.flightSchedule
+                  .flight.arrivalAirport.name
               }
             </p>
           </div>
@@ -148,11 +148,14 @@ const BookingCard = ({ transaction, className }: BookingCardProps) => {
         <div>
           <p className="text-sm text-neutral-08 text-right font-semibold">
             {formatLongDate(
-              transaction.transactionDetails[0].flightClass.flight.departureDate!.toString()
+              transaction.transactionDetails[0].flightClass.flightSchedule.departureDate!.toString()
             )}
           </p>
           <p className="text-sm text-neutral-08 text-right font-semibold">
-            {transaction.transactionDetails[0].flightClass.flight.departureTime}
+            {
+              transaction.transactionDetails[0].flightClass.flightSchedule
+                .flight.departureTime
+            }
           </p>
         </div>
       </div>
@@ -160,14 +163,14 @@ const BookingCard = ({ transaction, className }: BookingCardProps) => {
         <div className="font-semibold ">
           <p>
             {
-              transaction.transactionDetails[0].flightClass.flight
-                .departureAirport.city
+              transaction.transactionDetails[0].flightClass.flightSchedule
+                .flight.departureAirport.city
             }
           </p>
           <p className="text-sm text-neutral-06">
             {
-              transaction.transactionDetails[0].flightClass.flight
-                .departureAirport.name
+              transaction.transactionDetails[0].flightClass.flightSchedule
+                .flight.departureAirport.name
             }
           </p>
         </div>
@@ -177,14 +180,14 @@ const BookingCard = ({ transaction, className }: BookingCardProps) => {
         <div className="font-semibold">
           <p className="text-right">
             {
-              transaction.transactionDetails[0].flightClass.flight
-                .arrivalAirport.city
+              transaction.transactionDetails[0].flightClass.flightSchedule
+                .flight.arrivalAirport.city
             }
           </p>
           <p className="text-sm text-neutral-06 text-right">
             {
-              transaction.transactionDetails[0].flightClass.flight
-                .arrivalAirport.name
+              transaction.transactionDetails[0].flightClass.flightSchedule
+                .flight.arrivalAirport.name
             }
           </p>
         </div>
