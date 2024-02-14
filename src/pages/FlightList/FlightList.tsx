@@ -26,6 +26,13 @@ import Filter from '../../components/Filter';
 const FlightList = () => {
   // hooks
   const [searchParams] = useSearchParams();
+  const classPenumpang = searchParams.get('class')!;
+  const depDate = new Date(searchParams.get('dep-date')!);
+  const totPassengers = Number(searchParams.get('total-passengers'));
+  const totalAdult = Number(searchParams.get('adult'));
+  const totalChild = Number(searchParams.get('child'));
+  const idDepAirport = searchParams.get('dep-airport')!;
+  const idDesAirport = searchParams.get('des-airport')!;
 
   // state
   const [departureAirport, setDepartureAirport] = useState<Airport>({
@@ -142,16 +149,37 @@ const FlightList = () => {
     setFilter(filter);
   };
 
+  const findLowestPrice = (reducedFlights: DataFlight[]) => {
+    return reducedFlights.reduce((minFlight, currentFlight) => {
+      return currentFlight.basePriceAdult < minFlight.basePriceAdult
+        ? currentFlight
+        : minFlight;
+    }, reducedFlights[0]);
+  };
+
+  const getLowestPriceFlightList = async (
+    formattedDepartureDate: Date,
+    idDepAirport: string,
+    idDesAirport: string,
+    classPenumpang: string,
+    totPassengers: number
+  ) => {
+    const formatedDepartureDate = formatDate(formattedDepartureDate);
+    const queryString = `departureAirportId=${idDepAirport}&arrivalAirportId=${idDesAirport}&departDate=${formatedDepartureDate}&seatClass=${classPenumpang.toUpperCase()}&numberOfPassenger=${totPassengers}`;
+
+    const flightList = await axiosInstance.get(
+      `/flight/list?${queryString}&size=100`
+    );
+    const dataFlight = flightList.data.data.content;
+    if (dataFlight.length > 0) {
+      const lowest: DataFlight = findLowestPrice(dataFlight);
+      return lowest.basePriceAdult;
+    }
+    return 0;
+  };
+
   // effect
   useEffect(() => {
-    const classPenumpang = searchParams.get('class')!;
-    const depDate = new Date(searchParams.get('dep-date')!);
-    const totPassengers = Number(searchParams.get('total-passengers'));
-    const totalAdult = Number(searchParams.get('adult'));
-    const totalChild = Number(searchParams.get('child'));
-    const idDepAirport = searchParams.get('dep-airport')!;
-    const idDesAirport = searchParams.get('des-airport')!;
-
     setClassPassenger(classPenumpang);
     setTotalPassengers(totPassengers);
     setDetailPassenger({
@@ -194,27 +222,58 @@ const FlightList = () => {
   }, [searchParams]);
 
   useEffect(() => {
-    const listOfSchedule = [];
-    for (let i = 0; i < 4; i++) {
-      const updatedDate = new Date(departureDate);
-      updatedDate.setDate(departureDate.getDate() + i);
-      if (i == 0) {
-        listOfSchedule.push({ date: updatedDate, selected: true });
-      } else {
-        listOfSchedule.push({ date: updatedDate, selected: false });
+    const updateSchedule = async () => {
+      const listOfSchedule = [];
+
+      for (let i = 0; i < 4; i++) {
+        const updatedDate = new Date(departureDate);
+        updatedDate.setDate(departureDate.getDate() + i);
+        const formattedDepDate = updatedDate.toLocaleString('en-US', {
+          timeZone: 'Asia/Jakarta',
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          timeZoneName: 'short',
+        });
+
+        if (i == 0) {
+          listOfSchedule.push({
+            date: updatedDate,
+            selected: true,
+            lowestPrice: await getLowestPriceFlightList(
+              new Date(Date.parse(formattedDepDate)),
+              idDepAirport!,
+              idDesAirport!,
+              classPenumpang,
+              totPassengers
+            ),
+          });
+        } else {
+          listOfSchedule.push({
+            date: updatedDate,
+            selected: false,
+            lowestPrice: await getLowestPriceFlightList(
+              new Date(Date.parse(formattedDepDate)),
+              idDepAirport!,
+              idDesAirport!,
+              classPenumpang,
+              totPassengers
+            ),
+          });
+        }
       }
-    }
-    setSchedules(listOfSchedule);
+      setSchedules(listOfSchedule);
+    };
+    updateSchedule();
   }, [departureDate]);
 
   useEffect(() => {
     if (flights && flights.length > 0) {
       const reducedFlights = [...flights];
-      const lowest = reducedFlights.reduce((minFlight, currentFlight) => {
-        return currentFlight.basePriceAdult < minFlight.basePriceAdult
-          ? currentFlight
-          : minFlight;
-      }, reducedFlights[0]);
+      const lowest = findLowestPrice(reducedFlights);
       setLowestPrice(lowest.basePriceAdult);
 
       const sortedFlights = getShortestFlight([...flights]);

@@ -13,4 +13,5 @@ export interface DetailProps {
 export interface Schedule {
   date: Date;
   selected: boolean;
+  lowestPrice: number;
 }

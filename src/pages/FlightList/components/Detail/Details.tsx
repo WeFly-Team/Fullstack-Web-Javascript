@@ -1,6 +1,10 @@
 import { FaCalendar } from 'react-icons/fa6';
 import { DetailProps } from './types';
-import { getNameOfDay, getNameOfMonth } from '../../../../utils/functions';
+import {
+  getNameOfDay,
+  getNameOfMonth,
+  thousandSeparator,
+} from '../../../../utils/functions';
 
 const Detail = ({
   departureAirport,
@@ -42,7 +46,9 @@ const Detail = ({
                     {schedule.date.getDate()}{' '}
                     {getNameOfMonth(schedule.date.getMonth())}
                   </p>
-                  <p className="text-center text-white">Rp540,000</p>
+                  <p className="text-center text-white">
+                    Rp{thousandSeparator(schedule.lowestPrice)}
+                  </p>
                 </div>
               );
             }
@@ -57,7 +63,9 @@ const Detail = ({
                   {schedule.date.getDate()}{' '}
                   {getNameOfMonth(schedule.date.getMonth())}
                 </p>
-                <p className="text-center text-white">Rp540,000</p>
+                <p className="text-center text-white">
+                  Rp{thousandSeparator(schedule.lowestPrice)}
+                </p>
               </div>
             );
           })}
