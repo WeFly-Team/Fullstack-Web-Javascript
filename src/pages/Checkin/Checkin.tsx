@@ -67,7 +67,7 @@ const Checkin = () => {
             )}
             {successMessage && (
               <div
-                className="bg-blue-100 border border-blue-400 text-blue-700 pl-4 pr-8 sm:pr-4 py-3 rounded relative w-full mb-2"
+                className="bg-blue-100 border border-blue-400 text-blue-700 pl-4 pr-11 py-3 rounded relative w-full mb-2"
                 role="alert"
               >
                 <span className="block sm:inline">{successMessage}</span>

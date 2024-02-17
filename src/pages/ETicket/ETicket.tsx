@@ -8,6 +8,7 @@ import {
   formatLongDate,
   triggerToast,
 } from '../../utils/functions';
+import { ETicketProp } from './types';
 
 const token = localStorage.getItem('token');
 const headers = {
@@ -16,6 +17,7 @@ const headers = {
 const ETicket = () => {
   const { id } = useParams();
   const [transaction, setTransaction] = useState<Transaction>();
+  const [eticketResponse, setEticket] = useState<ETicketProp>();
 
   const downloadInvoice = async () => {
     try {
@@ -79,8 +81,27 @@ const ETicket = () => {
         }
       }
     };
+    const getETicket = async () => {
+      try {
+        const result = await axiosInstance.get(
+          `/transaction/getETicketResponse/${id}`,
+          {
+            headers,
+          }
+        );
+
+        setEticket(result.data.data[0]);
+      } catch (err) {
+        if (err instanceof AxiosError) {
+          triggerToast('error', err.message);
+        } else if (err instanceof Error) {
+          triggerToast('error', err.message);
+        }
+      }
+    };
 
     getBookId();
+    getETicket();
   }, [id]);
   return (
     <div className="sm:w-min-[720px]">
@@ -207,12 +228,15 @@ const ETicket = () => {
               </p>
               <p className="font-bold">{transaction && transaction.id}</p>
             </div>
-            <div>
-              <p className="text-sm font-semibold text-neutral-08">
-                Airline Booking Code
-              </p>
-              <p className="font-bold">M3SD3</p>
-            </div>
+            {eticketResponse && (
+              <div>
+                <p className="text-sm font-semibold text-neutral-08">
+                  Airline Booking Code
+                </p>
+
+                <p className="font-bold">{eticketResponse.bookCode}</p>
+              </div>
+            )}
           </div>
         </div>
 
@@ -338,15 +362,6 @@ const ETicket = () => {
                     <td>Baggage 20 kg</td>
                   </tr>
                 ))}
-              {/* <tr>
-                <td>1</td>
-                <td>
-                  <span className="font-semibold text-sm">Mr.</span> Ahmad
-                  Ghazali <span className="font-semibold text-sm">(Adult)</span>
-                </td>
-                <td className="text-xs">HLP - SUB</td>
-                <td>Baggage 20 kg</td>
-              </tr> */}
             </tbody>
           </table>
         </div>
