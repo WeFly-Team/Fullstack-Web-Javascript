@@ -27,7 +27,6 @@ const ETicket = () => {
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
       link.target = '_blank';
-      // link.download = `invoice-${id}.pdf`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -48,7 +47,6 @@ const ETicket = () => {
       const blob = new Blob([result.data], { type: 'application/pdf' });
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
-      // link.download = `eTicket-${id}.pdf`;
       link.target = '_blank';
       document.body.appendChild(link);
       link.click();
@@ -93,7 +91,7 @@ const ETicket = () => {
             onClick={downloadInvoice}
             className="cursor-pointer text-primary-blue font-semibold"
           >
-            Show Invoice
+            Show Payment Proof
           </p>
           <p
             onClick={downloadEticket}
