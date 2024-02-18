@@ -2,9 +2,9 @@ import { classProp } from './types';
 
 export const classOptions: classProp[] = [
   { label: 'Economy', value: 'Economy' },
-  { label: 'Premium Economy', value: 'PremiumEconomy' },
+  // { label: 'Premium Economy', value: 'PremiumEconomy' },
   { label: 'Business', value: 'Business' },
-  { label: 'First Class', value: 'FirstClass' },
+  // { label: 'First Class', value: 'FirstClass' },
 ];
 
 export interface Airport {

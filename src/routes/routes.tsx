@@ -52,7 +52,7 @@ const router = createBrowserRouter([
   },
   {
     element: <PrivateRoutes />,
-    // errorElement: <NotFound />,
+    errorElement: <NotFound />,
     children: [
       {
         path: '/order-details/:id',
