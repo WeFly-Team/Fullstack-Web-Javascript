@@ -1,8 +1,8 @@
+import { googleLogout } from '@react-oauth/google';
 import { HTMLAttributes, useState } from 'react';
 import { AlignJustify, User, X } from 'react-feather';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../../../customHooks/useAuth/useAuth';
-import { googleLogout } from '@react-oauth/google';
 
 const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
   const [open, setOpen] = useState<boolean>(false);
@@ -20,7 +20,7 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
         <div className="flex justify-between items-center">
           <Link to="/" className="flex order-1 sm:order-2 items-center ml-3">
             <img
-              src="https://i.ibb.co/pxQ7DPC/logo-We-Fly.png"
+              src="https://res.cloudinary.com/dwy823csd/image/upload/v1736875590/icon.png"
               alt="logo"
               className="w-12 "
             />
@@ -33,15 +33,15 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
           <div className="hidden md:flex gap-2 items-center order-3">
             <div className="hidden lg:flex items-center gap-3 primary">
               <img
-                src="https://i.ibb.co/gWFLCyG/blue-facebook.png"
+                src="https://res.cloudinary.com/dwy823csd/image/upload/v1736875590/blue-facebook.png"
                 alt="facebook"
               />
               <img
-                src="https://i.ibb.co/qd3DHmf/blue-linkedin.png"
+                src="https://res.cloudinary.com/dwy823csd/image/upload/v1736875589/blue-linkedin.png"
                 alt="linkedin"
               />
               <img
-                src="https://i.ibb.co/rGR64GZ/blue-twitter.png"
+                src="https://res.cloudinary.com/dwy823csd/image/upload/v1736875590/blue-twitter.png"
                 alt="twitter"
               />
             </div>
@@ -164,7 +164,7 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
             </div>
           </div>
           <img
-            src="https://i.ibb.co/p04HSxH/image-1.png"
+            src="https://res.cloudinary.com/dwy823csd/image/upload/v1736875948/hero.png"
             className="object-cover h-screen w-screen "
           />
         </div>

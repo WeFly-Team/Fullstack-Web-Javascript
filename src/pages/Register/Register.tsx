@@ -1,16 +1,16 @@
+import { useGoogleLogin } from '@react-oauth/google';
+import { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+import Select from 'react-select';
+import axiosInstance from '../../axios/axios';
 import Button from '../../components/Button';
 import FormInput from '../../components/FormInput';
 import Heading from '../../components/Heading';
-import Select from 'react-select';
-import { datesOption, monthsOption, yearsOption } from './data';
-import { useGoogleLogin } from '@react-oauth/google';
-import { IFormInput } from './types';
-import { SubmitHandler, Controller, useForm } from 'react-hook-form';
-import axiosInstance from '../../axios/axios';
-import { AxiosError } from 'axios';
-import { Link } from 'react-router-dom';
 import { useAuth } from '../../customHooks/useAuth/useAuth';
+import { datesOption, monthsOption, yearsOption } from './data';
+import { IFormInput } from './types';
 
 const today = new Date();
 const Register = () => {
@@ -146,7 +146,7 @@ const Register = () => {
       <div className="grid grid-cols-2 justify-items-center lg:grid-cols-5 xl:grid-cols-6 xxl:grid-cols-7">
         <div className="bg-gradient-to-r from-transparent to-white hidden md:block md:col-span-1 lg:col-span-3 xl:col-span-4 xxl:col-span-5">
           <img
-            src="https://i.ibb.co/p04HSxH/image-1.png"
+            src="https://res.cloudinary.com/dwy823csd/image/upload/v1736875948/hero.png"
             alt="plane-register"
             className="object-cover mix-blend-overlay min-h-full w-screen"
           />
@@ -155,7 +155,7 @@ const Register = () => {
           <div className="absolute left-2 top-2 md:right-2 md:left-auto">
             <Link to="/">
               <img
-                src="https://i.ibb.co/pxQ7DPC/logo-We-Fly.png"
+                src="https://res.cloudinary.com/dwy823csd/image/upload/v1736875590/icon.png"
                 alt="logo"
                 className="w-16"
               />
@@ -447,7 +447,7 @@ const Register = () => {
               }}
             >
               <img
-                src="https://i.ibb.co/VjNmDct/free-icon-google-300221-1.png"
+                src="https://res.cloudinary.com/dwy823csd/image/upload/v1736876857/free-icon-google-300221_1_fiss6q.png"
                 alt="google_logo"
                 className="mr-4 w-6 h-6"
               />

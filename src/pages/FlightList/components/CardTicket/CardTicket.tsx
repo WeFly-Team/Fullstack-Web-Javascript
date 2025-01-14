@@ -23,7 +23,7 @@ const CardTicket = ({ className, data, detailPassenger }: CardTicketProps) => {
         <div className="order-1">
           <div className="mb-3 flex flex-col sm:flex-row sm:items-center">
             <img
-              src="https://i.ibb.co/bHGk6bM/garuda.png"
+              src="https://res.cloudinary.com/dwy823csd/image/upload/v1736875160/image_14_1.png"
               className="w-14"
               alt="garuda"
             />

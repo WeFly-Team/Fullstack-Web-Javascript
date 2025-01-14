@@ -1,11 +1,11 @@
+import { AxiosError } from 'axios';
 import { useContext, useEffect, useState } from 'react';
-import Button from '../../../components/Button';
-import Heading from '../../../components/Heading';
-import { ForgotPassContext, forgotPasswordContextType } from '../types';
 import OTPInput from 'react-otp-input';
 import { Link } from 'react-router-dom';
 import axiosInstance from '../../../axios/axios';
-import { AxiosError } from 'axios';
+import Button from '../../../components/Button';
+import Heading from '../../../components/Heading';
+import { ForgotPassContext, forgotPasswordContextType } from '../types';
 
 const PageOTP = () => {
   //state
@@ -57,7 +57,7 @@ const PageOTP = () => {
     <div className="form p-7 rounded-xl md:w-2/5 flex flex-col justify-center items-center sm:w-full">
       <div className="absolute top-2 left-2">
         <img
-          src="https://i.ibb.co/pxQ7DPC/logo-We-Fly.png"
+          src="https://res.cloudinary.com/dwy823csd/image/upload/v1736875590/icon.png"
           alt="logo"
           className="w-16"
         />

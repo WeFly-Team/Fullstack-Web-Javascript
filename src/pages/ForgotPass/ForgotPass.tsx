@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import SetEmail from './Components/SetEmail';
-import { ForgotPassContext } from './types';
-import PageOTP from './Components/PageOTP';
-import SetNewPass from './Components/SetNewPass';
 import DonePage from './Components/DonePage';
+import PageOTP from './Components/PageOTP';
+import SetEmail from './Components/SetEmail';
+import SetNewPass from './Components/SetNewPass';
+import { ForgotPassContext } from './types';
 
 const ForgotPass = () => {
   const [email, setEmail] = useState<string>('');
@@ -37,7 +37,7 @@ const ForgotPass = () => {
           {component}
           <div className="md:w-3/5 h-screen relative bg-gradient-to-l from-transparent to-white md:block hidden">
             <img
-              src="https://i.ibb.co/p04HSxH/image-1.png"
+              src="https://res.cloudinary.com/dwy823csd/image/upload/v1736875948/hero.png"
               className=" object-cover mix-blend-overlay h-screen w-screen"
             />
           </div>

@@ -1,12 +1,12 @@
+import { useEffect, useState } from 'react';
 import { FaArrowRight } from 'react-icons/fa6';
-import { BookingCardProps } from './types';
 import { Link } from 'react-router-dom';
 import {
   calculateTimeRemaining,
   formatLongDate,
   thousandSeparator,
 } from '../../../utils/functions';
-import { useEffect, useState } from 'react';
+import { BookingCardProps } from './types';
 
 const BookingCard = ({ transaction, className }: BookingCardProps) => {
   const [timeRemaining, setTimeRemaining] = useState<string>('');
@@ -91,7 +91,10 @@ const BookingCard = ({ transaction, className }: BookingCardProps) => {
         </p>
       </div>
       <div className="p-4 flex items-center justify-between">
-        <img src="https://i.ibb.co/pznRn82/garuda-title.png" alt="logo" />
+        <img
+          src="https://res.cloudinary.com/dwy823csd/image/upload/v1736875160/image_14_1.png"
+          alt="logo"
+        />
         <div className="hidden sm:flex items-center mt-14">
           <div className="font-semibold ">
             <p>

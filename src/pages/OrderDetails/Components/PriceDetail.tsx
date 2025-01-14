@@ -1,11 +1,11 @@
 import { HTMLAttributes, useContext } from 'react';
 import { IoAirplaneOutline } from 'react-icons/io5';
-import { OrderDetailContext, orderDetailContextType } from './types';
 import {
   formatLongDate,
   substractTime,
   thousandSeparator,
 } from '../../../utils/functions';
+import { OrderDetailContext, orderDetailContextType } from './types';
 
 const PriceDetail = ({ className }: HTMLAttributes<HTMLDivElement>) => {
   const { dataFlight, detailPassenger, totalPrice } = useContext(
@@ -16,7 +16,10 @@ const PriceDetail = ({ className }: HTMLAttributes<HTMLDivElement>) => {
     <div className={`border-neutral-05 border rounded-lg ${className}`}>
       <div className="p-3">
         <div className="flex justify-between">
-          <img src="https://i.ibb.co/pznRn82/garuda-title.png" alt="logo" />
+          <img
+            src="https://res.cloudinary.com/dwy823csd/image/upload/v1736875160/image_14_1.png"
+            alt="logo"
+          />
           <div className="text-right">
             <h1 className="font-semibold">
               {dataFlight &&

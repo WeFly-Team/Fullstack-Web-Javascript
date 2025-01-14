@@ -1,7 +1,4 @@
-import Select, { StylesConfig, createFilter } from 'react-select';
-import Button from '../../../../components/Button';
-import { Calendar, MapPin, X } from 'react-feather';
-import 'react-toastify/dist/ReactToastify.min.css';
+import { AxiosError } from 'axios';
 import {
   ForwardedRef,
   createElement,
@@ -9,9 +6,9 @@ import {
   useEffect,
   useState,
 } from 'react';
-import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker from 'react-datepicker';
-import { CustomInputProps, OptionType, selectAirportProp } from './types';
+import 'react-datepicker/dist/react-datepicker.css';
+import { Calendar, MapPin, X } from 'react-feather';
 import {
   FaAngleDown,
   // FaBaby,
@@ -20,12 +17,15 @@ import {
   FaPerson,
   FaPlus,
 } from 'react-icons/fa6';
-import { Airport, classOptions } from './data';
-import axiosInstance from '../../../../axios/axios';
 import { useNavigate } from 'react-router-dom';
+import Select, { StylesConfig, createFilter } from 'react-select';
 import { ToastContainer } from 'react-toastify';
-import { AxiosError } from 'axios';
+import 'react-toastify/dist/ReactToastify.min.css';
+import axiosInstance from '../../../../axios/axios';
+import Button from '../../../../components/Button';
 import { triggerToast } from '../../../../utils/functions';
+import { Airport, classOptions } from './data';
+import { CustomInputProps, OptionType, selectAirportProp } from './types';
 const FindTicket = () => {
   // toast
 
@@ -168,7 +168,7 @@ const FindTicket = () => {
   }, [departureAirport, departureDate, destinationAirport]);
   return (
     <section className="relative z-[1]">
-      <div className="bg-[url('https://i.ibb.co/p04HSxH/image-1.png')] bg-cover bg-center">
+      <div className="bg-[url('https://res.cloudinary.com/dwy823csd/image/upload/v1736875948/hero.png')] bg-cover bg-center">
         <div className="bg-black bg-opacity-50">
           <div className="px-10 sm:px-20 md:pr-0 pt-28 2xl:pt-48 pb-20">
             <h1 className="text-white font-bold text-5xl">

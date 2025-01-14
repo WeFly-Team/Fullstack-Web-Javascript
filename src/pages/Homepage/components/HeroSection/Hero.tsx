@@ -3,7 +3,8 @@ import Button from '../../../../components/Button';
 
 const HeroSection = () => {
   const style: CSSProperties = {
-    backgroundImage: 'url(https://i.ibb.co/NL7CL8M/image-13.png)',
+    backgroundImage:
+      'url(https://res.cloudinary.com/dwy823csd/image/upload/v1736875593/image_13_1.png)',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -63,7 +64,7 @@ const HeroSection = () => {
         </div>
         <div className="md:position-fixed md:pt-24  pt-10 sm:pt-2 flex md:justify-center justify-end lg:justify-end  h-full sm:h-full md:h-5/6 lg:h-full col-span-1 sm:col-span-1 md:col-span-2">
           <img
-            src="https://i.ibb.co/HTv63dH/Whats-App-Image-2024-01-14-at-12-25-1.png"
+            src="https://res.cloudinary.com/dwy823csd/image/upload/v1736875589/WhatsApp_Image_2024-01-14_at_12.25_1.png"
             className="h-3/6 sm:h-5/6 md:h-5/6 lg:h-full"
             alt=""
           />

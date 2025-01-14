@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import Heading from '../../components/Heading';
 import Button from '../../components/Button';
+import Heading from '../../components/Heading';
 
 const NotFound = () => {
   return (
@@ -9,7 +9,7 @@ const NotFound = () => {
         <div className="form p-7 rounded-xl md:w-2/5 flex flex-col justify-center items-center sm:w-full">
           <div className="absolute top-2 left-2">
             <img
-              src="https://i.ibb.co/pxQ7DPC/logo-We-Fly.png"
+              src="https://res.cloudinary.com/dwy823csd/image/upload/v1736875590/icon.png"
               alt="logo"
               className="w-16"
             />
@@ -24,7 +24,7 @@ const NotFound = () => {
         </div>
         <div className="md:w-3/5 h-screen relative bg-gradient-to-l from-transparent to-white md:block hidden">
           <img
-            src="https://i.ibb.co/p04HSxH/image-1.png"
+            src="https://res.cloudinary.com/dwy823csd/image/upload/v1736875948/hero.png"
             className=" object-cover mix-blend-overlay h-screen w-screen"
           />
         </div>

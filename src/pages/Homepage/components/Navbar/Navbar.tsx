@@ -1,8 +1,8 @@
+import { googleLogout } from '@react-oauth/google';
 import { HTMLAttributes, useEffect, useState } from 'react';
 import { AlignJustify, User, X } from 'react-feather';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../../../customHooks/useAuth/useAuth';
-import { googleLogout } from '@react-oauth/google';
 
 const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
   const [open, setOpen] = useState<boolean>(false);
@@ -35,7 +35,7 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
           <div className="flex justify-between items-center">
             <Link to="/" className="order-1 sm:order-2">
               <img
-                src="https://i.ibb.co/pxQ7DPC/logo-We-Fly.png"
+                src="https://res.cloudinary.com/dwy823csd/image/upload/v1736875590/icon.png"
                 alt="logo"
                 className="w-12 "
               />
@@ -46,12 +46,18 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
             />
             <div className="hidden md:flex gap-2 items-center order-3">
               <div className="hidden lg:flex items-center gap-3">
-                <img src="https://i.ibb.co/cD6nyQg/fb.png" alt="facebook" />
                 <img
-                  src="https://i.ibb.co/3sY3SBY/linkedin.png"
+                  src="https://res.cloudinary.com/dwy823csd/image/upload/v1736876209/facebook.png"
+                  alt="facebook"
+                />
+                <img
+                  src="https://res.cloudinary.com/dwy823csd/image/upload/v1736876210/linkedin.png"
                   alt="linkedin"
                 />
-                <img src="https://i.ibb.co/p0yHtCF/twitter.png" alt="twitter" />
+                <img
+                  src="https://res.cloudinary.com/dwy823csd/image/upload/v1736876210/twitter.png"
+                  alt="twitter"
+                />
               </div>
               <span className="text-white text-opacity-50 mx-5 hidden lg:inline">
                 |
@@ -139,13 +145,16 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
               </li>
               <li className="text-white py-4 text-center hover:cursor-pointer transition hover:bg-white hover:bg-opacity-20">
                 <div className="flex items-center justify-center gap-3">
-                  <img src="https://i.ibb.co/cD6nyQg/fb.png" alt="facebook" />
                   <img
-                    src="https://i.ibb.co/3sY3SBY/linkedin.png"
+                    src="https://res.cloudinary.com/dwy823csd/image/upload/v1736876209/facebook.png"
+                    alt="facebook"
+                  />
+                  <img
+                    src="https://res.cloudinary.com/dwy823csd/image/upload/v1736876210/linkedin.png"
                     alt="linkedin"
                   />
                   <img
-                    src="https://i.ibb.co/p0yHtCF/twitter.png"
+                    src="https://res.cloudinary.com/dwy823csd/image/upload/v1736876210/twitter.png"
                     alt="twitter"
                   />
                 </div>
@@ -176,7 +185,7 @@ const Navbar = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
             </div>
           </div>
           <img
-            src="https://i.ibb.co/p04HSxH/image-1.png"
+            src="https://res.cloudinary.com/dwy823csd/image/upload/v1736875948/hero.png"
             className="object-cover h-screen w-screen "
           />
         </div>

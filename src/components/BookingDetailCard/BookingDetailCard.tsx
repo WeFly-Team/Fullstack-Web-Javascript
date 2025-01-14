@@ -1,13 +1,13 @@
+import { useEffect, useState } from 'react';
 import { IoAirplaneOutline } from 'react-icons/io5';
 import { BookingCardProps } from '../../pages/MyBooking/Component/types';
-import Button from '../Button';
 import {
   calculateTimeRemaining,
   formatLongDate,
   substractTime,
   thousandSeparator,
 } from '../../utils/functions';
-import { useEffect, useState } from 'react';
+import Button from '../Button';
 
 const BookingDetailCard = ({ transaction, className }: BookingCardProps) => {
   const openPaymentLink = () => {
@@ -109,7 +109,10 @@ const BookingDetailCard = ({ transaction, className }: BookingCardProps) => {
       </div>
       <div className="p-4 flex justify-between sm:border-b sm:border-neutral-05">
         <div>
-          <img src="https://i.ibb.co/pznRn82/garuda-title.png" alt="logo" />
+          <img
+            src="https://res.cloudinary.com/dwy823csd/image/upload/v1736875160/image_14_1.png"
+            alt="logo"
+          />
         </div>
         <div className="hidden sm:flex items-center justify-center gap-8">
           <div>

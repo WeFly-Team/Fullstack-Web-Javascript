@@ -1,6 +1,6 @@
+import { useState } from 'react';
 import { FaAngleDown } from 'react-icons/fa6';
 import Button from '../../../components/Button';
-import { useState } from 'react';
 import { useAuth } from '../../../customHooks/useAuth/useAuth';
 const NavbarAdmin = () => {
   const { logout } = useAuth();
@@ -10,7 +10,7 @@ const NavbarAdmin = () => {
     <nav className="flex items-center border-b border-b-neutral-04 px-6 py-5">
       <div className="flex items-center">
         <img
-          src="https://i.ibb.co/pxQ7DPC/logo-We-Fly.png"
+          src="https://res.cloudinary.com/dwy823csd/image/upload/v1736875590/icon.png"
           alt="logo"
           className="w-12 mr-2"
         />

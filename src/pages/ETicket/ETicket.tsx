@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
-import axiosInstance from '../../axios/axios';
-import { useParams } from 'react-router-dom';
-import { Transaction } from '../ProfileLayout/types';
 import { AxiosError } from 'axios';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axiosInstance from '../../axios/axios';
 import {
   capitalizeFirstLetter,
   formatLongDate,
   triggerToast,
 } from '../../utils/functions';
+import { Transaction } from '../ProfileLayout/types';
 import { ETicketProp } from './types';
 
 const token = localStorage.getItem('token');
@@ -126,7 +126,10 @@ const ETicket = () => {
       <div className="border border-neutral-05 mt-4 rounded-lg shadow-card">
         <div className="flex justify-between sm:border-b sm:border-b-neutral-06 p-6 gap-4">
           <div>
-            <img src="https://i.ibb.co/pznRn82/garuda-title.png" alt="logo" />
+            <img
+              src="https://res.cloudinary.com/dwy823csd/image/upload/v1736875160/image_14_1.png"
+              alt="logo"
+            />
             <p className="font-semibold">
               {
                 transaction?.transactionDetails[0].flightClass.flightSchedule
