@@ -72,12 +72,12 @@ const FlightList = () => {
   const [lowestPrice, setLowestPrice] = useState<number>();
   const [shortestDuration, setShortestDuration] = useState<number>();
 
-  const [showPopUp, setShowPopUp] = useState(false);
+  // const [showPopUp, setShowPopUp] = useState(false);
 
   //function
-  const handleShowPopUp = () => {
-    setShowPopUp(!showPopUp);
-  };
+  // const handleShowPopUp = () => {
+  //   setShowPopUp(!showPopUp);
+  // };
 
   const getAirport = async (idDepAirport: string, idDesAirport: string) => {
     const depAirport = await axiosInstance.get(`/airport/${idDepAirport}`);

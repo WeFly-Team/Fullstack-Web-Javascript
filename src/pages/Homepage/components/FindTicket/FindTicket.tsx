@@ -73,7 +73,7 @@ const FindTicket = () => {
     selectAirportProp | undefined
   >();
   const [departureDate, setDepartureDate] = useState<Date | null>(new Date());
-  const [returnDate, setReturnDate] = useState<Date | null>();
+  // const [returnDate, setReturnDate] = useState<Date | null>();
   const [showInputPassenger, setShowInputPassenger] = useState<boolean>(false);
   const [adult, setAdult] = useState<number>(1);
   const [child, setChild] = useState<number>(0);
