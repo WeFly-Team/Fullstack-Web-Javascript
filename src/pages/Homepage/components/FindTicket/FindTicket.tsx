@@ -170,7 +170,7 @@ const FindTicket = () => {
     <section className="relative z-[1]">
       <div className="bg-[url('https://res.cloudinary.com/dwy823csd/image/upload/v1736875948/hero.png')] bg-cover bg-center">
         <div className="bg-black bg-opacity-50">
-          <div className="px-10 sm:px-20 md:pr-0 pt-28 2xl:pt-48 pb-20">
+          <div className="px-10 sm:px-20 pt-28 2xl:pt-48 pb-20">
             <h1 className="text-white font-bold text-5xl">
               WeFly - Limitless Travel Solutions
             </h1>
@@ -181,195 +181,21 @@ const FindTicket = () => {
               Book tickets and track flights with the WeFly website.
             </p>
 
-            <div className="mt-20 2xl:flex w-full 2xl:w-3/4">
-              <div className="w-full 2xl:w-1/2">
-                <Button className="w-full sm:w-[300px]">
-                  One Way / Round Trip
-                </Button>
-                <Button
-                  variant="tertiary"
-                  className="bg-white text-black w-full sm:w-[300px] 2xl:w-[200px] mt-3 2xl:mt-0 md:ml-3"
-                >
-                  Multi City
-                </Button>
-              </div>
-              <div className="mt-3 2xl:mt-0 w-full 2xl:w-1/2 md:flex gap-3">
-                <div className="w-full sm:w-[300px] 2xl:w-3/5">
-                  <Button
-                    className="bg-transparent border-white border text-sm px-5 py-2.5 text-center inline-flex items-center w-full"
-                    onClick={() => setShowInputPassenger(!showInputPassenger)}
-                  >
-                    {/* {adult} Adult, {child} Child, {infant} Infant &nbsp;{' '} */}
-                    {adult} Adult, {child} Child{' '}
-                    <FaAngleDown
-                      className={`ml-auto transition-transform ${
-                        showInputPassenger ? 'rotate-180' : ''
-                      }`}
-                    />
-                  </Button>
-                  <div className="relative w-full">
-                    <div
-                      className={`z-10 bg-white rounded-lg shadow absolute top-2 right-0 left-0 w-full  ${
-                        showInputPassenger
-                          ? 'max-h-[400px]'
-                          : 'max-h-0 overflow-hidden'
-                      }`}
-                    >
-                      <div>
-                        <div className="text-gray-500 flex justify-between py-2 px-3 items-center">
-                          <h4 className="font-semibold text-lg">
-                            No. of Passengers
-                          </h4>
-                          <X
-                            className="cursor-pointer"
-                            onClick={() =>
-                              setShowInputPassenger(!showInputPassenger)
-                            }
-                          />
-                        </div>
-                        {/* adult */}
-                        <div className="pr-2 pb-2">
-                          <div className="flex items-center">
-                            <FaPerson
-                              size={25}
-                              className="w-1/6 text-primary-blue"
-                            />
-                            <div className="w-2/6">
-                              <p className="font-semibold">Adult</p>
-                              <p className="text-xs text-slate-400">
-                                (age 12 and over)
-                              </p>
-                            </div>
-                            <div className="flex items-stretch w-1/2 justify-evenly">
-                              <button
-                                className="bg-blue-50 rounded px-4"
-                                onClick={minAdult}
-                              >
-                                <FaMinus className="text-primary-blue" />
-                              </button>
-                              <p className=" py-2 px-4 border-b-2 w-12">
-                                {adult}
-                              </p>
-                              <button
-                                className="bg-blue-50 rounded px-4"
-                                onClick={addAdult}
-                              >
-                                <FaPlus className="text-primary-blue" />
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                        {/* child */}
-                        <div className="pr-2 pb-2 mt-2">
-                          <div className="flex items-center">
-                            <FaChild
-                              size={20}
-                              className="w-1/6 text-primary-blue"
-                            />
-                            <div className="w-2/6">
-                              <p className="font-semibold">Child</p>
-                              <p className="text-xs text-slate-400">
-                                (age 2 - 11)
-                              </p>
-                            </div>
-                            <div className="flex items-stretch w-1/2 justify-evenly">
-                              <button
-                                className="bg-blue-50 rounded px-4"
-                                onClick={minChild}
-                              >
-                                <FaMinus className="text-primary-blue" />
-                              </button>
-                              <p className=" py-2 px-4 border-b-2 w-12">
-                                {child}
-                              </p>
-                              <button
-                                className="bg-blue-50 rounded px-4"
-                                onClick={addChild}
-                              >
-                                <FaPlus className="text-primary-blue" />
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                        {/* infant */}
-                        {/* <div className="pr-2 pb-2 mt-2">
-                          <div className="flex items-center">
-                            <FaBaby
-                              size={20}
-                              className="w-1/6 text-primary-blue"
-                            />
-                            <div className="w-2/6">
-                              <p className="font-semibold">Infant</p>
-                              <p className="text-xs text-slate-400">
-                                (age under 2)
-                              </p>
-                            </div>
-                            <div className="flex items-stretch w-1/2 justify-evenly">
-                              <button
-                                className="bg-blue-50 rounded px-4"
-                                onClick={minInfant}
-                              >
-                                <FaMinus className="text-primary-blue" />
-                              </button>
-                              <p className=" py-2 px-4 border-b-2 w-12">
-                                {infant}
-                              </p>
-                              <button
-                                className="bg-blue-50 rounded px-4"
-                                onClick={addInfant}
-                              >
-                                <FaPlus className="text-primary-blue" />
-                              </button>
-                            </div>
-                          </div>
-                        </div> */}
-                        {/* button done */}
-                        <div className="text-center p-2 mt-2">
-                          <Button
-                            className="w-full"
-                            onClick={() =>
-                              setShowInputPassenger(!showInputPassenger)
-                            }
-                          >
-                            Done
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="w-full sm:w-[300px] mt-3 md:mt-0 2xl:w-2/5">
-                  <Select
-                    className="react-select-container"
-                    classNamePrefix="react-select"
-                    defaultValue={classOptions[0]}
-                    onChange={(choice) => setClassPassenger(choice!.value)}
-                    options={classOptions}
-                    styles={{
-                      dropdownIndicator: (base) => {
-                        return {
-                          ...base,
-                          color: 'white',
-                        };
-                      },
-                      singleValue: (base) => ({ ...base, color: 'white' }),
-                      indicatorSeparator: () => ({ display: 'none' }),
-                    }}
-                    classNames={{
-                      control: (state) =>
-                        state.isFocused
-                          ? '!bg-transparent !shadow !border !border-white !rounded-xl py-1'
-                          : '!bg-transparent !shadow !border !border-white !rounded-xl py-1',
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="w-full md:w-3/4 ">
-              <div className="grid grid-cols-1 md:grid-cols-2 mt-10 items-end">
+            {/* <div className="mt-20 2xl:flex w-full 2xl:w-3/4"></div> */}
+            <div className="w-full">
+              <p className="mt-10">
+                <label className="block text-left text-secondary-star text-lg font-semibold pb-2">
+                  *Filghts only available for{' '}
+                  <span className="font-bold">
+                    Soekarno Hatta International Airport
+                  </span>{' '}
+                  To <span className="font-bold">Ngurah Rai Airport</span>
+                </label>
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2  items-end">
                 <div className="mb-4 md:mb-0">
                   <label className="block text-left text-white text-sm font-semibold pb-2">
-                    From:
+                    Flying From:
                   </label>
                   <div className="flex items-center border-b border-white mr-2 ">
                     <MapPin className="text-white mr-2" />
@@ -387,7 +213,7 @@ const FindTicket = () => {
                 </div>
                 <div>
                   <label className="block text-left text-white text-sm font-semibold pb-2">
-                    To:
+                    Flying To:
                   </label>
                   <div className="flex items-center border-b border-white">
                     <MapPin className="text-white mr-2" />
@@ -405,8 +231,8 @@ const FindTicket = () => {
                 </div>
               </div>
               {/* departure */}
-              <div className="grid grid-cols-1 md:grid-cols-2 mt-10">
-                <div className="mb-4 md:mb-0">
+              <div className="grid grid-cols-1 lg:grid-cols-2 mt-10">
+                <div className="">
                   <label className="block text-left text-white text-sm font-semibold pb-2">
                     Departure Date:
                   </label>
@@ -423,18 +249,142 @@ const FindTicket = () => {
                     </div>
                   </div>
                 </div>
-                <div>
-                  <label className="block text-left text-white text-sm font-semibold pb-2">
-                    Return Date:
-                  </label>
-                  <div className="flex items-center border-b border-white pb-2">
-                    <Calendar className="text-white mr-2" />
-                    <DatePicker
-                      minDate={new Date()}
-                      className="w-full"
-                      selected={returnDate}
-                      onChange={(date) => setReturnDate(date)}
-                      customInput={createElement(CustomInput)}
+                {/* <div className="mt-3 2xl:mt-0 w-full 2xl:w-1/2 md:flex gap-3"> */}
+                <div className="mb-4 md:mb-0 mt-3 md:flex gap-3 items-end">
+                  <div className="w-full md:w-1/2 lg:w-4/6 2xl:w-3/5">
+                    <Button
+                      className="bg-transparent border-white border text-sm px-5 py-2.5 text-center inline-flex items-center w-full"
+                      onClick={() => setShowInputPassenger(!showInputPassenger)}
+                    >
+                      {adult} Adult, {child} Child{' '}
+                      <FaAngleDown
+                        className={`ml-auto transition-transform ${
+                          showInputPassenger ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </Button>
+                    <div className="relative w-full">
+                      <div
+                        className={`z-10 bg-white rounded-lg shadow absolute top-2 right-0 left-0 w-full  ${
+                          showInputPassenger
+                            ? 'max-h-[400px]'
+                            : 'max-h-0 overflow-hidden'
+                        }`}
+                      >
+                        <div>
+                          <div className="text-gray-500 flex justify-between py-2 px-3 items-center">
+                            <h4 className="font-semibold text-lg">
+                              No. of Passengers
+                            </h4>
+                            <X
+                              className="cursor-pointer"
+                              onClick={() =>
+                                setShowInputPassenger(!showInputPassenger)
+                              }
+                            />
+                          </div>
+                          {/* adult */}
+                          <div className="pr-2 pb-2">
+                            <div className="flex items-center">
+                              <FaPerson
+                                size={25}
+                                className="w-1/6 text-primary-blue"
+                              />
+                              <div className="w-2/6">
+                                <p className="font-semibold">Adult</p>
+                                <p className="text-xs text-slate-400">
+                                  (age 12 and over)
+                                </p>
+                              </div>
+                              <div className="flex items-stretch w-1/2 justify-evenly">
+                                <button
+                                  className="bg-blue-50 rounded px-4"
+                                  onClick={minAdult}
+                                >
+                                  <FaMinus className="text-primary-blue" />
+                                </button>
+                                <p className=" py-2 px-4 border-b-2 w-12">
+                                  {adult}
+                                </p>
+                                <button
+                                  className="bg-blue-50 rounded px-4"
+                                  onClick={addAdult}
+                                >
+                                  <FaPlus className="text-primary-blue" />
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          {/* child */}
+                          <div className="pr-2 pb-2 mt-2">
+                            <div className="flex items-center">
+                              <FaChild
+                                size={20}
+                                className="w-1/6 text-primary-blue"
+                              />
+                              <div className="w-2/6">
+                                <p className="font-semibold">Child</p>
+                                <p className="text-xs text-slate-400">
+                                  (age 2 - 11)
+                                </p>
+                              </div>
+                              <div className="flex items-stretch w-1/2 justify-evenly">
+                                <button
+                                  className="bg-blue-50 rounded px-4"
+                                  onClick={minChild}
+                                >
+                                  <FaMinus className="text-primary-blue" />
+                                </button>
+                                <p className=" py-2 px-4 border-b-2 w-12">
+                                  {child}
+                                </p>
+                                <button
+                                  className="bg-blue-50 rounded px-4"
+                                  onClick={addChild}
+                                >
+                                  <FaPlus className="text-primary-blue" />
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          {/* button done */}
+                          <div className="text-center p-2 mt-2">
+                            <Button
+                              className="w-full"
+                              onClick={() =>
+                                setShowInputPassenger(!showInputPassenger)
+                              }
+                            >
+                              Done
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="w-full md:w-1/2 lg:w-2/6 2xl:w-2/5 mt-3 md:mt-0 ">
+                    <Select
+                      className="react-select-container"
+                      classNamePrefix="react-select"
+                      defaultValue={classOptions[0]}
+                      onChange={(choice) => setClassPassenger(choice!.value)}
+                      options={classOptions}
+                      styles={{
+                        dropdownIndicator: (base) => {
+                          return {
+                            ...base,
+                            color: 'white',
+                          };
+                        },
+                        singleValue: (base) => ({ ...base, color: 'white' }),
+                        indicatorSeparator: () => ({ display: 'none' }),
+                      }}
+                      classNames={{
+                        control: (state) =>
+                          state.isFocused
+                            ? '!bg-transparent !shadow !border !border-white !rounded-xl py-1'
+                            : '!bg-transparent !shadow !border !border-white !rounded-xl py-1',
+                      }}
                     />
                   </div>
                 </div>
