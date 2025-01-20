@@ -1,21 +1,10 @@
+import { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
-import Navbar from '../FlightList/components/Navbar/Navbar';
-import Orderer from './Components/Orderer';
-import PassengerCard from './Components/PassengerCard';
-import PriceDetail from './Components/PriceDetail';
-import PaymentMethod from './Components/PaymentMethod';
-import TotalPrice from './Components/TotalPrice';
-import PaymentDetail from './Components/PaymentDetail';
-import Orderpopup from './Components/Orderpopup';
-import PassengerPopup from './Components/PassengerPopup';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { DataFlight, Passenger, detailPassenger } from '../ProfileLayout/types';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
-import {
-  Bank,
-  OrderDetailContext,
-  OrderDetailOrderer,
-} from './Components/types';
+import axiosInstance from '../../axios/axios';
+import { useAuth } from '../../customHooks/useAuth/useAuth';
 import {
   capitalizeFirstLetter,
   extractNames,
@@ -23,10 +12,21 @@ import {
   getTotalPrice,
   triggerToast,
 } from '../../utils/functions';
-import { useAuth } from '../../customHooks/useAuth/useAuth';
-import axiosInstance from '../../axios/axios';
-import { AxiosError } from 'axios';
-import { ToastContainer } from 'react-toastify';
+import Navbar from '../FlightList/components/Navbar/Navbar';
+import { DataFlight, Passenger, detailPassenger } from '../ProfileLayout/types';
+import Orderer from './Components/Orderer';
+import Orderpopup from './Components/Orderpopup';
+import PassengerCard from './Components/PassengerCard';
+import PassengerPopup from './Components/PassengerPopup';
+import PaymentDetail from './Components/PaymentDetail';
+import PaymentMethod from './Components/PaymentMethod';
+import PriceDetail from './Components/PriceDetail';
+import TotalPrice from './Components/TotalPrice';
+import {
+  Bank,
+  OrderDetailContext,
+  OrderDetailOrderer,
+} from './Components/types';
 
 const OrderDetails = () => {
   const navigate = useNavigate();
@@ -338,6 +338,15 @@ const OrderDetails = () => {
                   className="mt-4"
                 />
               )}
+              <div className="mt-3">
+                <a
+                  className="text-primary-blue font-semibold"
+                  target="_blank"
+                  href="https://simulator.sandbox.midtrans.com/"
+                >
+                  Click to pay with Midtrans Payment Simulator
+                </a>
+              </div>
             </div>
           </div>
         </div>
