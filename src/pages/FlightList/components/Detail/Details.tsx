@@ -1,10 +1,9 @@
-import { FaCalendar } from 'react-icons/fa6';
-import { DetailProps } from './types';
 import {
   getNameOfDay,
   getNameOfMonth,
   thousandSeparator,
 } from '../../../../utils/functions';
+import { DetailProps } from './types';
 
 const Detail = ({
   departureAirport,
@@ -33,7 +32,7 @@ const Detail = ({
         </div>
       </div>
       <div className="rounded-lg bg-primary-darkBlue p-4 flex gap-3">
-        <div className="w-[90%] flex gap-3 justify-stretch overflow-x-scroll no-scrollbar">
+        <div className="w-full flex gap-3 justify-stretch overflow-x-scroll no-scrollbar">
           {schedules.map((schedule, idx) => {
             if (schedule.selected) {
               return (
@@ -69,9 +68,6 @@ const Detail = ({
               </div>
             );
           })}
-        </div>
-        <div className="grow flex items-center justify-center basis-[10%] cursor-pointer">
-          <FaCalendar className="text-white" size={40} />
         </div>
       </div>
     </div>

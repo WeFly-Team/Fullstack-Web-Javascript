@@ -1,13 +1,8 @@
-import { useSearchParams } from 'react-router-dom';
-import CardTicket from './components/CardTicket/CardTicket';
-import Detail from './components/Detail/Details';
-import Footer from './components/Footer/Footer';
-import Navbar from './components/Navbar/Navbar';
-import PriceFilter from './components/PriceFilter/PriceFilter';
-import VoucherCard from './components/VoucherCard/VoucherCard';
 import { useEffect, useState } from 'react';
-import { Airport } from '../Homepage/components/FindTicket/data';
+import { useSearchParams } from 'react-router-dom';
 import axiosInstance from '../../axios/axios';
+import NoResultCard from '../../components/NoResultCard/NoResultCard';
+import Pagination from '../../components/Pagination/Pagination';
 import {
   calculateTotalPages,
   formatDate,
@@ -15,13 +10,15 @@ import {
   paginateFlights,
   shuffleArray,
 } from '../../utils/functions';
+import { Airport } from '../Homepage/components/FindTicket/data';
 import { DataFlight, detailPassenger } from '../ProfileLayout/types';
+import CardTicket from './components/CardTicket/CardTicket';
+import Detail from './components/Detail/Details';
 import { Schedule } from './components/Detail/types';
-import Pagination from '../../components/Pagination/Pagination';
-import NoResultCard from '../../components/NoResultCard/NoResultCard';
+import Footer from './components/Footer/Footer';
+import Navbar from './components/Navbar/Navbar';
+import PriceFilter from './components/PriceFilter/PriceFilter';
 import { filterType } from './components/PriceFilter/types';
-import PopUpVoucherList from './components/VoucherCard/PopUpVoucherList';
-import Filter from '../../components/Filter';
 
 const FlightList = () => {
   // hooks
@@ -318,47 +315,7 @@ const FlightList = () => {
       <Navbar className="fixed top-0 right-0 left-0 z-10 bg-white" />
       <div className="px-8 lg:px-0 lg:container mx-auto ">
         <div className="pt-24 lg:pt-40 flex items-end gap-4">
-          <div className="w-1/4 relative hidden lg:flex gap-4 overflow-hidden pb-1">
-            {showPopUp && (
-              <PopUpVoucherList handleShowPopUp={handleShowPopUp} />
-            )}
-            <VoucherCard
-              vouchertitle="ini voucher asik"
-              voucherdescription="voucher ini dapat di tukarkan ke toko
-                terdekat"
-              voucherimageurl="https://i.ibb.co/xgP9hXt/1705387995965-06335942abf22232a4caa74eb239ad59.jpg"
-              vouchercode="asik2000"
-            />
-            <VoucherCard
-              vouchertitle="ini voucher asik"
-              voucherdescription="voucher ini dapat di tukarkan ke toko
-                terdekat"
-              voucherimageurl="https://i.ibb.co/xgP9hXt/1705387995965-06335942abf22232a4caa74eb239ad59.jpg"
-              vouchercode="asik2000"
-            />
-            <button
-              className="flex w-8 h-8 rounded-full bg-blue-700 absolute right-4 top-[45%] justify-center items-center"
-              onClick={() => setShowPopUp(true)}
-            >
-              <svg
-                data-slot="icon"
-                fill="none"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-                className="h-5 w-5 text-white"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="m8.25 4.5 7.5 7.5-7.5 7.5"
-                ></path>
-              </svg>
-            </button>
-          </div>
-          <div className="w-full lg:w-3/4">
+          <div className="w-full ">
             {schedules && (
               <Detail
                 departureAirport={departureAirport}
@@ -375,12 +332,8 @@ const FlightList = () => {
           </div>
         </div>
         <div className="flex gap-4">
-          {/* filter */}
-          <div className="hidden lg:block w-1/4 h-[700px] overflow-auto mt-4">
-            <Filter />
-          </div>
           {/* card ticket */}
-          <div className="w-full lg:w-3/4 mt-4">
+          <div className="w-full mt-4">
             {lowestPrice && shortestDuration && (
               <PriceFilter
                 handleSelectedFilter={handleSelectedFilter}

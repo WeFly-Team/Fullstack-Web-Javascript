@@ -1,7 +1,5 @@
-import { FaAngleDown } from 'react-icons/fa6';
-import Button from '../../../../components/Button';
-import { PriceFilterProp } from './types';
 import { thousandSeparator } from '../../../../utils/functions';
+import { PriceFilterProp } from './types';
 
 const PriceFilter = ({
   className,
@@ -16,7 +14,7 @@ const PriceFilter = ({
     >
       <div
         onClick={() => handleSelectedFilter('lowest')}
-        className={`py-3 rounded-lg basis-2/5 font-semibold hover:bg-neutral-02 cursor-pointer ${
+        className={`py-3 rounded-lg basis-1/2 font-semibold hover:bg-neutral-02 cursor-pointer ${
           filter == 'lowest' ? 'bg-neutral-02' : ''
         }`}
       >
@@ -27,7 +25,7 @@ const PriceFilter = ({
       </div>
       <div
         onClick={() => handleSelectedFilter('shortest')}
-        className={`py-3 rounded-lg basis-2/5 font-semibold hover:bg-neutral-02 cursor-pointer ${
+        className={`py-3 rounded-lg basis-1/2 font-semibold hover:bg-neutral-02 cursor-pointer ${
           filter == 'shortest' ? 'bg-neutral-02' : ''
         }`}
       >
@@ -36,10 +34,6 @@ const PriceFilter = ({
           Rp{thousandSeparator(shortestPrice)}
         </p>
       </div>
-      <Button className="bg-white text-primary-blue px-5 py-2.5 text-center inline-flex items-center basis-[10%] mx-auto">
-        Other
-        <FaAngleDown className="ml-auto text-primary-blue" />
-      </Button>
     </div>
   );
 };
