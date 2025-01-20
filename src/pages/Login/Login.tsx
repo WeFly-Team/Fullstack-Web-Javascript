@@ -87,6 +87,11 @@ const Login = () => {
           </div>
           <Heading children="Welcome Back" />
           <label className="mb-8">Please enter your details.</label>
+          <div className="w-full text-secondary-danger">
+            <p>Demo purpose:</p>
+            <p>Email : daxid53491@halbov.com</p>
+            <p>Password : Antony123</p>
+          </div>
           {errorMessage && (
             <div
               className="bg-red-100 border border-red-400 text-red-700 pl-4 pr-8 sm:pr-4 py-3 rounded relative w-full mb-2"
@@ -182,7 +187,7 @@ const Login = () => {
             )}
 
             <div className="flex mb-4 gap-16 justify-between">
-              <div className="checkbox-input">
+              <div className="checkbox-input invisible">
                 <input type="checkbox" id="check" className="mr-2" />
                 <label
                   htmlFor="check"
